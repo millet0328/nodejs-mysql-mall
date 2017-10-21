@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册</title>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+</head>
+
+<body>
+    <header data-am-widget="header" class="am-header">
+        <div class="am-header-left am-header-nav">
+            <a class="">
+                <p onclick="goback()" class="backle am-icon-angle-left"></p>
+            </a>
+        </div>
+        <h1 class="am-header-title">注册</h1>
+    </header>
+    <form action="" class="am-form register login" id="form-with-tooltip">
+        <fieldset>
+            <div class="am-form-group">
+                <input name="account" type="text" id="account" data-foolish-msg="请输入正确的手机号" placeholder="输入手机号" required/>
+            </div>
+            <div class="pic am-form-group">
+                <input type="text" id="doc-vld-pwd-1-0" placeholder="输入图形验证码" pattern="^\d{4}$" data-foolish-msg="请输入正确的验证码" />
+                <img class="piccode" src="img/piccode.jpg" />
+            </div>
+            <div class="pic am-form-group">
+                <input type="text" id="doc-vld-pwd-1-0" placeholder="输入短信验证码" pattern="^\d{6}$" data-foolish-msg="请输入正确的验证码" />
+                <button id="getmes" class="mescode" type="button">获取验证码</button>
+            </div>
+            <div class="am-form-group">
+                <input name="password" type="password" id="doc-vld-pwd-1-0" placeholder="设置登录密码" pattern="^\d{6}$" required data-foolish-msg="请设置密码" />
+            </div>
+            <button id="login" class="am-btn am-btn-secondary" type="button">注册</button>
+            <div class="regicon am-cf">
+                <a class="am-fl" href="register.html" style="color: #383838; text-decoration: none;">注册即视为同意<span style="color: #CC3333;">《洋码头注册协议》</span></a>
+            </div>
+        </fieldset>
+    </form>
+    <!--在这里编写你的代码-->
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var $form = $('#form-with-tooltip');
+        var $tooltip = $('<div id="vld-tooltip">提示信息！</div>');
+        $tooltip.appendTo(document.body);
+
+        $form.validator();
+
+        var validator = $form.data('amui.validator');
+
+        $form.on('focusin focusout', '.am-form-error input', function(e) {
+            if (e.type === 'focusin') {
+                var $this = $(this);
+                var offset = $this.offset();
+                var msg = $this.data('foolishMsg') || validator.getValidationMessage($this.data('validity'));
+
+                $tooltip.text(msg).show().css({
+                    left: offset.left + 10,
+                    top: offset.top + $(this).outerHeight() + 10
+                });
+            } else {
+                $tooltip.hide();
+            }
+        });
+        var mes = $("#getmes");
+        mes.click(function() {
+            $(this).text("重新发送");
+            $(this).css("background-color", "#9B9B9B");
+        });
+
+        // 注册ajax
+        $("#login").click(function(event) {
+            /* 表单验证 */
+            var flag = $form.validator('isFormValid');
+            if (flag) {
+                var data = $form.serialize();
+                $.post('/users/register/', data, function(result) {
+                    if (result.status) {
+                        // 注册成功
+
+                        // 储存账户状态
+                        sessionStorage.account = $("#account").val();
+                        // 跳转页面
+                        location.href = "/mobile/index.html";
+
+                    } else {
+                        // 注册失败
+                        alert(result.msg);
+                    }
+
+                });
+            }
+
+        });
+
+    });
+
+    function goback() {
+        window.history.back();
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html class="no-js">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>我的地址</title>
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+		<link rel="stylesheet" type="text/css" href="css/my.css" />
+	</head>
+
+	<body>
+		<header data-am-widget="header" class="am-header">
+			<div class="am-header-left am-header-nav">
+				<a class="">
+					<p onclick="goback()" class="backle am-icon-angle-left"></p>
+				</a>
+
+			</div>
+			<div class="am-text-center addresstit">
+				添加收货地址
+			</div>
+			<div class="am-header-right  am-header-nav">
+				<a href="index.html" class="home">
+
+					<img src="img/home.png" />
+				</a>
+			</div>
+		</header>
+		<!--我的地址-->
+		<form id="form" action="" method="">
+			<div class="addinput">
+				<div class="am-input-group">
+					<input type="text" name="name" class="am-form-field" placeholder="收货人姓名">
+				</div>
+				<div class="am-input-group">
+					<input type="text" name="tel" class="am-form-field" placeholder="手机号码">
+				</div>
+				<div class="am-input-group">
+					<div id="picker5">所在地区</div>
+				</div>
+				<div class="am-input-group">
+					<input type="text" name="street" class="am-form-field" placeholder="详细地址">
+				</div>
+				<div class="am-input-group">
+					<label class="am-radio am-danger">
+      				<input type="checkbox" name="" id="isDefault" value="true" data-am-ucheck checked="">
+    				  设为默认地址
+    			</label>
+				</div>
+			</div>
+		</form>
+
+		<div id="saveBtn" class="saveadd am-text-center">
+			保存
+		</div>
+
+		<!--在这里编写你的代码-->
+
+		<!--[if (gte IE 9)|!(IE)]><!-->
+
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			function goback() {
+				window.history.back();
+			}
+		</script>
+		<script src="js/picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/city.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/city1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+
+				$("#saveBtn").click(function() {
+					var isChecked = $("#isDefault").is(":checked");
+					var data = $("#form").serialize() +
+						"&city=" + $("#picker5").text() +
+						"&account=" + sessionStorage.account +
+						"&isDefault=" + isChecked;
+
+					$.post("/users/insertAddress", data, function(result) {
+						if(result.status) {
+//							location.href = "/mobile/myaddress.html";
+						} else {
+							alert(result.msg);
+						}
+					});
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

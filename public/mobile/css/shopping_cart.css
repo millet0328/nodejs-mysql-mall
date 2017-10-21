@@ -1,0 +1,285 @@
+@charset "utf-8";
+@font-face {
+	font-family: 'iconfont';
+	src: url('../font/iconfont.eot');
+	src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'), url('../font/iconfont.woff') format('woff'), url('../font/iconfont.ttf') format('truetype'), url('../font/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-stroke-width: 0.2px;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.contanier {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.relative {
+	position: relative;
+}
+
+body{
+	background-color: #F6F6F6;
+}
+/*头部*/
+
+.head {
+	background-color: #fff;
+	border-bottom: 1px solid #d2d2d2;
+	height: 90px;
+	line-height: 90px;
+}
+
+.head a .header_icon {
+	color: #313131;
+	font-size: 36px;
+	display: inline-block;
+	padding: 0 15px;
+}
+
+.head .header_title {
+	margin: 0 44%;
+	font-size: 28px;
+	color: #313131;
+	display: inline-block;
+}
+
+.head .edit a {
+	font-size: 28px;
+	color: #313131;
+	padding: 0 20px;
+}
+
+.lists {
+	padding: 35px 35px 35px 20px;
+	border-bottom: 20px solid #F6F6F6;
+	letter-spacing: 1px;
+}
+
+.checkbox,
+.checkbox_all {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 28px;
+	height: 28px;
+	opacity: 0;
+	z-index: 10;
+}
+
+.check,
+.allcheck {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: url(../img/vote-sure.png) center no-repeat;
+	background-size: 60% auto;
+	border: #d2d2d2 1px solid;
+	background-color: #fff;
+	margin: 62px 0;
+}
+
+.check.active {
+	border-color: #c33;
+	background-color: #c33;
+}
+
+.allcheck.active {
+	border-color: #c33;
+	background-color:#c33;
+}
+.lists{
+	background-color: #fff;
+}
+.lists p,
+.lists h1 {
+	padding: 0;
+	margin: 0;
+}
+
+.lists .pic {
+	margin: 0 20px;
+}
+
+.lists .pic img {
+	width: 156px;
+	height: 156px;
+}
+
+.lists .pic a:after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+	background: url(../img/shopping_bg.png) repeat;
+}
+.lists .detail{
+	display: block;
+}
+.lists .detail a {
+	font-size: 26px;
+	color: #000;
+	line-height: 30px;
+}
+
+.lists .detail p {
+	font-size: 20px;
+	color: #a0a0a0;
+}
+
+.lists .detail .price span {
+	font-size: 26px;
+	color: #000;
+}
+
+.lists .detail .price p {
+	font-size: 30px;
+	color: #000;
+}
+
+i {
+	font-style: normal;
+}
+.lists .edit_content{
+	position: absolute;
+	top: 35px;
+	right: 35px;
+	text-align: right;
+	display: none;
+}
+.lists .edit_content p {
+	color: #a0a0a0;
+	font-size: 20px;
+	letter-spacing: 1px;
+	margin: 0;
+	padding-bottom: 60px;
+}
+.lists .edit_content .num{
+	display: inline-block;
+}
+.lists .edit_content .num span{
+	display: inline-block;
+	width: 90px;
+	text-align: center;
+    font-size: 26px;
+	height: 60px;
+	line-height: 60px;
+	border-top: #a0a0a0 1px solid;
+	border-bottom: #a0a0a0 1px solid;
+}
+.lists .edit_content .num .am-btn{
+	font-size: 25px;
+	height: 60px;
+	line-height: 60px;
+	width: 48px;
+	padding: 0;
+	color: #000;
+	font-weight: 600;
+	background-color: #fff;
+	border: #a0a0a0 1px solid
+}
+.box {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 9990;
+	width: 100%;
+	background-color: #fff;
+}
+
+.box .allcheck {
+	margin: 28px 20px;
+}
+
+.box .all_words {
+	font-size: 26px;
+	color: #000;
+	margin: 22px 0;
+}
+
+.box .order a {
+	display: inline-block;
+	width: 200px;
+	padding: 26px 0;
+	text-align: center;
+	background: #a0a0a0;
+	font-size: 24px;
+	color: #fff;
+	vertical-align: middle;
+}
+
+.box .order.active a {
+	background: #c33;
+}
+
+.box .total {
+	font-size: 26px;
+	margin: 22px;
+}
+.del_box {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 9990;
+	width: 100%;
+	background-color: #fff;
+	display: none;
+}
+
+.del_box .allcheck {
+	margin: 28px 20px;
+}
+
+.del_box .all_words {
+	font-size: 26px;
+	color: #000;
+	margin: 22px 0;
+}
+
+.del_box .del_btn a {
+	display: inline-block;
+	width: 200px;
+	padding: 26px 0;
+	text-align: center;
+	background: #a0a0a0;
+	font-size: 24px;
+	color: #fff;
+	vertical-align: middle;
+}
+.del_box .del_btn.del a {
+	background: #CC3333;
+}
+.del_alert{
+	font-size: 26px;
+	color: #313131;
+}
+.del_alert .am-modal-dialog{
+	width: 514px;
+}
+.del_alert .am-modal-bd{
+	padding: 100px 10px;
+}
+.del_alert .am-modal-footer span{
+	font-size: 26px;
+	color: #313131;
+	padding: 15px 5px;
+}
+
+
+/**/
+.am-header .home img{
+	width: 36px;
+	height: auto;
+	margin-left: 15px;
+}
+.lists .detail .price{
+	margin-top: 37px;
+}

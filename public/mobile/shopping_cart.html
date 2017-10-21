@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=640, user-scalable=no,target-densitydpi=853.3333333333333">
+		<title>我的购物车</title>
+
+		<!-- Set render engine for 360 browser -->
+
+		<!-- No Baidu Siteapp-->
+
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/shopping_cart.css" />
+
+	</head>
+
+	<body>
+		<!--头部-->
+		<header data-am-widget="header" class="am-header am-header-default head">
+			<div class="am-header-left am-header-nav">
+				<a href="index.html" class="home">
+					<img src="img/home.png" />
+				</a>
+			</div>
+			<h1 class="am-header-title header_title">购物车</h1>
+			<div class="am-header-right am-header-nav edit">
+				<a href="#">
+					编辑
+				</a>
+			</div>
+		</header>
+		<!--商品-->
+		<div class="lists am-cf relative">
+			<div class="check relative am-fl">
+				<input class="checkbox" type="checkbox" name="" id="" value="" />
+			</div>
+			<div class="pic am-fl relative">
+				<a href="#">
+					<img src="img/food1.jpg">
+				</a>
+			</div>
+			<div class="detail">
+				<h1 class="name am-text-truncate"><a href="commdetail.html">
+             俄罗斯进口 大奶牛巧克力威化 500g
+           </a></h1>
+				<p class="am-text-truncate">500g</p>
+				<div class="price am-cf">
+					<span class="am-fl">￥<i>29</i></span>
+					<p class="am-fr">×<i>1</i></p>
+				</div>
+			</div>
+			<!--编辑-->
+			<div class="edit_content">
+				<p>
+					已选择：
+					<i>500g</i>
+				</p>
+				<div class="num am-cf">
+					<button type="button" class="am-btn am-btn-default icon_minus am-fl">-</button>
+					<span class="am-fl">1</span>
+					<button type="button" class="am-btn am-btn-default icon_plus am-fl">+</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="lists am-cf relative">
+			<div class="check relative am-fl">
+				<input class="checkbox" type="checkbox" name="" id="" value="" />
+			</div>
+			<div class="pic am-fl relative">
+				<a href="#">
+					<img src="img/detailslide1.jpg">
+				</a>
+			</div>
+			<div class="detail">
+				<h1 class="name am-text-truncate"><a href="commdetail.html">eau precieuse珍贵水祛痘痘控油375ml去痘印控油</a></h1>
+				<p class="am-text-truncate">375ml</p>
+				<div class="price am-cf">
+					<span class="am-fl">￥<i>68</i></span>
+					<p class="am-fr">×<i>1</i></p>
+				</div>
+			</div>
+			<!--编辑-->
+			<div class="edit_content">
+				<p>
+					已选择：
+					<i>375ml</i>
+					
+				</p>
+				<div class="num am-cf">
+					<button type="button" class="am-btn am-btn-default icon_minus am-fl">-</button>
+					<span class="am-fl">1</span>
+					<button type="button" class="am-btn am-btn-default icon_plus am-fl">+</button>
+				</div>
+			</div>
+		</div>
+		<!--下单框-->
+		<div class="box am-cf">
+			<div class="allcheck relative am-fl">
+				<input class="checkbox_all" type="checkbox" name="" id="" value="" />
+			</div>
+			<div class="all_words am-fl">
+				全选（0）
+			</div>
+			<div class="order am-fr">
+				<a href="order.html">去结算</a>
+			</div>
+			<div class="total am-fr">
+				￥<i>0</i>
+			</div>
+		</div>
+		<!--删除框-->
+		<div class="del_box am-cf">
+			<div class="allcheck relative am-fl">
+				<input class="checkbox_all" type="checkbox" name="" id="" value="" />
+			</div>
+			<div class="all_words am-fl">
+				全选（0）
+			</div>
+			<div class="del_btn am-fr">
+				<a>删除所选</a>
+			</div>
+			<div class="am-modal am-modal-confirm del_alert" tabindex="-1" id="my-confirm">
+				<div class="am-modal-dialog">
+					<div class="am-modal-bd">
+						是否删除所选作品？
+					</div>
+					<div class="am-modal-footer">
+						<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+						<span class="am-modal-btn" data-am-modal-confirm>删除</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+		<script src="assets/js/amazeui.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var $all = $(".checkbox_all");
+				var $check = $("input[class='checkbox']");
+				getPrice();
+				payBtn();
+
+				//单击全选框
+				$all.click(function() {
+					$check.prop("checked", this.checked);
+					getPrice();
+					payBtn();
+					if($all.is(":checked")) {
+						$(this).parent(".allcheck").addClass("active");
+						$check.parent(".check").addClass("active");
+						$(".all_words").text("已选（" + $check.length + "）");
+					} else {
+						$(this).parent(".allcheck").removeClass("active");
+						$check.parent(".check").removeClass("active");
+						$(".all_words").text("全选（0）");
+					}
+				});
+				//全选&取消全选
+				$check.each(function(i) {
+					$check.eq(i).click(function() {
+						if(isCheckAll()) {
+							$all.prop("checked", true);
+							$all.parent(".allcheck").addClass("active");
+						} else {
+							$all.prop("checked", false);
+							$all.parent(".allcheck").removeClass("active");
+						}
+						getPrice();
+						payBtn();
+					})
+				})
+				//删除
+				$(".del_btn").click(function() {
+					if($check.is(":checked")) {
+						$('#my-confirm').modal({
+							relatedTarget: this,
+							onConfirm: function(options) {
+								$check.each(function(i) {
+									if($check.eq(i).is(":checked")) {
+										$check.eq(i).parents(".lists").remove();
+									}
+								})
+							},
+							onCancel: function() {
+								return;
+							}
+						});
+					}
+				})
+
+				function isCheckAll() {
+					var all = $check.length;
+					var sum = 0;
+					$check.each(function(i) {
+						if($check.eq(i).is(":checked")) {
+							sum++;
+							$check.eq(i).parent(".check").addClass("active");
+							$(".all_words").text("已选（" + sum + "）");
+						} else {
+							$check.eq(i).parent(".check").removeClass("active");
+							$(".all_words").text("已选（" + sum + "）");
+						}
+					});
+					if(all == sum) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+				//总价
+				function getPrice() {
+					var money = 0.0;
+					var total_num = 0;
+					$('input[class="checkbox"]:checked').each(function() {
+						var price = parseFloat($(this).parents('.lists').find('.price span i').text()) * parseInt($(this).parents('.lists').find('.price p i').text());
+						money += price;
+					});
+					$('.total i').text(money);
+					//					$('i.totalItem').text(total_num);
+				}
+				//结算按钮
+				function payBtn() {
+					if($check.is(":checked")) {
+						$(".order").addClass("active");
+						$(".del_btn").addClass("del");
+
+					} else {
+						$(".order").removeClass("active");
+						$(".del_btn").removeClass("del");
+					}
+
+				}
+				//编辑click
+				var flag = true;
+				$(".edit").click(function() {
+					if(flag) {
+						$(this).find("a").text("完成");
+						$(".detail").css("display", "none");
+						$(".edit_content").css("display", "block");
+						$(".del_box").css("display", "block");
+						$(".box").css("display", "none");
+						$check.prop("checked", false);
+						$check.parent(".check").removeClass("active");
+						$all.prop("checked", false);
+						$all.parent(".allcheck").removeClass("active");
+						$(".all_words").text("全选（0）");
+						flag = false;
+					} else {
+						$(this).find("a").text("编辑");
+						$(".detail").css("display", "block");
+						$(".edit_content").css("display", "none");
+						$(".del_box").css("display", "none");
+						$(".box").css("display", "block");
+						$check.prop("checked", false);
+						$check.parent(".check").removeClass("active");
+						$all.prop("checked", false);
+						$all.parent(".allcheck").removeClass("active");
+						$(".all_words").text("全选（0）");
+						flag = true;
+					}
+				})
+				//数量加减
+				$(".icon_minus").click(function() {
+					var num = parseInt($(this).siblings("span").text());
+					num--;
+					if(num < 1) {
+						return;
+					} else {
+						$(this).siblings("span").text(num);
+					}
+					$(this).parents('.lists').find('.price p i').text(num)
+				});
+				$(".icon_plus").click(function() {
+					var num = parseInt($(this).siblings("span").text());
+					num++;
+					$(this).siblings("span").text(num);
+					$(this).parents('.lists').find('.price p i').text(num)
+				});
+
+			})
+		</script>
+	</body>
+
+</html>
