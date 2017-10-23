@@ -41,12 +41,12 @@ models.Address = mongoose.model('Address', addressSchema);
 
 //商品分类结构
 var categorySchema = mongoose.Schema({
-	id: Number,
+	id: String,
 	level: Number,
 	name: String,
 	pId: {
-		type: Number,
-		default: 0
+		type: String,
+		default: "0"
 	},
 	parentTId: String,
 	tId: String
