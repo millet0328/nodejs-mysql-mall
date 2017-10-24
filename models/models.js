@@ -58,7 +58,11 @@ models.Category = mongoose.model('Category', categorySchema);
 // 商品结构
 var goodsSchema = mongoose.Schema({
 	name: String,
-	price: String
+	price: String,
+	lgImg: String,
+	mdImg: String,
+	slideImgs: [String],
+	detail: String
 });
 
 // 大写代表model

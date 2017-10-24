@@ -162,6 +162,10 @@
 								<td>
 									<div class="pic_box">
 									</div>
+									<!--隐藏数据-->
+									<input type="hidden" name="lgImg" id="lgImg" value="" />
+									<input type="hidden" name="mdImg" id="mdImg" value="" />
+
 									<p>上传商品默认主图，如多规格时将默认该图片或分规格上传规格主图，支持jpg、gif、png格式上传或从图片空间选中，建议使用尺寸800*800像素以上，大小不超过1M的正方形图片，上传后的图片将会自动保存在图片空间的默认分类中。</p>
 									<div class="pic_btn relative">
 										<input type="file" name="" id="fbtn" value="" />
@@ -173,10 +177,23 @@
 							<tr>
 								<td class="name">商品轮播图：</td>
 								<td>
-									<div class="pic_add relative">
-										<h1>+</h1>
-										<input type="file" name="" id="" value="" />
+									<div class="preview clearfix">
+										<div id="slides_img" class="slides_img clearfix pull-left">
+											<div class="img pull-left relative">
+												<img src="../images/goods/3a4a3640-b886-11e7-aa02-1369feb6fd7f_md.JPG"/>
+												<div class="delete glyphicon glyphicon-remove"></div>
+											</div>
+											<div class="img pull-left relative">
+												<img src="../images/goods/1d1132f0-b88f-11e7-aa02-1369feb6fd7f_md.jpg" />
+												<div class="delete glyphicon glyphicon-remove"></div>
+											</div>
+										</div>
+										<div class="pic_add relative pull-left">
+											<h1>+</h1>
+											<input type="file" name="" id="" value="" />
+										</div>
 									</div>
+
 									<p>上传商品默认主图，如多规格时将默认该图片或分规格上传规格主图，支持jpg、gif、png格式上传或从图片空间选中，建议使用尺寸800*800像素以上，大小不超过1M的正方形图片，上传后的图片将会自动保存在图片空间的默认分类中。</p>
 								</td>
 							</tr>
@@ -245,6 +262,38 @@
 			{{each data}}
 			<option value="{{$value.id}}">{{$value.name}}</option>
 			{{/each}}
+		</script>
+
+		<script type="text/javascript">
+			//ajax提交文件
+			$(document).ready(function() {
+				$("#fbtn").change(function() {
+					var formData = new FormData();
+					//file对象
+					var oFile = $(this)[0].files[0];
+					formData.append("file", oFile);
+					$.ajax({
+						type: "post",
+						url: "/api/upload/img/",
+						async: true,
+						contentType: false,
+						processData: false,
+						data: formData,
+						success: function(result) {
+							if(result.status) {
+								$(".pic_box").html('<img src="' + result.mdImg + '" />');
+								//隐藏数据
+								$("#lgImg").val(result.lgImg);
+								$("#mdImg").val(result.mdImg);
+							} else {
+								alert(result.msg);
+							}
+
+						}
+					});
+
+				});
+			});
 		</script>
 		<script type="text/javascript">
 			$(document).ready(function() {
