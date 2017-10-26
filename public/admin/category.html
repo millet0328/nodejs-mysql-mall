@@ -23,50 +23,11 @@
 			<button id="saveBtn" type="button">保存</button>
 			<button id="resetBtn" type="button">重置</button>
 		</div>
-		<!--form 提交文件-->
-		<!--<form action="/api/upload/img" enctype="multipart/form-data" method="post">
-			<input type="file" name="file" id="" value="" />
-			<div>
-				<input type="submit" value="提交" />
-			</div>
-		</form>-->
-		<!--ajax 提交文件-->
-		<form id="form" method="post">
-			<input type="file" name="file" id="file" value="" />
-			<div>
-				<input id="submit" type="button" value="提交" />
-			</div>
-		</form>
 
 	</BODY>
 	<script type="text/javascript" src="lib/jQuery/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="lib/ztree/js/jquery.ztree.core.min.js"></script>
 	<script src="lib/ztree/js/jquery.ztree.exedit.min.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		//ajax提交文件
-		$(document).ready(function() {
-			$("#submit").click(function() {
-				var formData = new FormData();
-				//file对象
-				var oFile = $("#file")[0].files[0];
-				formData.append("file", oFile);
-				$.ajax({
-					type: "post",
-					url: "/api/upload/img/",
-					async: true,
-					contentType: false,
-					processData: false,
-					data: formData,
-					success: function(result) {
-
-					}
-				});
-
-			});
-
-		});
-	</script>
-
 	<SCRIPT LANGUAGE="JavaScript">
 		var zNodes = [];
 		var newCount = 1;

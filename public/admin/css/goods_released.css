@@ -110,7 +110,7 @@ body {
 	color: #000;
 }
 
-.goods_right .form td span {
+.goods_right .form td>span {
 	color: #ff3947;
 }
 
@@ -188,7 +188,7 @@ body {
 	font-size: #000;
 }
 
-.slides_img .delete {
+.preview .delete {
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -203,17 +203,17 @@ body {
 	min-height: 160px;
 }
 
-.slides_img .img {
+.preview .img {
 	height: 160px;
 	width: 160px;
 	border: 1px solid #EEEEEE;
 }
 
-.slides_img .img img {
+.preview .img img {
 	max-width: 100%;
 }
 
-.slides_img .img,
+.preview .img,
 .pic_add {
 	margin: 3px;
 }
@@ -361,4 +361,8 @@ body {
 
 .form td {
 	position: relative;
+}
+
+.w-e-text-container {
+	min-height: 1000px;
 }
