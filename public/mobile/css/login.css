@@ -1,87 +1,129 @@
+@charset "utf-8";
+body {
+	background-color: #FFFFFF;
+}
+.relative {
+    position: relative;
+}
+.header_p {
+	background: #3b9bff;
+	height: 16.5rem;
+}
 
-.am-header{
+.header_p img {
+	width: 130px;
+	padding-top: 4.5rem;
+}
+
+.white2 {
 	background: #FFFFFF;
-	height: 42px;
-	line-height: 42px;
 }
-.backle{
-	font-size: 30px;
-	color: #B2B2B2;
-}
-.am-header .am-header-title{
-	font-size: 17px;
-		color: #646464;
-}
-#vld-tooltip {
-    position: absolute;
-    z-index: 1000;
-    padding: 5px 10px;
-    background: #CC3333;
-    min-width: 150px;
-    color: #fff;
-    transition: all 0.15s;
-    box-shadow: 0 0 5px rgba(0,0,0,.15);
-    display: none;
-  }
 
-  #vld-tooltip:before {
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    width: 0;
-    height: 0;
-    margin-left: -8px;
-    content: "";
-    border-width: 0 8px 8px;
-    border-color: transparent transparent #CC3333;
-    border-style: none inset solid;
-  }
-.login .am-form-group{
-	margin:20px 10%;
+.write {
+	margin: 1.6rem 0 3rem;
 }
-form.login input[type=text], .login input[type=password]{
+
+.write1 {
+	background: url(http://cres1.fenqile.cn/passport/img/m/login/icons--ab188f470a.png) no-repeat;
+	width: 2rem;
+	height: 2rem;
+	background-size: 4.2rem auto;
+	margin-right: 1.5rem;
+	background-position: 0 0;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.am-input-group-label {
+	background-color: #FFFFFF;
+}
+
+.write_1 {
+	padding: 1rem 1.5rem 1rem 0;
+	font-size: 1.4rem;
+	color: #5f6874;
+}
+
+input {
+	width: 100%;
+	height: 100%;
 	border: 0;
-	color: #9B9B9B;
-	font-size: 12px;
-	height: 40px;
+	outline: 0;
 }
-.login .am-btn{
-	border: 0;
-	background-color: #CC3333;
-	margin: 30px 10% 10px;
-	width: 80%;
+
+.write2 {
+	background-position: -2.55rem 0;
 }
-.regicon{
-	width: 80%;
-	margin: 0 10%;
+
+.write3 {
+	background-position: -.1rem -4.1rem;
+	height: 1.2rem;
+	width: 1.6rem;
 }
-.regicon a{
-	color: #9b9b9b;
-    font-size: 12px;
-    text-decoration: underline;
+
+.write4 {
+	background-position: .2rem -7.2rem;
+	height: 1.4rem;
 }
-.register .am-form-group{
-	margin:10px 10%;
-	width: 80%;
+
+.write5 {
+	background-position: .15rem -2rem;
 }
-.pic{
-	position: relative;
+
+.write6 {
+	background-position: -2.45rem -2rem;
 }
-.piccode{
-	position: absolute;
-	top: 6px;
-	right: 6px;
+
+.yz_pic {
+	width: 60px;
 }
-.mescode{
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	width: 100px;
-	height: 42px;
-	border-radius: 5px;
-	line-height: 42px;
-	background-color: #CC3333;
-	color: #FFFFFF;
-	border: 0;
-	font-size: 14px;
+
+.plr15 {
+	padding: 0 1.5rem!important;
+}
+
+.btn_my {
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	font-size: 1.6rem;
+	line-height: 1.6rem;
+	border-radius: 6px;
+	width: 100%;
+	padding: 1.35rem 0;
+	background-color: #44a0ff;
+	color: #fff;
+	border: 1px solid #0487e3;
+	box-sizing: border-box;
+	font-family: microsoft yahei, "pingfang sc";
+	outline: 0;
+}
+
+.kj {
+	padding: 1.5rem!important;
+}
+
+.kj_login {
+	font-size: 1.4rem;
+	color: #3b9bff;
+}
+
+.padd2 {
+	border-top: 1px solid #eaeaea;
+	padding: 1.5rem 0;
+}
+
+.regist {
+	font-size: 1.4rem;
+	color: #3b9bff;
+}
+
+.hq {
+	color: #3b9bff;
+	background: #fff;
+	font-size: 1.4rem;
+}
+.login_2{
+	display: none;
 }

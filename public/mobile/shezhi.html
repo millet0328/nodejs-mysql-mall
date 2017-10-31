@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>设置中心</title>
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<link rel="icon" type="image/png" href="assets/i/pic_logo.png">
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/search.css" />
+		<link rel="stylesheet" type="text/css" href="css/detail.css" />
+		<link rel="stylesheet" type="text/css" href="css/wode.css" />
+		<link rel="stylesheet" type="text/css" href="css/ziliao.css" />
+		<link rel="stylesheet" type="text/css" href="css/shezhi.css" />
+	</head>
+
+	<body>
+		<!--header-->
+		<div class="header am-g" data-am-sticky>
+			<div class="am-u-sm-2 header_pic">
+				<a href="" onClick="javascript :history.back(-1);"><span class="am-icon-angle-left">
+					
+				</span></a>
+			</div>
+			<div class="header1 am-u-sm-8">
+				设置中心
+			</div>
+			<div class="header2 am-u-sm-2">
+
+			</div>
+		</div>
+
+		<!--个人资料-->
+		<div class="zd am-g top2 ziliao">
+			<div class="am-u-sm-2">
+				<img class="zd_pic" src="https://mall.m.fenqile.com/res/img/app/my_set/i_date.png" />
+			</div>
+			<div class="am-u-sm-8 zd_te">
+				个人资料
+			</div>
+			<div class="am-u-sm-2 am-text-right">
+				<a href="##"><span class="am-icon-angle-right right2"></span></a>
+
+			</div>
+		</div>
+		<!--关于我们-->
+		<div class="zd am-g top2">
+			<div class="am-u-sm-2">
+				<img class="zd_pic" src="https://mall.m.fenqile.com/res/img/app/my_set/i_about.png" />
+			</div>
+			<div class="am-u-sm-8 zd_te">
+				关于我们
+			</div>
+			<div class="am-u-sm-2 am-text-right">
+				<a href="##"><span class="am-icon-angle-right right2"></span></a>
+
+			</div>
+		</div>
+		<!--退出账号-->
+		<div class="zd am-g top2">
+			<div class="am-u-sm-12 zd_te am-text-center">
+				<a href="login.html">
+					<span class="zd_color">
+						退出当前账号
+					</span>
+				</a>
+			</div>
+		</div>
+		<!--bottom-->
+		<div class="botto am-cf" data-am-sticky>
+			<div class="bott_pic am-text-center">
+				<a href="index.html">
+					<img src="https://cres.fenqile.cn/mobile/img/nav/list/consume.png" />
+					<div class="bott_txt">
+						首页
+					</div>
+				</a>
+			</div>
+			<div class="bott_pic am-text-center">
+				<a href="class.html">
+					<img src="https://cres.fenqile.cn/mobile/img/nav/list/class.png" />
+					<div class="bott_txt">
+						分类
+					</div>
+				</a>
+			</div>
+			<div class="bott_pic am-text-center">
+				<a href="shopingcar.html">
+					<img src="https://cres.fenqile.cn/mobile/img/nav/list/cart.png" />
+					<div class="bott_txt">
+						购物车
+					</div>
+				</a>
+			</div>
+			<div class="bott_pic am-text-center">
+				<a href="lecart.html">
+					<img src="https://cres.fenqile.cn/mobile/img/nav/list/lecard.png" />
+					<div class="bott_txt">
+						乐卡
+					</div>
+				</a>
+			</div>
+			<div class="bott_pic am-text-center">
+				<a href="wode.html">
+					<img src="https://cres.fenqile.cn/mobile/img/nav/list/mine_on.png" />
+					<div class="bott_txt change4">
+						我的
+					</div>
+				</a>
+			</div>
+		</div>
+	</body>
+	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/detail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+	<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+	<script src="assets/js/amazeui.min.js"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".ziliao").click(function() {
+				location.href = "ziliao.html";
+			})
+		})
+	</script>
+
+</html>

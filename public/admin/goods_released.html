@@ -67,15 +67,13 @@
 							</tr>
 							<tr>
 								<td class="name"><span>*</span>商品分类：</td>
-								<td>
-									<form class="form-inline">
-										<select class="form-control select" id="cate_first" name="class1" datatype="*" nullmsg="商品分类不能为空！">
-										</select>
-										<select class="form-control select" id="cate_second" name="class2" datatype="*" nullmsg="商品分类不能为空！">
-										</select>
-										<select class="form-control select" id="cate_third" name="class3" datatype="*" nullmsg="商品分类不能为空！">
-										</select>
-									</form>
+								<td class="form-inline">
+									<select class="form-control select" id="cate_first" name="cateFirst" datatype="*" nullmsg="商品分类不能为空！">
+									</select>
+									<select class="form-control select" id="cate_second" name="cateSecond" datatype="*" nullmsg="商品分类不能为空！">
+									</select>
+									<select class="form-control select" id="cate_third" name="cateThird" datatype="*" nullmsg="商品分类不能为空！">
+									</select>
 								</td>
 							</tr>
 							<tr>
@@ -88,7 +86,7 @@
 							<tr>
 								<td class="name">商品卖点：</td>
 								<td>
-									<textarea class="form-control" rows="3" name="info" datatype="s0-140" errormsg="商品卖点最长不能超过140个汉字" sucmsg="验证通过！"></textarea>
+									<textarea class="form-control" rows="3" name="hotPoint" datatype="s0-140" errormsg="商品卖点最长不能超过140个汉字" sucmsg="验证通过！"></textarea>
 									<p>商品卖点最长不能超过140个汉字</p>
 								</td>
 							</tr>
@@ -122,7 +120,7 @@
 								<td>
 									<div class="form-group">
 										<div class="input-group money">
-											<input type="text" class="form-control" id="cost">
+											<input type="text" class="form-control" name="cost" id="cost">
 											<div class="input-group-addon">元</div>
 										</div>
 									</div>
@@ -195,7 +193,7 @@
 							<tr>
 								<td class="name">商品品牌：</td>
 								<td>
-									<input type="text" class="form-control input" id="brand">
+									<input type="text" class="form-control input" name="brand">
 								</td>
 							</tr>
 							<tr>
@@ -212,18 +210,16 @@
 							</tr>
 							<tr>
 								<td class="name">所在地：</td>
-								<td>
-									<form class="form-inline">
-										<select class="form-control address">
-											<option>江苏省</option>
-										</select>
-										<select class="form-control address">
-											<option>苏州市</option>
-										</select>
-										<select class="form-control address">
-											<option>沧浪区</option>
-										</select>
-									</form>
+								<td class="form-inline">
+									<select name="local" class="form-control address">
+										<option>江苏省</option>
+									</select>
+									<select name="local" class="form-control address">
+										<option>苏州市</option>
+									</select>
+									<select name="local" class="form-control address">
+										<option>沧浪区</option>
+									</select>
 								</td>
 							</tr>
 							<tr>
@@ -231,7 +227,7 @@
 								<td>
 									<div class="form-group">
 										<div class="input-group freight">
-											<input type="text" class="form-control" id="freight" value="0">
+											<input type="text" class="form-control" name="freight" value="0">
 											<div class="input-group-addon">元</div>
 										</div>
 									</div>
@@ -362,7 +358,7 @@
 					callback: function($form) {
 						var data = serializeObject($form);
 						data.slideImgs = imgs;
-						$.post("/api/release/goods/", data, function(result) {
+						$.post("/api/goods/release", data, function(result) {
 							alert(result.msg);
 						});
 						return false;

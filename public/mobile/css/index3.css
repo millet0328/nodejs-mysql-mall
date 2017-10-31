@@ -1,0 +1,20 @@
+@charset "utf-8";
+.lx_p img {
+	width: 60px;
+}
+
+.lx {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+.lx_te{
+	color: #394050;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    text-align: center;
+}
+.bg6{
+	width: 435px;
+}

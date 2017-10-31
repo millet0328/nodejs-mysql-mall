@@ -1,101 +1,554 @@
 <!doctype html>
 <html class="no-js">
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>我的地址</title>
-		<link rel="stylesheet" href="assets/css/amazeui.min.css">
-		<link rel="stylesheet" href="assets/css/app.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="css/login.css" />
-		<link rel="stylesheet" type="text/css" href="css/my.css" />
-	</head>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的地址</title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/pic_logo.png">
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/myaddress.css" />
+</head>
 
-	<body>
-		<header data-am-widget="header" class="am-header">
-			<div class="am-header-left am-header-nav">
-				<a class="">
-					<p onclick="goback()" class="backle am-icon-angle-left"></p>
-				</a>
+<body>
+    <div class="head-fixed bg-wrap">
+        <a onClick="javascript :history.back(-1);" class="go-back am-block">
+                <i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+            </a>
+        <span class="head-til">我的收货地址</span>
+        <span class="manage blue guan">管理</span>
+        <span class="manage blue guan_">完成</span>
+    </div>
+    <div class="person-address">
+        <ul class="address-list" id="title_1">
+        </ul>
+        <!--添加新地址-->
+        <div class="add-new blue bg-wrap">
+            添加新地址
+        </div>
+        <!--添加地址-->
+        <div class="dingw">
+            <div class="tips-box" id="tips">
+                <span></span>
+            </div>
+            <form action="#" class="" id="form1" method="post">
+                <div class="head-fixed bg-wrap">
+                    <!--<a href="" onClick="javascript :history.back(-1);">-->
+                    <a class="go-back am-block gogogo" onClick="javascript :history.back(-1);">
+                            <i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+                        </a>
+                    <!--</a>-->
+                    <span class="head-til">修改收货地址</span>
+                    <input type="submit" name="bj2" id="bj2" value="保存" class="manage blue guan2" />
+                    <!--span class="manage blue guan2"></span>-->
+                </div>
+                <!---->
+                <div class="am-g myxinxi">
+                    <div class="am-u-sm-4 my mytitle">
+                        收货人
+                    </div>
+                    <div class="am-u-sm-8 my myname">
+                        <input type="text" name="address_name" id="" value="" nullmsg="姓名不能为空" datatype="*3-20" />
+                    </div>
+                    <div class="am-u-sm-4 my mytitle">
+                        联系电话
+                    </div>
+                    <div class="am-u-sm-8 my mytel">
+                        <input type="text" name="address_tel" id="" datatype="myphone" nullmsg='手机号不能为空 ' errormsg="手机号格式错误" value="" />
+                    </div>
+                    <div class="am-u-sm-4 my mytitle my2">
+                        所在地区
+                    </div>
+                    <div class="am-u-sm-8 my myaddre1">
+                        <select name="address_p" id="province2" class="na-infor-input address_p">
+                            <option value="" type="hidden"></option>
+                            <option value="北京市">北京市</option>
+                            <option value="天津市">天津市</option>
+                            <option value="河北省">河北省</option>
+                            <option value="山西省">山西省</option>
+                            <option value="内蒙古自治区">内蒙古自治区</option>
+                            <option value="辽宁省">辽宁省</option>
+                            <option value="吉林省">吉林省</option>
+                            <option value="黑龙江省">黑龙江省</option>
+                            <option value="上海市">上海市</option>
+                            <option value="江苏省">江苏省</option>
+                            <option value="浙江省">浙江省</option>
+                            <option value="安徽省">安徽省</option>
+                            <option value="福建省">福建省</option>
+                            <option value="江西省">江西省</option>
+                            <option value="山东省">山东省</option>
+                            <option value="河南省">河南省</option>
+                            <option value="湖北省">湖北省</option>
+                            <option value="湖南省">湖南省</option>
+                            <option value="广东省">广东省</option>
+                            <option value="广西壮族自治区">广西壮族自治区</option>
+                            <option value="海南省">海南省</option>
+                            <option value="重庆市">重庆市</option>
+                            <option value="四川省">四川省</option>
+                            <option value="贵州省">贵州省</option>
+                            <option value="云南省">云南省</option>
+                            <option value="西藏自治区">西藏自治区</option>
+                            <option value="陕西省">陕西省</option>
+                            <option value="甘肃省">甘肃省</option>
+                            <option value="青海省">青海省</option>
+                            <option value="宁夏回族自治区">宁夏回族自治区</option>
+                            <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                            <option value="香港特别行政区">香港特别行政区</option>
+                            <option value="澳门特别行政区">澳门特别行政区</option>
+                            <option value="台湾省">台湾省</option>
+                            <option value="其它">其它</option>
+                        </select>
+                    </div>
+                    <div class="am-u-sm-4 my mytitle my2">
+                        &nbsp;
+                    </div>
+                    <div class="am-u-sm-8 my myaddre2">
+                        <!-- <input type="text" name="address_c" id="" value="青岛市" placeholder="市" nullmsg="城市不能为空" datatype="*3-20" /> -->
+                        <select name="address_c" id="city2" class="na-infor-input address_c">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="am-u-sm-4 my mytitle">
+                        &nbsp;
+                    </div>
+                    <div class="am-u-sm-8 my myaddre3">
+                        <!-- <input type="text" name="address_a" id="" value="城阳区" placeholder="区" nullmsg="地区不能为空" datatype="*3-20" /> -->
+                        <select name="address_a" id="area2" class="na-infor-input address_a">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="am-u-sm-12 my mytitle mytitle2">
+                        <input type="text" name="address_ps" id="" value="" placeholder="具体地址" />
+                    </div>
+                    <div class="default-btn2 am-fl txt14 am-cf">
+                        <span id="default-btn2" class="relative am-fl okok2_1" name="">
+                        </span>
+                        <input type="hidden" name="address_default" class="t_f_1" value="">
+                        <span class="address-cn2 am-fl">设为默认</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="dingw2">
+            <div class="tips-box" id="tips2">
+                <span></span>
+            </div>
+            <form action="#" class="" id="form2" method="post">
+                <div class="head-fixed bg-wrap">
+                    <!--<a href="" onClick="javascript :history.back(-1);">-->
+                    <a class="go-back am-block gogogo" onClick="javascript :history.back(-1);">
+                            <i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+                        </a>
+                    <!--</a>-->
+                    <span class="head-til">添加收货地址</span>
+                    <!--<span class="manage blue guan2">保存</span>-->
+                    <input type="submit" name="bj2" id="bj1" value="保存" class="manage blue guan2" />
+                </div>
+                <!---->
+                <div class="am-g myxinxi">
+                    <div class="am-u-sm-4 my mytitle">
+                        收货人
+                    </div>
+                    <div class="am-u-sm-8 my myname">
+                        <!--<input type="text" name="" id="" value="陈小七" />-->
+                        <input type="text" name="address_name" id="" value="" nullmsg="姓名不能为空" datatype="*3-20" />
+                    </div>
+                    <div class="am-u-sm-4 my mytitle">
+                        联系电话
+                    </div>
+                    <div class="am-u-sm-8 my mytel">
+                        <!--<input type="text" name="" id="" value="17854251111" />-->
+                        <input type="text" name="address_tel" id="" datatype="myphone" nullmsg='手机号不能为空 ' errormsg="手机号格式错误" value="" />
+                    </div>
+                    <div class="am-u-sm-4 my mytitle my2">
+                        所在地区
+                    </div>
+                    <div class="am-u-sm-8 my myaddre1">
+                        <!-- <input type="text" name="address_p" id="" value="山东省" placeholder="省" nullmsg="省份不能为空" datatype="*3-20" /> -->
+                        <select name="address_p" id="province" class="na-infor-input address_p">
+                            <option value="" type="hidden"></option>
+                            <option value="北京市">北京市</option>
+                            <option value="天津市">天津市</option>
+                            <option value="河北省">河北省</option>
+                            <option value="山西省">山西省</option>
+                            <option value="内蒙古自治区">内蒙古自治区</option>
+                            <option value="辽宁省">辽宁省</option>
+                            <option value="吉林省">吉林省</option>
+                            <option value="黑龙江省">黑龙江省</option>
+                            <option value="上海市">上海市</option>
+                            <option value="江苏省">江苏省</option>
+                            <option value="浙江省">浙江省</option>
+                            <option value="安徽省">安徽省</option>
+                            <option value="福建省">福建省</option>
+                            <option value="江西省">江西省</option>
+                            <option value="山东省">山东省</option>
+                            <option value="河南省">河南省</option>
+                            <option value="湖北省">湖北省</option>
+                            <option value="湖南省">湖南省</option>
+                            <option value="广东省">广东省</option>
+                            <option value="广西壮族自治区">广西壮族自治区</option>
+                            <option value="海南省">海南省</option>
+                            <option value="重庆市">重庆市</option>
+                            <option value="四川省">四川省</option>
+                            <option value="贵州省">贵州省</option>
+                            <option value="云南省">云南省</option>
+                            <option value="西藏自治区">西藏自治区</option>
+                            <option value="陕西省">陕西省</option>
+                            <option value="甘肃省">甘肃省</option>
+                            <option value="青海省">青海省</option>
+                            <option value="宁夏回族自治区">宁夏回族自治区</option>
+                            <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                            <option value="香港特别行政区">香港特别行政区</option>
+                            <option value="澳门特别行政区">澳门特别行政区</option>
+                            <option value="台湾省">台湾省</option>
+                            <option value="其它">其它</option>
+                        </select>
+                    </div>
+                    <div class="am-u-sm-4 my mytitle my2">
+                        &nbsp;
+                    </div>
+                    <div class="am-u-sm-8 my myaddre2">
+                        <!-- <input type="text" name="address_c" id="" value="青岛市" placeholder="市" nullmsg="城市不能为空" datatype="*3-20" /> -->
+                        <select name="address_c" id="city" class="na-infor-input address_c">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="am-u-sm-4 my mytitle">
+                        &nbsp;
+                    </div>
+                    <div class="am-u-sm-8 my myaddre3">
+                        <!-- <input type="text" name="address_a" id="" value="城阳区" placeholder="区" nullmsg="地区不能为空" datatype="*3-20" /> -->
+                        <select name="address_a" id="area" class="na-infor-input address_a">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="am-u-sm-12 my mytitle mytitle2">
+                        <input type="text" name="address_ps" id="" value="" placeholder="具体地址" />
+                    </div>
+                    <div class="default-btn2 am-fl txt14 am-cf">
+                        <span id="default-btn2" class="relative am-fl okok2" name="">
+                        </span>
+                        <input type="hidden" name="address_default" class="t_f" value="false">
+                        <span class="address-cn2 am-fl">设为默认</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <!--<![endif]-->
+    <!--<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>-->
+    <!--<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>-->
+    <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+    <script type="text/javascript" src="js/PCASClass.js"></script>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <!-- <script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="js/myaddress.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/Validform_v5.3.2.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/gVerify.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script src="js/xiangz.js" type="text/javascript" charset="utf-8"></script>-->
+    <script src="js/template-web.js" type="text/javascript" charset="utf-8"></script>
+    <script id="tpl-list" type="text/html">
+        {{each data}}
+        <li class="address-item txt12 relative bg-wrap">
+            <div class="address-top-box relative padding-20">
+                <div class="person-info">
+                    <span class="blue person-default-logo relative ok-show">默认</span>
+                    <span class="person-name">{{$value.address.address_name}}</span>
+                    <span class="person-tel">{{$value.address.address_tel}}</span>
+                </div>
+                <div class="gray2 am-padding-top-xs person-address-detail relative">
+                    <span class="person-province">{{$value.address.address_p}}</span>
+                    <span class="person-city">{{$value.address.address_c}}</span>
+                    <span class="person-county">{{$value.address.address_a}}</span>
+                    <span class="person-ps">{{$value.address.address_ps}}</span>
+                </div>
+            </div>
+            <div class="manage-box am-cf padding-20">
+                <div class="default-btn am-fl txt14 am-cf">
+                    <span id="default-btn" class="relative am-fl okok">
+                                
+                            </span>
+                    <input type="hidden" name="" class="t_f2" value="{{$value.address.address_default}}">
+                    <span class="address-cn am-fl">设为默认</span>
+                </div>
+                <div class="del-btn am-fr ssc">
+                    <span class="am-icon-trash am-icon-sm txt14"> 删除</span>
+                </div>
+                <div class="edit-btn am-fr  am-margin-right-sm bbj">
+                    <span class="am-icon-edit am-icon-sm txt14"> 编辑
+                        <input type="hidden" name="" class="address_id" value="{{$value._id}}">
+                    </span>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </script>
+    <script type="text/javascript ">
+    $(document).ready(function() {
+        $.ajax({
+            url: '/users/address_/',
+            type: 'get',
+            async: true,
+            data: { uid: sessionStorage.uid },
+            success: function(result) {
+                if (result.status) {
+                    var html = template("tpl-list", result);
+                    $("#title_1").html(html);
+                    $.each($(".t_f2"), function(i) {
+                        if ($(this).val() == "true") {
+                            $(this).siblings('.address-cn').text("默认地址");
+                            $(this).siblings('.okok').addClass('active');
+                            $(this).parents("li").find(".ok-show").removeClass('ok-show');
+                        }
+                    });
+                } else {
+                    alert(result.msg);
+                }
 
-			</div>
-			<div class="am-text-center addresstit">
-				收货地址管理
-			</div>
-			<div class="am-header-right  am-header-nav">
-				<a href="index.html" class="home">
-					<img src="img/home.png" />
-				</a>
-			</div>
-		</header>
-		<!--我的地址-->
-		<div id="addressBox">
+            }
+        })
 
-		</div>
-		<div class="addaddress">
-			<a href="addaddress.html">
-				<span class="adbtn am-text-center">添加收货地址</span>
-			</a>
-		</div>
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        new PCAS("province", "city", "area", "北京市", "北京市", "海淀区");
+    })
+    </script>
+    <script type="text/javascript">
+    var address_id2 = null;
+    var address_id3 = null;
+    $("ul").on("click", ".bbj", function() {
+        $(this).click(function() {
+            $(".dingw").css("display", "block");
+            address_id2 = $(this).find(".address_id").val()
+            $.get("/users/getAddressByid", { "_id": $(this).find(".address_id").val() }, function(result) {
+                if (result.status) {
+                    $(".dingw .myname input").val(result.data.address.address_name);
+                    $(".dingw .mytel input").val(result.data.address.address_tel);
+                    $(".dingw .mytitle2 input").val(result.data.address.address_ps);
+                    $(".dingw .default-btn2 input").val(result.data.address.address_default);
+                    new PCAS("province2", "city2", "area2", result.data.address.address_p, result.data.address.address_c, result.data.address.address_a);
+                    setDefault();
+                }
+            })
+        })
+    })
+    $("ul").on("click", ".okok", function() {
+        $(this).click(function() {
+            $(".okok").removeClass("active");
+            $(".address-cn").text("设为默认");
+            $(".person-default-logo").addClass("ok-show");
+            $(this).addClass("active");
+            $(this).siblings(".address-cn").text("默认地址");
+            $(this).parents("li").find(".person-default-logo").removeClass("ok-show");
+            $(".t_f2").val("false");
+            $(this).parents("li").find(".t_f2").val("true");
+        })
+    })
+    $(".bg-wrap").on("click", ".guan_", function() {
+        $.each($(".t_f2"), function(i) {
+            if ($(this).val() == "true") {
+                address_id3 = $(this).parents("li").find(".address_id").val();
+            }
+        });
+        var data =
+            "addressid=" + address_id3 +
+            "&reg1_ph=" + sessionStorage.myid;
+        console.log(data)
+        $.post('/users/editAddress2', data, function(data, textStatus, xhr) {
+            if (data.status) {
+                // 跳转页面
+                location.href = "/mobile/myaddress.html";
+                console.log("ok!")
+            } else {
+                alert(data.msg);
+            }
 
-		<!--在这里编写你的代码-->
+        });
+    })
 
-		<!--[if (gte IE 9)|!(IE)]><!-->
+    function setDefault() {
+        if ($(".t_f_1").val() == "true") {
+            $(".okok2_1").addClass('active');
+            $('.dingw .address-cn2').text("默认地址");
+        } else {
+            $(".okok2_1").removeClass('active');
+            $('.dingw .address-cn2').text("设为默认");
+        }
+        $(".okok2_1").click(function() {
+            if ($(".t_f_1").val() == "false") {
+                $(this).addClass("active");
+                $(".t_f_1").val("true");
+                $(this).siblings('.address-cn2').text("默认地址");
+            } else {
+                $(this).removeClass("active");
+                $(".t_f_1").val("false");
+                $(this).siblings('.address-cn2').text("设为默认");
+            }
+        })
+    }
+    //表单验证
+    var showmsg = function(msg) {
+        $("#tips").text(msg);
+        $("#tips").css("opacity", "1");
+        $("#tips").css("display", "block");
+    }
+    // 修改
+    $("#form1").Validform({
+        btnSubmit: "#bj2",
+        //          tiptype: 1,
+        tiptype: function(msg) {
+            showmsg(msg);
+        },
 
-		<!--<![endif]-->
-		<!--[if lte IE 8 ]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/amazeui.min.js"></script>
-		<script src="js/template-web.js" type="text/javascript" charset="utf-8"></script>
-		<script src="assets/js/app.js" type="text/javascript" charset="utf-8"></script>
-		<script id="tpl-address" type="text/html">
-			{{each data}}
-			<div class="addressbox am-cf">
-				<div class="am-fl">
-					<span class="am-fl">{{$value.name}}</span>
-					<span class="am-fr">{{$value.tel}}</span>
-					<br />
-					<span>{{$value.city}} {{$value.street}}</span>
-				</div>
-				<div class="am-fr arrow">
-					<a href="editAddress.html?id={{$value._id}}">
-						<img src="img/arrow.png" />
-					</a>
-				</div>
-			</div>
-			{{/each}}
-		</script>
-		<script type="text/javascript">
-			function goback() {
-				window.history.back();
-			}
-		</script>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				var account = sessionStorage.account;
-				if(!account) {
-					alert("暂无账户信息!");
-					return;
-				}
-				$.get("/users/getAddress/?account=" + account, function(result) {
-					if(result.status) {
-						var html = template("tpl-address", result);
-						$("#addressBox").html(html);
-					} else {
-						alert(result.msg);
-					}
-				});
-			});
-		</script>
+        ignoreHidden: false,
+        dragonfly: false,
+        tipSweep: true,
+        label: ".label",
+        showAllError: false,
+        postonce: true,
+        //          ajaxPost: true,
 
-	</body>
+        datatype: {
+            "*3-20": /^[^\s]{3,30}$/,
+            "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
+            "myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
+            "usercode": function(gets, obj, curform, regxp) {
+                var res = verifyCode.validate(document.getElementById("usercode").value);
+                if (res) {
+                    return true;
+                } else {
+                    return "验证码错误"
+                }
+            },
+        },
+        usePlugin: {
+            swfupload: {},
+            datepicker: {},
+            passwordstrength: {},
+            jqtransform: {
+                selector: "select,input"
+            }
+        },
+        beforeCheck: function(curform) {
+            //在表单提交执行验证之前执行的函数，curform参数是当前表单对象。
+            //这里明确return false的话将不会继续执行验证操作;    
+        },
+        beforeSubmit: function(curform) {
+            setTimeout(function() {
+                $(".dingw").css("display", "none");
+            }, 3000)
+            var data = $("#form1").serialize() +
+                "&addressid=" + address_id2 +
+                "&reg1_ph=" + sessionStorage.myid;
+            console.log(data)
+            $.post('/users/editAddress', data, function(data, textStatus, xhr) {
+                if (data.status) {
+                    // 跳转页面
+                    location.href = "/mobile/myaddress.html";
+                    console.log("ok!")
+                } else {
+                    alert(data.msg);
+                }
+
+            });
+            return false;
+        },
+        callback: function(data) {
+
+        }
+    });
+    var showmsg2 = function(msg) {
+        $("#tips2").text(msg);
+        $("#tips2").css("opacity", "1");
+        $("#tips2").css("display", "block");
+    }
+    $("#form2").Validform({
+        btnSubmit: "#bj1",
+        //          tiptype: 1,
+        tiptype: function(msg) {
+            showmsg2(msg);
+        },
+
+        ignoreHidden: false,
+        dragonfly: false,
+        tipSweep: true,
+        label: ".label",
+        showAllError: false,
+        postonce: true,
+        //          ajaxPost: true,
+
+        datatype: {
+            "*3-20": /^[^\s]{3,30}$/,
+            "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
+            "myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
+            "usercode": function(gets, obj, curform, regxp) {
+                var res = verifyCode.validate(document.getElementById("usercode").value);
+                if (res) {
+                    return true;
+                } else {
+                    return "验证码错误"
+                }
+            },
+        },
+        usePlugin: {
+            swfupload: {},
+            datepicker: {},
+            passwordstrength: {},
+            jqtransform: {
+                selector: "select,input"
+            }
+        },
+        beforeCheck: function(curform) {
+            //在表单提交执行验证之前执行的函数，curform参数是当前表单对象。
+            //这里明确return false的话将不会继续执行验证操作;    
+        },
+        beforeSubmit: function(curform) {
+            //在验证成功后，表单提交前执行的函数，curform参数是当前表单对象。
+            //这里明确return false的话表单将不会提交;    
+            //              location.href = "index.html";
+            setTimeout(function() {
+                $(".dingw2").css("display", "none");
+            }, 3000)
+            var data = $("#form2").serialize() +
+                "&reg1_ph=" + sessionStorage.myid;
+            $.post('/users/addAddress', data, function(data, textStatus, xhr) {
+                if (data.status) {
+                    // 跳转页面
+                    location.href = "/mobile/myaddress.html";
+                    console.log("ok!")
+                } else {
+                    alert(data.msg);
+                }
+
+            });
+            return false;
+        },
+        callback: function(data) {}
+    });
+    </script>
+</body>
 
 </html>

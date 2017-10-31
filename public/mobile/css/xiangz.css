@@ -1,0 +1,149 @@
+@charset "utf-8";
+.zl_te {
+	color: #000;
+	width: 100%;
+	text-align: right;
+}
+
+.text-yz {
+	background: #3B9BFF;
+	border-radius: 2px;
+	font-size: 9px;
+	color: #FFF;
+	padding: 2px;
+	margin-left: 8px;
+}
+
+.tilt2 {
+	display: none;
+}
+
+input {
+	border: 0;
+	outline: 0;
+}
+
+.tips-box {
+	position: fixed;
+	width: 250px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: white;
+	border-radius: 5px;
+	opacity: 0;
+	display: none;
+	/*display: block;*/
+}
+
+
+/*表单验证*/
+
+
+/*==========以下部分是Validform必须的===========*/
+
+.Validform_checktip {
+	margin-left: 8px;
+	line-height: 20px;
+	height: 20px;
+	overflow: hidden;
+	color: #999;
+	font-size: 12px;
+}
+
+.Validform_right {
+	color: #71b83d;
+	padding-left: 20px;
+	background: url(../images/right.png) no-repeat left center;
+}
+
+.Validform_wrong {
+	color: red;
+	padding-left: 20px;
+	white-space: nowrap;
+	background: url(../images/error.png) no-repeat left center;
+}
+
+.Validform_loading {
+	padding-left: 20px;
+	background: url(../images/onLoad.gif) no-repeat left center;
+}
+
+.Validform_error {
+	/*background-color: #ffe7e7;*/
+}
+
+#Validform_msg {
+	color: #7d8289;
+	font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+	width: 280px;
+	-webkit-box-shadow: 2px 2px 3px #aaa;
+	-moz-box-shadow: 2px 2px 3px #aaa;
+	background: #fff;
+	position: absolute;
+	top: 0px;
+	right: 50px;
+	z-index: 99999;
+	display: none;
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999');
+}
+
+#Validform_msg .iframe {
+	position: absolute;
+	left: 0px;
+	top: -1px;
+	z-index: -1;
+}
+
+#Validform_msg .Validform_title {
+	line-height: 25px;
+	height: 25px;
+	text-align: left;
+	font-weight: bold;
+	padding: 0 8px;
+	color: #fff;
+	position: relative;
+	background-color: #000;
+}
+
+#Validform_msg a.Validform_close:link,
+#Validform_msg a.Validform_close:visited {
+	line-height: 22px;
+	position: absolute;
+	right: 8px;
+	top: 0px;
+	color: #fff;
+	text-decoration: none;
+}
+
+#Validform_msg a.Validform_close:hover {
+	color: #cc0;
+}
+
+#Validform_msg .Validform_info {
+	padding: 8px;
+	border: 1px solid #000;
+	border-top: none;
+	text-align: left;
+}
+
+#bj2 {
+	display: block;
+	vertical-align: middle;
+	font-size: 1.6rem;
+	line-height: 1.6rem;
+	border-radius: 6px;
+	width: 90%;
+	padding: 1.35rem 0;
+	background-color: #44a0ff;
+	color: #fff;
+	border: 1px solid #0487e3;
+	box-sizing: border-box;
+	margin: 0 auto;
+	margin-top: 30px;
+}

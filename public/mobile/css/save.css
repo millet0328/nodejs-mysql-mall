@@ -1,0 +1,157 @@
+@charset "utf-8";
+.item_1 {
+	padding-bottom: 1.5rem;
+}
+
+.save_item {
+	padding-top: 1.5rem;
+	background-color: #FFFFFF;
+	padding-bottom: 1.5rem;
+}
+
+.border6 {
+	border-bottom: 2px solid #3b9bff;
+}
+
+.shop2 {
+	background-color: #FFFFFF;
+}
+
+.dera_color {
+	position: relative;
+	padding-bottom: 2rem;
+}
+
+.xin {
+	background: url(http://cres1.fenqile.cn/fenqile_m/img/pop/icons--09ea46a29c.png) no-repeat;
+	background-size: 68px auto;
+	display: inline-block;
+	vertical-align: middle;
+	background-position: -44px -62px;
+	position: absolute;
+	right: 7px;
+	width: 30px;
+	top: 45px;
+	height: 30px;
+}
+
+.shop_text1 {
+	margin: 1rem 0;
+	/*border: 1px solid #e8eaea;*/
+}
+
+.shop_text1 img {
+	width: 88px;
+	vertical-align: middle;
+	position: relative;
+	display: inline-block;
+}
+
+.bor {
+	width: 104px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border: 1px solid #e8eaea;
+	display: inline-block;
+	text-align: center;
+}
+
+.qxsave {
+	position: fixed;
+	padding: 1.5rem 4rem;
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, .4);
+	border-radius: 4px;
+	font-size: 16px;
+	top: 50%;
+	left: 50%;
+	margin-top: -2rem;
+	margin-left: -8rem;
+	display: none;
+}
+
+.non_sh img {
+	width: 160px;
+	height: 160px;
+}
+
+.non_sh {
+	margin: 83px 0 63px 0;
+}
+
+.non_te {
+	color: #394050;
+	word-break: break-all;
+	line-height: 15px;
+	text-align: center;
+}
+.non_te2{
+	text-align: center;
+    margin-top: 20px;
+}
+.non_te2 span {
+	font-size: 12px;
+	color: #3b9bff;
+	min-width: 112px;
+	height: 32px;
+	line-height: 32px;
+	background: #fff;
+	position: relative;
+	display: inline-block;
+}
+.non1,.non2{
+	display: none;
+}
+
+/*.shop_text1 img:after{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 3px solid #e8eaea;
+	
+}*/
+
+.dera_price {
+	font-size: 1.4rem;
+	color: #579de7;
+	letter-spacing: -.22px;
+	position: absolute;
+	bottom: -13px;
+}
+
+.shop3 img {
+	width: 50.4px;
+	margin: 1.5rem 1.5rem;
+	float: left;
+}
+
+.shop3 span {
+	float: left;
+	padding-top: 1.9rem;
+}
+
+.shop_n {
+	font-size: 1.4rem;
+	color: #394050;
+}
+
+.shop_xin {
+	font-size: 1.2rem;
+	color: rgba(48, 64, 80, .6);
+}
+
+.shop3 {
+	position: relative;
+	background-color: #FFFFFF;
+	display: none;
+}
+
+.shop3 .xin {
+	top: 25px;
+}
+
+.shop_text11 {
+	text-align: center;
+}

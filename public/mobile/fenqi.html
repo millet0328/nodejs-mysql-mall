@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>信用卡认证</title>
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<link rel="icon" type="image/png" href="assets/i/pic_logo.png">
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/fenqi.css" />
+	</head>
+
+	<body>
+		<div class="width">
+			<img src="https://cc.sale.fenqile.com/res/2017062601/img/intro01.png" />
+		</div>
+		<div class="width">
+			<img src="https://cc.sale.fenqile.com/res/2017062601/img/intro02.png" />
+		</div>
+		<section class="main-box">
+			<div class="cont-line">小乐代你还信用卡，首笔2000元免息</div>
+			<!-- 按钮 -->
+			<div class="container-btn">
+				<a id="getBtn" href="" class="btn btn2">领券还信用卡</a>
+				<a id="bindCard" href="" class="btn btn2">去提额</a>
+			</div>
+			<div class="cont-line">已有2040067人提额</div>
+		</section>
+		<!--活动规则-->
+		<section class="repay-rule">
+			<h3>
+            <img src="https://cc.sale.fenqile.com/res/2017062601/img/rule-tit.png" alt="分期乐优惠还信用卡" width="100%">
+        </h3>
+			<ul>
+				<li>活动仅面向特定用户参与；</li>
+				<li>由于平台审核规则限制，存在少量用户提额失败；</li>
+				<li>已经信用卡认证和公积金认证的用户不能参与本活动；</li>
+				<li>只有完成至少一次乐卡还信用卡才可开启提额入口；</li>
+				<li>点击去提额的用户需走完提额流程才可以提额成功；</li>
+				<li>新人还款请先领取2000元免息券，用券还信用卡更划算；</li>
+				<li>优惠券每人只可领取一张，每张券只可使用一次，不能叠加使用；</li>
+				<li>优惠券仅限乐卡还信用卡的新用户才可使用，仅限单次还款金额不大于2000元；</li>
+				<li>优惠券截止日期为2017年10月31日。</li>
+			</ul>
+		</section>
+		<!--定位-->
+		<div class="ff">
+			<div class="mask">
+
+			</div>
+			<div class="pop-main">
+				<h2>请输入您的手机号</h2>
+				<section class="credit-pop-cont">
+					<div class="phone-cont">
+						<input id="mobile" type="tel" maxlength="11" placeholder="手机号">
+					</div>
+					<div class="code-cont d-flex">
+						<input id="code" class="flex1" type="number" max="6" placeholder="验证码">
+						<span id="getCode">获取验证码</span>
+					</div>
+				</section>
+				<section class="credit-pop-btn d-flex">
+					<div id="" class="" href="">确定</div>
+				</section>
+				<span class="pop-close"></span>
+			</div>
+		</div>
+		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<script type="text/javascript">
+			//			$(document).ready(function() {
+			//				$(".btn2").click(function () {
+			//					$(".pop-main").css("z-index","9999").css("opacity","1");
+			//					$(".mask").css("z-index","1000").css("opacity","1");
+			//					
+			//				})
+			$(".pop-close").click(function() {
+				$(".ff").css("display", "none");
+			})
+			//			})
+		</script>
+	</body>
+
+</html>

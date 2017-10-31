@@ -1,0 +1,428 @@
+@charset "utf-8";
+body {
+	width: 100%;
+	background-color: #f5f7f6;
+	color: #394050;
+}
+
+
+/*公共类*/
+
+.am-u-sm-1,
+.am-u-sm-2,
+.am-u-sm-3,
+.am-u-sm-4,
+.am-u-sm-5,
+.am-u-sm-6,
+.am-u-sm-7,
+.am-u-sm-8,
+.am-u-sm-9,
+.am-u-sm-10,
+.am-u-sm-11,
+.am-u-sm-12 {
+	padding: 0;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul>li>ul {
+	margin: 0;
+}
+
+.relative {
+	position: relative;
+}
+
+.txt-center {
+	text-align: center;
+}
+
+.ver-mid {
+	vertical-align: middle;
+}
+
+.separator-bg {
+	width: 100%;
+	height: 10px;
+	background-color: #f5f7f6;
+}
+
+.am-thumbnail {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.txt14 {
+	font-size: 14px;
+}
+
+.txt12 {
+	font-size: 12px;
+}
+
+.gray1 {
+	color: #394050;
+}
+
+.gray {
+	color: #a7afc2;
+}
+
+.gray2 {
+	color: rgba(57, 64, 80, .6);
+}
+
+.blue {
+	color: #3b9bff;
+}
+
+p {
+	border: 0;
+	margin: 0;
+}
+
+h3 {
+	padding: 0;
+	margin: 0;
+}
+
+.pad-20 {
+	padding: 0 15px;
+}
+
+.bg-wrap {
+	background-color: white;
+}
+
+.padding-20 {
+	padding: 0 20px;
+}
+
+
+/*头部*/
+
+.head-fixed {
+	width: 100%;
+	background-color: white;
+	height: 44px;
+	line-height: 44px;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	border-bottom: 1px solid #EEEEEE;
+}
+
+.go-back {
+	position: absolute;
+	top: 0px;
+	left: 20px;
+}
+
+
+/*主体*/
+
+.main {
+	padding-top: 44px;
+	padding-bottom: 65px;
+}
+
+.banner-mask {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 1;
+	height: 100%;
+	background: url(http://cres2.fenqile.cn/item_m/img/pop/banner_mask--eb933544c5.png) no-repeat center;
+	background-size: cover;
+}
+
+.shop-icon {
+	width: 34px;
+	height: 34px;
+}
+
+.pop-shop {
+	padding: 0 15px;
+	position: absolute;
+	bottom: 25px;
+	left: 0px;
+	width: 100%;
+	box-sizing: border-box;
+	color: white;
+}
+
+.fav-btn {
+	line-height: 2.5rem;
+	height: 2.5rem;
+	width: 7rem;
+	text-align: center;
+	background-color: #ffce35;
+	color: #fff;
+	border-radius: 2px;
+	font-size: 14px;
+}
+
+.i-pop-icon {
+	background: url(http://cres1.fenqile.cn/item_m/img/pop/icons--09ea46a29c.png) no-repeat;
+	background-size: 68px auto;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: .5rem;
+	height: 20px;
+	width: 20px;
+	background-position: 5px -66px;
+}
+
+.collect {
+	padding: 0 8px;
+}
+
+.collect:before {
+	content: "";
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	border-left: 1px solid white;
+	height: 40px;
+}
+
+.self-tag {
+	position: absolute;
+	bottom: 1.3rem;
+	left: 5.3rem;
+	box-sizing: border-box;
+	padding: 0 .5rem;
+	font-size: 1.2rem;
+	line-height: 1.8rem;
+	text-align: center;
+	color: #FFF;
+	border-radius: .3rem;
+	background-color: #ed5f86;
+}
+
+
+/**/
+
+.kind-title {
+	height: 44px;
+	margin-bottom: 10px;
+}
+
+.title-tab li {
+	text-align: center;
+	height: 44px;
+	line-height: 44px;
+	border-bottom: 2px solid white;
+}
+
+.title-tab li.active {
+	border-bottom: 2px solid #46a0ff;
+	color: #46a0ff;
+}
+
+.title-tab li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.shop-product li a {
+	display: block;
+	margin-bottom: 10px;
+}
+
+
+/**/
+
+#banner-slider .am-nav-next,
+#banner-slider .am-nav-prev {
+	display: none;
+}
+
+#banner-slider.am-slider-default .am-control-nav {
+	bottom: 15px;
+}
+
+#banner-slider.am-slider-default .am-control-nav li a.am-active {
+	background-color: white;
+}
+
+#banner-slider.am-slider-default .am-control-nav li a {
+	width: 6px;
+	height: 6px;
+}
+
+
+/*为你推荐*/
+
+.shop-goods .item-img {
+	/*height: 9rem;
+	width: 9rem;*/
+	padding: 1rem;
+	background: white;
+	box-sizing: border-box;
+}
+
+.shop-goods .item-detail .item-title {
+	font-size: 13px;
+	color: #394050;
+	line-height: 1.8rem;
+	height: 3.6rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+
+.shop-goods .item-bottom .item-price {
+	font-size: 12px;
+	color: #b7babf;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-spacing: normal;
+}
+
+.shop-goods .item-bottom .item-month {
+	font-size: 12px;
+	color: #579de7;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-spacing: normal;
+}
+
+.shop-goods .am-thumbnail {
+	border: 0px;
+}
+
+.shop-goods {
+	margin-bottom: 15px;
+}
+
+.shop-goods-list li:before {
+	content: "";
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	border-bottom: 1px solid #EEEEEE;
+	width: 100%;
+}
+
+
+/*底部导航*/
+
+.bottom {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	text-align: center;
+}
+
+.bottom-item {
+	height: 55px;
+	line-height: 55px;
+}
+
+.bottom-item a {
+	color: #000000;
+}
+
+
+/*.bottom-item a{
+	display: block;
+	width: 100%;
+	height: 55px;
+}*/
+
+
+/*.bottom-item:after{
+	content: "";
+	right: 0;
+	top: 0;
+	height: 55px;
+	border-right:1px solid #000000 ;
+}*/
+
+.fenl {
+	margin-top: .8rem;
+}
+
+.fenl2 {
+	background-color: #FFFFFF;
+}
+
+.fenl li {
+	width: 25%;
+	float: left;
+}
+
+.fenl li img {
+	width: 100%;
+}
+
+.fenl img {
+	width: 100%;
+}
+
+.fen-2 {
+	width: 50%;
+	float: left;
+}
+
+.fen-mar {
+	padding: 1rem 1.3rem 1rem 1.5rem;
+}
+
+.fen-mar2 {
+	height: 12rem;
+	overflow: hidden;
+}
+
+.fenl2 span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	font-size: 13px;
+	margin-bottom: .5rem;
+	margin-top: .5rem;
+	line-height: 1.8rem;
+	height: 3.6rem;
+	color: #394050;
+	font-family: microsoft yahei, "Helvetica Neue", "pingfang sc";
+}
+
+.fenl2 {
+	font-size: 12px;
+	color: #b7babf;
+}
+
+.month-price-color span {
+	color: #579de7;
+}
+
+.fenl2 img {
+	display: block;
+	height: auto;
+	max-width: 100%;
+	margin: 0 auto;
+	max-height: 100%;
+}

@@ -1,0 +1,290 @@
+@charset "utf-8";
+.fix {
+	background: url(http://cres.fenqile.cn/mobile/img/app/my_set/top_hd.png) no-repeat;
+	background-size: 100% 4.9rem;
+	height: 40px;
+	text-align: right;
+}
+
+.g-right {
+	position: absolute;
+	font-size: 16px;
+	color: #3b9bff;
+	top: 0;
+	min-width: 43px;
+	height: 44px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	display: box;
+	display: -webkit-box;
+	display: -moz-box;
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	right: 10px;
+}
+
+.set-up {
+	color: #fff;
+	font-size: 16px;
+}
+
+.ml15 {
+	margin-left: 15px;
+}
+
+.i-mail {
+	display: inline-block;
+	margin-right: 15px;
+	top: 2px;
+}
+
+
+.del-recent-search,
+.i-g-ok,
+.i-header-search,
+.i-mail,
+.i-more,
+.i-sao,
+.ico-rt-more,
+.replace-search {
+	background: url(http://cres.fenqile.com/res/mobile/res/img/app/global.png?v=20160623) no-repeat;
+	background-size: 100px 100px;
+}
+
+.have-d .red-d {
+	-moz-opacity: 1;
+	opacity: 1;
+}
+
+.i-mail .red-d {
+	right: 23px;
+	top: 11px;
+}
+.i-mail {
+	background-position: 0 0;
+	width: 22px;
+	height: 16px;
+}
+
+.red-d {
+	width: 6px;
+	height: 6px;
+	background-color: red;
+	border-radius: 50%;
+	position: absolute;
+	-moz-opacity: 0;
+	opacity: 0;
+}
+
+.self {
+	/*margin-top: 40px;*/
+	padding: 2rem 1.5rem 4rem;
+	background: url(http://cres.fenqile.cn/mobile/img/app/my_set/top_hd.png) no-repeat;
+	background-size: 100% 100%;
+	/*height: 40px;*/
+	font-size: 1.4rem;
+}
+
+.head_pic {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.h_pic1 {
+	width: 41px;
+}
+
+.h_pic2 {
+	width: 17px;
+	position: absolute;
+	top: 12px;
+	left: 26px;
+}
+
+.my_name {
+	color: #FFFFFF;
+	font-size: 1.4rem;
+	padding-left: 1rem;
+}
+
+.money1 {
+	display: inline-block;
+	width: 13px;
+	height: 15px;
+	margin-right: 5px;
+	background: url(http://cres.fenqile.cn/www/mobile/res/img/app/global.png?v=20151126) 0 -85px no-repeat;
+	background-size: 100px 100px;
+	vertical-align: text-bottom;
+}
+
+.top4 {
+	/*padding-top: 6px;*/
+}
+
+.am-icon-angle-right {
+	font-size: large;
+	color: #FFFFFF;
+	vertical-align: middle;
+}
+
+.seif_te {
+	color: #FFFFFF;
+	padding: 8px 10px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.yh {
+	background: rgb(60, 173, 239);
+	position: relative;
+	font-size: 1.2rem;
+	color: #FFFFFF;
+}
+
+.yh:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #2c81d9;
+	width: 100%;
+}
+
+.border2 {
+	margin: .4rem 0;
+}
+
+.border2:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: inline-block;
+	width: 1px;
+	height: 100%;
+	background: url(http://cres.fenqile.cn/mobile/img/app/my_set/line.png) no-repeat;
+	background-size: 100% 100%;
+}
+
+.yh_1 {
+	font-size: 1.6rem;
+}
+
+.top5 {
+	margin-top: 1.5rem;
+	background: #FFFFFF;
+}
+
+.zd_pic {
+	width: 20.5px;
+}
+
+.zd_te {
+	font-size: 1.6rem;
+	color: #191919;
+	font-weight: 400;
+}
+
+.zd {
+	padding: 1rem 0;
+}
+
+.zd_te2,
+.right2 {
+	color: #929292;
+	vertical-align: middle;
+}
+
+.zd2 {
+	border-top: 1px solid rgba(223, 223, 223, 0.24);
+	background: #FFFFFF;
+}
+
+.zd_1 {
+	font-size: 1.7rem;
+	color: #3b9bff;
+}
+
+.top6 {
+	padding: 1.5rem 0;
+}
+
+.zd_2 {
+	color: #929292;
+	font-size: 1.2rem;
+}
+
+.dd_1 {
+	display: block;
+	margin: 0 auto 4px;
+	width: 20px;
+	height: 18px;
+	background: url(http://cres.fenqile.cn/mobile/img/app/account/index/order_state.png) no-repeat;
+	background-size: 20px auto;
+	background-position: 0 -54px;
+}
+
+.dd_2 {
+	display: block;
+	margin: 0 auto 4px;
+	width: 20px;
+	height: 18px;
+	background: url(http://cres.fenqile.cn/mobile/img/app/account/index/order_state.png) no-repeat;
+	background-size: 20px auto;
+	background-position: 0 0;
+}
+
+.dd_3 {
+	display: block;
+	margin: 0 auto 4px;
+	width: 20px;
+	height: 18px;
+	background: url(http://cres.fenqile.cn/mobile/img/app/account/index/order_state.png) no-repeat;
+	background-size: 20px auto;
+	background-position: 0 -18px;
+}
+
+.dd_4 {
+	display: block;
+	margin: 0 auto 4px;
+	width: 20px;
+	height: 18px;
+	background: url(http://cres.fenqile.cn/mobile/img/app/account/index/order_state.png) no-repeat;
+	background-size: 20px auto;
+	background-position: 0 -36px;
+}
+
+.am-slider .am-slides img {
+	width: 100px;
+}
+
+.am-slider .am-slides>li {
+	width: 33.3333%;
+}
+
+.wode_t {
+	margin-right: -1.5rem;
+}
+.g-right{
+	padding-left: 0;
+	padding-right: 0;
+}
+.zd_1{
+	position: relative;
+}
+.tag-num{
+	position: absolute;
+    width: 1.4rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    background-color: #ff4b78;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    left: 50%;
+    top: 0;
+    margin-left: 1.2rem;
+    font-size: 1.1rem;
+}
