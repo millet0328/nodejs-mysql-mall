@@ -10,8 +10,8 @@ var uuidv1 = require('uuid/v1');
 
 // 数据结构
 var models = require("../models/models");
-
 var Category = models.Category;
+var Goods = models.Goods;
 router.post("/setCategory/", function(req, res) {
 	var arr = req.body.categories;
 	if(!arr.length) {
@@ -265,6 +265,42 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
 		msg: "图片上传处理成功！",
 		data: [fileFolder + filename + extName]
 	});
+});
+
+//发布商品
+router.post("/goods/release", function(req, res) {
+	var goods = new Goods(req.body);
+	goods.save(function(err, doc) {
+		if(err) {
+			console.log(err);
+			return;
+		}
+		res.json({
+			status: true,
+			msg: "发布成功！"
+		});
+	});
+});
+
+//获取商品列表
+router.get("/goods/", function(req, res) {
+	Goods.find({}, function(err, docs) {
+		if(err) {
+			console.log(err);
+			return;
+		}
+		if(docs.length == 0) {
+			res.json({
+				status: false,
+				msg: "暂无商品！"
+			});
+		}
+		res.json({
+			status: true,
+			msg: "获取成功！",
+			data: docs
+		});
+	})
 });
 
 module.exports = router;
