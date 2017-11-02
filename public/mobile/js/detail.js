@@ -16,7 +16,6 @@ $(document).ready(function() {
 	$(".gotop").click(function() {})
 	$(document).scroll(function() {
 		$h = $(document).scrollTop();
-		console.log($h)
 		if($h >= 1816) {
 			$('.scroll_panel ul').css("position", "fixed").css("top", "0").css("left", "0").css("z-index", "1012");
 			$(".am-tabs-bd").css("margin-top", "82px");

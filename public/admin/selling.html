@@ -102,6 +102,7 @@
 							</template>
 						</tbody>
 					</table>
+					<button type="button" @click="getMore" class="btn btn-gray btn-block">加载更多</button>
 				</div>
 			</div>
 		</div>
@@ -115,15 +116,25 @@
 			var app = new Vue({
 				el: '#list',
 				data: {
+					index: 1,
 					list: []
 				},
 				mounted: function() {
-//					axios.get("/api/goods/").then(function(response) {
-//						app.list = response.data.data
-//					});
-					$.get("/api/goods", function(result) {
-						app.list = result.data;
-					});
+					this.getList(this.index, 3);
+				},
+				methods: {
+					getList: function(index, size) {
+						//					axios.get("/api/goods/").then(function(response) {
+						//						app.list = response.data.data
+						//					});
+						$.get("/goods?pageIndex=" + index + "&pageSize=" + size, function(result) {
+							app.list = app.list.concat(result.data);
+						});
+					},
+					getMore: function() {
+						this.index++;
+						this.getList(this.index, 3);
+					}
 				}
 			});
 		</script>

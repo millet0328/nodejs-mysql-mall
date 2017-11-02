@@ -282,25 +282,5 @@ router.post("/goods/release", function(req, res) {
 	});
 });
 
-//获取商品列表
-router.get("/goods/", function(req, res) {
-	Goods.find({}, function(err, docs) {
-		if(err) {
-			console.log(err);
-			return;
-		}
-		if(docs.length == 0) {
-			res.json({
-				status: false,
-				msg: "暂无商品！"
-			});
-		}
-		res.json({
-			status: true,
-			msg: "获取成功！",
-			data: docs
-		});
-	})
-});
 
 module.exports = router;
