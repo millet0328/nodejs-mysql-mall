@@ -61,15 +61,20 @@ var setting = {
         autoParam: ["id", "pId", "name"],
         url: "/api/getCategory",
         dataFilter: function(treeId, parentNode, responseData) {
+            if (!responseData.status) {
+                alert(responseData.msg);
+                return;
+            }
+            zNodes = responseData.data;
             return responseData.data;
         }
     }
 };
 
 function onDrop(event, treeId, treeNodes, targetNode, moveType, isCopy) {
-    console.log(treeId);
-    console.log(treeNodes);
-    console.log(targetNode);
+    // console.log(treeId);
+    // console.log(treeNodes);
+    // console.log(targetNode);
 }
 
 function beforeRemove(treeId, treeNode) {
@@ -104,7 +109,6 @@ function addHoverDom(treeId, treeNode) {
             pId: treeNode.id,
             name: "new node" + (newCount++)
         });
-        console.log(100 + newCount)
         return false;
     });
 };
@@ -120,27 +124,18 @@ $(document).ready(function() {
     //保存数据，发给后台
     $("#saveBtn").click(function() {
         //将树形结构转换成数组
-        var nodes = ztree.getNodes();
-        var arr = ztree.transformToArray(nodes);
-        var data = $.extend(true, [], arr);
-        $.map(data, function(item) {
-            delete item.children;
-            delete item._id;
-            delete item.getIndex;
-            delete item.getNextNode;
-            delete item.getParentNode;
-            delete item.getPath;
-            delete item.getPreNode;
-            delete item.isAjaxing;
-            delete item.isFirstNode;
-            delete item.isHover;
-            delete item.isLastNode;
-            delete item.isParent;
-            delete item.zAsync;
-            delete item.editNameFlag;
-            delete item.open;
+        var nodes = ztree.transformToArray(ztree.getNodes());
+        var data = [];
+        // 数据预处理
+        $.each(nodes, function(i, item) {
+            var obj = {
+                id: item.id,
+                pId: item.pId,
+                name: item.name,
+                level: item.level,
+            };
+            data.push(obj);
         });
-        console.log(data);
         //POST数据
         $.ajax({
             type: "post",
@@ -177,13 +172,6 @@ $(document).ready(function() {
     });
     //重置按钮
     $("#resetBtn").click(function() {
-        var zNodes = [{
-            id: new Date().getTime(),
-            pId: 0,
-            name: "父节点1 - 展开",
-            open: true
-        }];
-
         ztree = $.fn.zTree.init($category, setting, zNodes);
     });
 });

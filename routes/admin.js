@@ -12,6 +12,7 @@ var uuidv1 = require('uuid/v1');
 var models = require("../models/models");
 var Category = models.Category;
 var Goods = models.Goods;
+
 router.post("/setCategory/", function(req, res) {
 	var arr = req.body.categories;
 	if(!arr.length) {
@@ -80,6 +81,9 @@ router.get("/getCategory/first/", function(req, res) {
 });
 
 //根据传参，获取对应的二级/三级分类
+/*
+	pId：父级分类ID
+*/
 router.get("/getCategory/sub", function(req, res) {
 	Category.find(req.query, function(err, docs) {
 		if(err) {
