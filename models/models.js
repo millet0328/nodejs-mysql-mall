@@ -57,28 +57,51 @@ models.Category = mongoose.model('Category', categorySchema);
 
 // 商品结构
 var goodsSchema = mongoose.Schema({
-    cateFirst: String,
-    cateSecond: String,
-    cateThird: String,
-    name: String,
-    hotPoint: String,
-    price: Number,
-    marketPrice: Number,
-    cost: Number,
-    discount: String,
-    inventory: Number,
-    articleNo: Number,
-    lgImg: String,
-    mdImg: String,
-    slideImgs: [String],
-    brand: String,
-    detail: String,
-    Province: String,
-    City: String,
-    Area: String,
-    freight: Number
+        cateFirst: {
+            type: String,
+            ref: "Category"
+        },
+        cateSecond: {
+            type: String,
+            ref: "Category"
+        },
+        cateThird: {
+            type: String,
+            ref: "Category"
+        },
+        name: String,
+        hotPoint: String,
+        price: Number,
+        marketPrice: Number,
+        cost: Number,
+        discount: String,
+        inventory: Number,
+        articleNo: Number,
+        lgImg: String,
+        mdImg: String,
+        slideImgs: [String],
+        brand: String,
+        detail: String,
+        Province: String,
+        City: String,
+        Area: String,
+        freight: Number
+    }, // schema options: Don't forget this option
+    // if you declare foreign keys for this schema afterwards.
+    {
+        // toObject: { virtuals: true },
+        // use if your results might be retrieved as JSON
+        // see http://stackoverflow.com/q/13133911/488666
+        toJSON: { virtuals: true }
+    });
+goodsSchema.virtual('category_1st', {
+    ref: 'Category', // The model to use
+    localField: 'cateFirst', // Find people where `localField`
+    foreignField: 'id', // is equal to `foreignField`
+    // If `justOne` is true, 'members' will be a single doc as opposed to
+    // an array. `justOne` is false by default.
+    justOne: true
 });
-
 // 大写代表model
 models.Goods = mongoose.model('Goods', goodsSchema);
 
