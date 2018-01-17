@@ -1,997 +1,1019 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="description" content="">
-		<meta name="keywords" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>商品详情</title>
-		<!-- Set render engine for 360 browser -->
-		<meta name="renderer" content="webkit">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>商品详情</title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/pic_logo.png">
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/search.css" />
+    <link rel="stylesheet" type="text/css" href="css/detail.css" />
+</head>
 
-		<!-- No Baidu Siteapp-->
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-		<link rel="icon" type="image/png" href="assets/i/pic_logo.png">
-
-		<!-- Add to homescreen for Chrome on Android -->
-		<meta name="mobile-web-app-capable" content="yes">
-		<link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
-
-		<!-- Add to homescreen for Safari on iOS -->
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
-		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-
-		<!-- Tile icon for Win8 (144x144 + tile color) -->
-		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
-		<meta name="msapplication-TileColor" content="#0e90d2">
-
-		<link rel="stylesheet" href="assets/css/amazeui.min.css">
-		<link rel="stylesheet" href="assets/css/app.css">
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="css/search.css" />
-		<link rel="stylesheet" type="text/css" href="css/detail.css" />
-	</head>
-
-	<body>
-		<div id="app">
-			<!--header-->
-			<div class="header am-g" data-am-sticky>
-				<div class="am-u-sm-2 header_pic">
-					<a href="" onClick="javascript :history.back();"><span class="am-icon-angle-left">
-					
-				</span></a>
-				</div>
-				<div class="header1 am-u-sm-8">
-					商品详情
-				</div>
-				<div class="header2 am-u-sm-2">
-					<a href="shopingcar.html"><img src="https://cres1.fenqile.cn/fenqile_m/img/channel/cart_icon--90af4ddfa6.png" alt="" /></a>
-				</div>
-			</div>
-			<!--图片展示-->
-			<div id="top" class="am-slider am-slider-default">
-				<ul class="am-slides">
-					<li v-for="item in goods.slideImgs">
-						<img :src="item">
-					</li>
-				</ul>
-				<div class="detai_pic">
-					<img src="https://cres1.fenqile.cn/item_m/img/weex/keep_gray--4ae1935bfd.png" />
-				</div>
-			</div>
-			<!--详情描述-->
-			<div class="price">
-				<span class="now_p">￥4699</span>
-				<del>￥4799</del>
-			</div>
-			<div class="detial">
-				<div class="detial_txt">
-					<span class="self_sail">自营</span>
-					<span class="detial_txt1">【送300元】Apple iPhone 7 国行正品 4G智能手机</span>
-				</div>
-				<div class="detial_text">
-					9月27日-9月28日下单购买，且使用乐卡（乐黑卡）支付送300元还款券（还款时直接抵扣300元现金），还款券将于10月10日发放，每位用户限一次！退货、关单不返券！
-					<span class="link">分期购物节，3999元秒iPhone 7></span>
-				</div>
-			</div>
-			<!--促销-->
-			<div class="cut_price am-g cuxiao">
-				<div class="am-u-sm-2 am-text-center cut_title">
-					促销
-				</div>
-				<div class="am-u-sm-8 cut_txt">
-					<span class="mian">免息</span>限有3C免息资格用户专享，乐卡支付12期内免息1次
-
-				</div>
-				<div class="am-u-sm-2 cut_txt1">
-					<a href="##"><span class="am-icon-angle-right"></span></a>
-				</div>
-			</div>
-			<!---->
-			<div class="cover-detail">
-				<div class="discount-message am-padding-sm relative">
-					<p class="title am-margin-0">促销</p>
-					<div class="separator-line"></div>
-					<div class="am-margin-top-xs am-margin-bottom-xs">
-						<span class="mian">免息</span>
-						<span>限有3C免息资格用户专享，乐卡支付12期内免息1次</span>
-					</div>
-					<div class="separator-line"></div>
-					<div class="ok-btn">
-						确定
-					</div>
-				</div>
-				<div class="good-kind relative">
-					<div class="main-top am-padding-lg am-cf">
-						<div class="pic-box am-fl">
-							<img class="am-thumbnail" src="https://cimgs1.fenqile.com/product2/M00/20/6A/oWgGAFfQfkOASuMEAABJBXBCaCs145_336x336.jpg">
-						</div>
-						<div class="price-box am-fl am-margin-left-lg am-margin-top-sm">
-							<span>¥</span><span class="pprice">4699</span>
-							<p>现货</p>
-						</div>
-					</div>
-					<div class="separator-line"></div>
-					<div class="color-box">
-						<span class="color-title">颜色</span>
-						<ul class="color-list am-cf">
-							<li class="color-item am-fl colo-cha">黑色</li>
-							<li class="color-item am-fl colo-cha">金色</li>
-							<li class="color-item am-fl colo-cha">银色</li>
-							<li class="color-item am-fl colo-cha colo-ch">玫瑰金</li>
-							<li class="color-item am-fl colo-cha">亮黑色</li>
-							<li class="color-item am-fl colo-cha">红色特别版</li>
-						</ul>
-						<span class="color-title">内存</span>
-						<ul class="color-list am-cf">
-							<li class="color-item am-fl colo-cha2 colo-ch">32G</li>
-							<li class="color-item am-fl colo-cha2">128G</li>
-							<li class="color-item am-fl colo-cha2">256G</li>
-						</ul>
-						<span class="color-title">运营商</span>
-						<ul class="color-list am-cf">
-							<li class="color-item am-fl colo-ch">全网通</li>
-						</ul>
-					</div>
-					<div class="bottom2 am-cf">
-						<div class="am-fl bottom-cn am-margin-left-lg"><span>月供：</span><span style="color: #3b9bff;">158.73</span><span>起</span></div>
-						<div class="am-fr ok-btn2">确定</div>
-					</div>
-				</div>
-				<!---->
-				<div class="det-des am-padding-sm relative det">
-					<p class="title am-margin-0 am-text-center tilt_ser">服务</p>
-					<div class="separator-line line_separ"></div>
-					<div class="am-margin-top-xs am-margin-bottom-xs am-container">
-						<ul>
-							<li>
-								<i class="i-checked"></i>
-								<span>正品保证</span>
-								<p>卖家承诺此商品非“假冒品牌（包括盗版）”商品，非“未经报关”的进口商品，非“假冒材质成份”商品。</p>
-							</li>
-							<li>
-								<i class="i-checked"></i>
-								<span>七天退货</span>
-								<p>买家购买此商品，签收后7天内（含7天），如因买家主观原因不愿完成交易，可提出“7天无理由退换货”申请。申请退换货的商品不得影响卖家的二次销售。具体规则及不适用商品以《分期乐售后服务管理规则》为准。</p>
-							</li>
-							<li>
-								<i class="i-checked"></i>
-								<span>闪电发货</span>
-								<p>卖家承诺此商品优先发货，具体时效参见页面展示的预计发货时间（预售商品以实际规则为准）。</p>
-							</li>
-							<li>
-								<i class="i-checked"></i>
-								<span>提前还款免服务费</span>
-								<p>此商品支持“乐卡独家”提前还款免服务费。</p>
-							</li>
-							<li>
-								<i class="i-checked"></i>
-								<span>支持信用卡分期</span>
-								<p>此商品支持信用卡分期支付，无需开通乐卡，灵活分期，享更低费率，最长56天免息</p>
-							</li>
-						</ul>
-					</div>
-					<div class="separator-line line_separ"></div>
-					<div class="ok-btn3" style="display: block;">
-						确定
-					</div>
-				</div>
-			</div>
-			<!--已选-->
-			<div class="cut_price am-g guige">
-				<div class="am-u-sm-2 am-text-center cut_title">
-					已选
-				</div>
-				<div class="am-u-sm-8 cut_txt have_text" id="guige">
-					玫瑰金 32G 全网通
-
-				</div>
-				<div class="am-u-sm-2 cut_txt1">
-					<a href="##"><span class="am-icon-angle-right"></span></a>
-				</div>
-			</div>
-			<!--货源-->
-			<div class="cut_price am-g line_down">
-				<div class="am-u-sm-2 am-text-center cut_title">
-					货源
-				</div>
-				<div class="am-u-sm-8 cut_txt have_text">
-					<img src="http://cimg1.fenqile.com/detail/M00/00/00/IaEHAFjrJmeAPmYbAAAQU4iyedQ297.png" />
-
-				</div>
-				<div class="am-u-sm-2 cut_txt1">
-
-				</div>
-			</div>
-			<!--库存-->
-			<div class="cut_price am-g line_down">
-				<div class="am-u-sm-2 am-text-center cut_title">
-					库存
-				</div>
-				<div class="am-u-sm-8 cut_txt have_text">
-					仅剩16件
-
-				</div>
-				<div class="am-u-sm-2 cut_txt1">
-
-				</div>
-			</div>
-			<!--送至-->
-			<div class="cut_price am-g line_down songz">
-				<div class="am-u-sm-2 am-text-center cut_title">
-					送至
-				</div>
-				<div class="am-u-sm-8 cut_txt have_text have_text2">
-					广东省广州市番禹区
-					<div class="ps_text">
-						现货，下单成功后预计3天之内发货
-					</div>
-
-				</div>
-				<div class="am-u-sm-2 cut_txt1">
-					<a href="##"><span class="am-icon-angle-right"></span></a>
-
-				</div>
-			</div>
-			<!--保证-->
-			<div class="cut_price am-g line_down baozheng">
-				<div class="am-u-sm-10 cut_title ">
-					<img src="https://cres1.fenqile.cn/item_m/img/product/check_gray--e01f0bb71f.png" /> 正品保证
-					<img src="https://cres1.fenqile.cn/item_m/img/product/check_gray--e01f0bb71f.png" /> 七天退货
-					<img src="https://cres1.fenqile.cn/item_m/img/product/check_gray--e01f0bb71f.png" /> 闪电发货
-				</div>
-				<div class="am-u-sm-2 cut_txt1">
-					<a href="##"><span class="am-icon-angle-right"></span></a>
-
-				</div>
-			</div>
-			<!--评价-->
-			<div class="cut_price am-g ping">
-				<div class="am-u-sm-6 pingjia">
-					好评率93%
-				</div>
-				<div class="am-u-sm-6 pingjia1">
-					<span class="pingjia_text">
-					查看29902条评价
-				</span>
-					<a href="##"><span class="am-icon-angle-right"></span></a>
-
-				</div>
-			</div>
-			<div class="content">
-				<div class="pingjia_title">
-					<div class="pingjia_item">
-						<div class="item1 am-g">
-							<div class="am-u-sm-6">
-								<span class="xingxing"></span>
-							</div>
-							<div class="am-u-sm-6 name">
-								王**
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="pj_content am-u-sm-12">
-								速度还是挺快，审核花了两天时间，手机用了4天了，没问题，是正品。颜色很正！总体评价不错！24期利息也不高，算下来就是官网价格6188，希望分期乐升值一下可以提前还款的功能就好了！
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="am-u-sm-12 pj_pic">
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNrGAXJQ2AACzsXY2c00394_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNp2Acq3vAAChViH61aQ864_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNoSABKyHAACVDJZ_55k358_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNmuAb-blAAC7v5QksE0913_180x180.png" />
-								</div>
-							</div>
-						</div>
-					</div>
-					<!---->
-					<div class="pingjia_item">
-						<div class="item1 am-g">
-							<div class="am-u-sm-6">
-								<span class="xingxing"></span>
-							</div>
-							<div class="am-u-sm-6 name">
-								温**
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="pj_content am-u-sm-12">
-								分期乐真是一个很好的平台，让年轻人可以轻松买到心爱你手机。宝贝是正品，玫瑰金很好看，很喜欢。
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="am-u-sm-12 pj_pic">
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNrGAXJQ2AACzsXY2c00394_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNp2Acq3vAAChViH61aQ864_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNoSABKyHAACVDJZ_55k358_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNmuAb-blAAC7v5QksE0913_180x180.png" />
-								</div>
-							</div>
-						</div>
-					</div>
-					<!---->
-					<div class="pingjia_item">
-						<div class="item1 am-g">
-							<div class="am-u-sm-6">
-								<span class="xingxing"></span>
-							</div>
-							<div class="am-u-sm-6 name">
-								周**
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="pj_content am-u-sm-12">
-								很不错噢，从大学开始用这个平台，到现在买了三个啦，都是正品，除了第一次审核很慢以外，后面两次都非常迅速，跟一般网站买的一样，全部用顺丰，下单到收到三天都不到，我们还在云南县上，手机就不用说了，因为这只是一个平台不是手机制造商，过多说优缺点没用，是正品就行了
-							</div>
-						</div>
-						<div class="am-g">
-							<div class="am-u-sm-12 pj_pic">
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNrGAXJQ2AACzsXY2c00394_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNp2Acq3vAAChViH61aQ864_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNoSABKyHAACVDJZ_55k358_180x180.png" />
-								</div>
-								<div class="pj_pic1">
-									<img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNmuAb-blAAC7v5QksE0913_180x180.png" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--购买咨询-->
-			<div class="cut_price am-g ping sell">
-				<div class="am-u-sm-6 pingjia">
-					购买咨询
-				</div>
-				<div class="am-u-sm-6 pingjia1">
-					<span class="pingjia_text">
-					查看所有商品咨询
-				</span>
-					<a href="##"><span class="am-icon-angle-right"></span></a>
-
-				</div>
-			</div>
-			<div class="good_wrap">
-				<div class="am-g">
-					<div class="am-u-sm-8">
-						<div class="am-g">
-							<div class="am-u-sm-2 good_pic">
-								<img src="https://cimg1.fenqile.com/product/M00/AE/AD/hBoGAFkQPfyATYkjAAANCtTdgMY556.jpg" />
-							</div>
-							<div class="am-u-sm-10 good_text">
-								<div class="good_txt">
-									分期乐Apple产品专营店<span class="self_sail">自营</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="am-u-sm-4">
-						<span class=" good_text1">
-						逛一下
-					</span>
-					</div>
-				</div>
-			</div>
-			<!--收藏信息-->
-			<div class="am-g save_message">
-				<div class="am-u-sm-4 am-text-center save_title">
-					<div class=" am-text-center save_title1">
-						48
-					</div>
-					<div class=" am-text-center save_title2">
-						全部商品
-					</div>
-				</div>
-				<div class="am-u-sm-4 am-text-center save_title">
-					<div class=" am-text-center save_title1">
-						0
-					</div>
-					<div class=" am-text-center save_title2">
-						上新商品
-					</div>
-				</div>
-				<div class="am-u-sm-4 am-text-center save_title">
-					<div class=" am-text-center save_title1">
-						18328
-					</div>
-					<div class=" am-text-center save_title2">
-						收藏人数
-					</div>
-				</div>
-			</div>
-			<!--商品介绍-->
-			<div data-am-widget="tabs" class="am-tabs am-tabs-default scroll_panel">
-				<ul class="am-tabs-nav am-cf am-g save_message save_message1">
-					<li class="am-active am-u-sm-4 am-text-center save_title">
-						<a href="[data-tab-panel-0]">
-							<div class=" am-text-center save_title11">
-								商品介绍
-							</div>
-						</a>
-					</li>
-					<li class="am-u-sm-4 am-text-center save_title">
-						<a href="[data-tab-panel-1]">
-							<div class=" am-text-center save_title11">
-								商品参数
-							</div>
-						</a>
-					</li>
-					<li class="am-u-sm-4 am-text-center save_title">
-						<a href="[data-tab-panel-2]">
-							<div class=" am-text-center save_title11">
-								包装售后
-							</div>
-						</a>
-					</li>
-				</ul>
-				<div class="am-tabs-bd">
-					<!--第一个-->
-					<div data-tab-panel-0 class="am-tab-panel am-active">
-						<div class="save">
-							<div class="am-g">
-								<div class="am-u-sm-12">
-									<div class="save_pic">
-										<a href="##">
-											<img src="https://cimg1.fenqile.com/ibanner/M00/02/48/wycJAFm_cEyATbB1AADGwm9zv0M918.jpg" />
-										</a>
-									</div>
-									<div class="save_pic">
-										<a href="##">
-											<img src="https://cimg1.fenqile.com/ibanner/M00/01/B1/wycJAFl-mBCABAtmAAGafuUwrNo810.jpg" />
-										</a>
-									</div>
-									<div class="am-g">
-										<div class="am-text-center save_text am-u-sm-12">
-											全网通版本支持移动联通电信4G，双网通仅支持移动联通4G，不支持电信4G
-										</div>
-									</div>
-									<div class="save_pic">
-										<a href="##">
-											<img src="https://img30.360buyimg.com/jgsq-productsoa/jfs/t6304/160/69587891/137268/1761e4fd/5938cd79N6e54747c.jpg" />
-										</a>
-									</div>
-									<div class="save_pic" v-html="goods.detail">
-										
-									</div>
-									<div class="text1">
-										注：活动期间，如有任何包括但不限于任何盗刷、倒卖、批量机器作弊等不正当或影响其他消费者公平机会的行为，分期乐均有权取消您的活动资格，通过作弊下的订单，无论成功与否，是否发货，分期乐均有权进行作废处理，并追回货物，支付的订单金额最迟在30个工作日退还。（备注：分期乐账号、信用卡、收货人姓名、详细地址、联系方式、手机号、IP地址等与用户身份相关的信息，其中任意一项或数字存在相同、相似、或非真实有效等情形的，均可能被认定为同一用户；如遭遇黑客攻击、大面积虚假交易或作弊事件时，分期乐也将有权采取暂为中止、终止活动）。
-									</div>
-									<div class="sail_pic">
-										<a href="##">
-											<img src="http://cimg1.fenqile.com/detail/M00/00/00/I6EHAFjre0-AaLx1AAIHr18UW20373.png" />
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="save_pic bottom">
-							<a href="##">
-								<img src="https://cimg1.fenqile.com/ibanner/M00/01/5C/wycJAFlThoyAX3hNAAG5meGDE-A925.jpg" />
-							</a>
-						</div>
-					</div>
-					<!---->
-					<div data-tab-panel-1 class="am-tab-panel ">
-						<table class="am-table am-table-bordered am-table-centered">
-							<tr>
-								<td colspan="12" class="color4 bg4">主体</td>
-							</tr>
-
-							<tr>
-								<td class="tdTitle">品牌</td>
-								<td>苹果（Apple）</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">型号</td>
-								<td>iPhone 7 </td>
-							</tr>
-							<tr>
-								<td class="tdTitle">入网型号</td>
-								<td>A1660</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">上市年份</td>
-								<td>2016年</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">上市月份</td>
-								<td>9月</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">基本信息</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">机身颜色</td>
-								<td>玫瑰金</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">机身长度（mm）</td>
-								<td>138.3</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">机身宽度（mm）</td>
-								<td>67.1</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">机身厚度（mm）</td>
-								<td>7.1</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">机身重量（g）</td>
-								<td>138</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">运营商标志或内容</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">机身材质分类</td>
-								<td>其他</td>
-							</tr>
-
-							<tr>
-								<td colspan="12" class="color4 bg4">操作系统</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">操作系统</td>
-								<td>以官网信息为准</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">主芯片</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">CPU品牌</td>
-								<td>以官网信息为准</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">最高CPU主频（GHz）</td>
-								<td>以官网信息为准</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">CPU频率</td>
-								<td>以官网信息为准</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">CPU核数</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">CPU系列</td>
-								<td>以官网信息为准</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">CPU型号</td>
-								<td>A10</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">网络支持</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">双卡机类型</td>
-								<td>单卡</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">最大支持SIM卡数量</td>
-								<td>1个</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">SIM卡类型</td>
-								<td>Nano SIM</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">4G网络</td>
-								<td>4G：移动（TD-LTE)</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">4G网络</td>
-								<td>4G：联通(TD-LTE)</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">4G网络</td>
-								<td>4G：电信(FDD-LTE)</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">3G/2G网络</td>
-								<td>--</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">网络频率（2G/3G）</td>
-								<td>--</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">存储</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">ROM</td>
-								<td>32GB</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">RAM</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">存储卡</td>
-								<td>不支持</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">可用空间</td>
-								<td>（因算法不同，手机显示总容量可能小于机身容量，另，实际可供使用的空间小于手机显示总容量，并会因许多因素而可能有所差异，主要由系统占用导致。）</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">屏幕</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">主屏幕尺寸（英寸）</td>
-								<td>4.7英寸</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">分辨率</td>
-								<td>1334*750</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">屏幕材质类型</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">前置摄像头</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">摄像头数量</td>
-								<td>1个</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">前置摄像头</td>
-								<td>700万像素</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">前摄光圈大小</td>
-								<td>f/2.2</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">后置摄像头</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">摄像头数量</td>
-								<td>1个</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">后置摄像头</td>
-								<td>1200万像素</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">摄像头传感器品牌</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">电池信息</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">电池容量（mAh）</td>
-								<td>-</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">电池是否可拆卸</td>
-								<td>否</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">充电器</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">娱乐功能</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">音乐播放格式</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">视频播放格式</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">数据接口</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">数据传输接口</td>
-								<td>WIFI</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">数据传输接口</td>
-								<td>WiFi热点</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">数据传输接口</td>
-								<td>蓝牙</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">NFC/NFC模式</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">耳机接口类型</td>
-								<td>lighting</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">充电接口类型</td>
-								<td>Lightning(iphone)</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">手机特性</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">指纹识别</td>
-								<td>支持</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">GPS</td>
-								<td>支持</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">陀螺仪</td>
-								<td>支持</td>
-							</tr>
-							<tr>
-								<td colspan="12" class="color4 bg4">辅助功能</td>
-							</tr>
-							<tr></tr>
-							<tr>
-								<td class="tdTitle">常用功能</td>
-								<td>其他</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他</td>
-								<td>所有产品信息，以苹果官网为准（apple.com.cn)</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他特性</td>
-								<td>iPhone 7 和 iPhone 7 Plus 可防溅、抗水、防尘，在受控实验室条件下经测试，其效果在 IEC 60529 标准下达到 IP67 级别。防溅、抗水、防尘功能并非永久有效</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他1</td>
-								<td>防护性能可能会因日常磨损而下降。请勿为潮湿状态下的 iPhone 充电；请参阅使用手册了解清洁和干燥说明。由于浸入液体而导致的损坏不在保修范围之内。</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他2</td>
-								<td>亮黑色 iPhone7 和 iPhone7Plus 高光泽度的外观，采用包含九道精密工序的阳极氧化与抛光工艺打造而成。其表面硬度与其他采用阳极氧化处理的 Apple 产品相同</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他3</td>
-								<td>但是，高光泽度表面可能随着日常使用而出现细微磨损。如果对此有所担心，建议你选择一款合适的保护壳来保护你的 iPhone。</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他4</td>
-								<td>Apple Pay 仅在部分市场提供。请到苹果官网查看 Apple&nbsp;Pay 适用的国家和地区列表。</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他5</td>
-								<td>所有电池性能信息取决于网络设置和许多其它因素，实际结果可能有所不同。电池充电周期次数有限，最终可能需由 Apple 服务提供商更换。</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他6</td>
-								<td>电池使用时间和充电周期次数依设置和使用情况的不同而可能有所差异。详情请参阅&nbsp;www.apple.com/cn/batteries&nbsp;和&nbsp;www.apple.com/cn/iphone/battery.html。</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他7</td>
-								<td>需要使用数据计划。4G LTE Advanced 和 4G LTE 功能适用于特定国家或地区的特定运营商。速度依据理论上的数据吞吐量，并基于现场状况和不同运营商而可能有所差异</td>
-							</tr>
-							<tr>
-								<td class="tdTitle">其他8</td>
-								<td>有关 4G LTE 支持的详情，请联系你的运营商并查看 www.apple.com/iphone/LTE。</td>
-							</tr>
-						</table>
-					</div>
-					<!---->
-					<div data-tab-panel-2 class="am-tab-panel ">
-						<div class="am-g">
-							<div class="am-u-sm-12">
-								<div id="packing_list_aftersale" data-index="2">
-									<br>装有 iOS 10 的 iPhone*1，采用 Lightning 接头的 EarPods*1，Lightning 至 3.5 毫米耳机插孔转换器*1，Lightning 至 USB 连接线*1，USB 电源适配器*1，资料*1.
-									<table cellpadding="0" cellspacing="1" width="100%" border="0" class="Ptable">
-
-									</table>
-									<br>
-									<br>
-									<br>
-									<h3 style="text-align:center;">
+<body>
+    <div id="app">
+        <!--header-->
+        <div class="header am-g" data-am-sticky>
+            <div class="am-u-sm-2 header_pic">
+                <a href="" onClick="javascript :history.back();">
+                    <span class="am-icon-angle-left">
+                    </span>
+                </a>
+            </div>
+            <div class="header1 am-u-sm-8">
+                商品详情
+            </div>
+            <div class="header2 am-u-sm-2">
+                <a href="shopingcar.html">
+                    <img src="https://cres1.fenqile.cn/fenqile_m/img/channel/cart_icon--90af4ddfa6.png" alt="" />
+                </a>
+            </div>
+        </div>
+        <!--图片展示-->
+        <div id="top" class="am-slider am-slider-default">
+            <ul class="am-slides">
+                <li v-for="item in goods.slideImgs">
+                    <img :src="item">
+                </li>
+            </ul>
+            <div class="detai_pic">
+                <img src="https://cres1.fenqile.cn/item_m/img/weex/keep_gray--4ae1935bfd.png" />
+            </div>
+        </div>
+        <!--详情描述-->
+        <div class="price">
+            <span class="now_p">￥4699</span>
+            <del>￥4799</del>
+        </div>
+        <div class="detial">
+            <div class="detial_txt">
+                <span class="self_sail">自营</span>
+                <span class="detial_txt1">{{goods.name}}</span>
+            </div>
+            <div class="detial_text">
+                {{goods.hotPoint}}
+                <span class="link">分期购物节，3999元秒iPhone 7></span>
+            </div>
+        </div>
+        <!--促销-->
+        <div class="cut_price am-g cuxiao">
+            <div class="am-u-sm-2 am-text-center cut_title">
+                促销
+            </div>
+            <div class="am-u-sm-8 cut_txt">
+                <span class="mian">免息</span>限有3C免息资格用户专享，乐卡支付12期内免息1次
+            </div>
+            <div class="am-u-sm-2 cut_txt1">
+                <a href="##">
+                    <span class="am-icon-angle-right"></span>
+                </a>
+            </div>
+        </div>
+        <!---->
+        <div class="cover-detail">
+            <div class="discount-message am-padding-sm relative">
+                <p class="title am-margin-0">促销</p>
+                <div class="separator-line"></div>
+                <div class="am-margin-top-xs am-margin-bottom-xs">
+                    <span class="mian">免息</span>
+                    <span>限有3C免息资格用户专享，乐卡支付12期内免息1次</span>
+                </div>
+                <div class="separator-line"></div>
+                <div class="ok-btn">
+                    确定
+                </div>
+            </div>
+            <div class="good-kind relative">
+                <div class="main-top am-padding-lg am-cf">
+                    <div class="pic-box am-fl">
+                        <img class="am-thumbnail" src="https://cimgs1.fenqile.com/product2/M00/20/6A/oWgGAFfQfkOASuMEAABJBXBCaCs145_336x336.jpg">
+                    </div>
+                    <div class="price-box am-fl am-margin-left-lg am-margin-top-sm">
+                        <span>¥</span>
+                        <span class="pprice">4699</span>
+                        <p>现货</p>
+                    </div>
+                </div>
+                <div class="separator-line"></div>
+                <div class="color-box">
+                    <span class="color-title">颜色</span>
+                    <ul class="color-list am-cf">
+                        <li class="color-item am-fl colo-cha">黑色</li>
+                        <li class="color-item am-fl colo-cha">金色</li>
+                        <li class="color-item am-fl colo-cha">银色</li>
+                        <li class="color-item am-fl colo-cha colo-ch">玫瑰金</li>
+                        <li class="color-item am-fl colo-cha">亮黑色</li>
+                        <li class="color-item am-fl colo-cha">红色特别版</li>
+                    </ul>
+                    <span class="color-title">内存</span>
+                    <ul class="color-list am-cf">
+                        <li class="color-item am-fl colo-cha2 colo-ch">32G</li>
+                        <li class="color-item am-fl colo-cha2">128G</li>
+                        <li class="color-item am-fl colo-cha2">256G</li>
+                    </ul>
+                    <span class="color-title">运营商</span>
+                    <ul class="color-list am-cf">
+                        <li class="color-item am-fl colo-ch">全网通</li>
+                    </ul>
+                </div>
+                <div class="bottom2 am-cf">
+                    <div class="am-fl bottom-cn am-margin-left-lg">
+                        <span>月供：</span>
+                        <span style="color: #3b9bff;">158.73</span>
+                        <span>起</span>
+                    </div>
+                    <div class="am-fr ok-btn2">确定</div>
+                </div>
+            </div>
+            <!---->
+            <div class="det-des am-padding-sm relative det">
+                <p class="title am-margin-0 am-text-center tilt_ser">服务</p>
+                <div class="separator-line line_separ"></div>
+                <div class="am-margin-top-xs am-margin-bottom-xs am-container">
+                    <ul>
+                        <li>
+                            <i class="i-checked"></i>
+                            <span>正品保证</span>
+                            <p>卖家承诺此商品非“假冒品牌（包括盗版）”商品，非“未经报关”的进口商品，非“假冒材质成份”商品。</p>
+                        </li>
+                        <li>
+                            <i class="i-checked"></i>
+                            <span>七天退货</span>
+                            <p>买家购买此商品，签收后7天内（含7天），如因买家主观原因不愿完成交易，可提出“7天无理由退换货”申请。申请退换货的商品不得影响卖家的二次销售。具体规则及不适用商品以《分期乐售后服务管理规则》为准。</p>
+                        </li>
+                        <li>
+                            <i class="i-checked"></i>
+                            <span>闪电发货</span>
+                            <p>卖家承诺此商品优先发货，具体时效参见页面展示的预计发货时间（预售商品以实际规则为准）。</p>
+                        </li>
+                        <li>
+                            <i class="i-checked"></i>
+                            <span>提前还款免服务费</span>
+                            <p>此商品支持“乐卡独家”提前还款免服务费。</p>
+                        </li>
+                        <li>
+                            <i class="i-checked"></i>
+                            <span>支持信用卡分期</span>
+                            <p>此商品支持信用卡分期支付，无需开通乐卡，灵活分期，享更低费率，最长56天免息</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="separator-line line_separ"></div>
+                <div class="ok-btn3" style="display: block;">
+                    确定
+                </div>
+            </div>
+        </div>
+        <!--已选-->
+        <div class="cut_price am-g guige">
+            <div class="am-u-sm-2 am-text-center cut_title">
+                已选
+            </div>
+            <div class="am-u-sm-8 cut_txt have_text" id="guige">
+                玫瑰金 32G 全网通
+            </div>
+            <div class="am-u-sm-2 cut_txt1">
+                <a href="##">
+                    <span class="am-icon-angle-right"></span>
+                </a>
+            </div>
+        </div>
+        <!--货源-->
+        <div class="cut_price am-g line_down">
+            <div class="am-u-sm-2 am-text-center cut_title">
+                货源
+            </div>
+            <div class="am-u-sm-8 cut_txt have_text">
+                <img src="http://cimg1.fenqile.com/detail/M00/00/00/IaEHAFjrJmeAPmYbAAAQU4iyedQ297.png" />
+            </div>
+            <div class="am-u-sm-2 cut_txt1">
+            </div>
+        </div>
+        <!--库存-->
+        <div class="cut_price am-g line_down">
+            <div class="am-u-sm-2 am-text-center cut_title">
+                库存
+            </div>
+            <div class="am-u-sm-8 cut_txt have_text">
+                仅剩16件
+            </div>
+            <div class="am-u-sm-2 cut_txt1">
+            </div>
+        </div>
+        <!--送至-->
+        <div class="cut_price am-g line_down songz">
+            <div class="am-u-sm-2 am-text-center cut_title">
+                送至
+            </div>
+            <div class="am-u-sm-8 cut_txt have_text have_text2">
+                广东省广州市番禹区
+                <div class="ps_text">
+                    现货，下单成功后预计3天之内发货
+                </div>
+            </div>
+            <div class="am-u-sm-2 cut_txt1">
+                <a href="##">
+                    <span class="am-icon-angle-right"></span>
+                </a>
+            </div>
+        </div>
+        <!--保证-->
+        <div class="cut_price am-g line_down baozheng">
+            <div class="am-u-sm-10 cut_title ">
+                <img src="https://cres1.fenqile.cn/item_m/img/product/check_gray--e01f0bb71f.png" /> 正品保证
+                <img src="https://cres1.fenqile.cn/item_m/img/product/check_gray--e01f0bb71f.png" /> 七天退货
+                <img src="https://cres1.fenqile.cn/item_m/img/product/check_gray--e01f0bb71f.png" /> 闪电发货
+            </div>
+            <div class="am-u-sm-2 cut_txt1">
+                <a href="##">
+                    <span class="am-icon-angle-right"></span>
+                </a>
+            </div>
+        </div>
+        <!--评价-->
+        <div class="cut_price am-g ping">
+            <div class="am-u-sm-6 pingjia">
+                好评率93%
+            </div>
+            <div class="am-u-sm-6 pingjia1">
+                <span class="pingjia_text">
+                    查看29902条评价
+                </span>
+                <a href="##">
+                    <span class="am-icon-angle-right"></span>
+                </a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="pingjia_title">
+                <div class="pingjia_item">
+                    <div class="item1 am-g">
+                        <div class="am-u-sm-6">
+                            <span class="xingxing"></span>
+                        </div>
+                        <div class="am-u-sm-6 name">
+                            王**
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="pj_content am-u-sm-12">
+                            速度还是挺快，审核花了两天时间，手机用了4天了，没问题，是正品。颜色很正！总体评价不错！24期利息也不高，算下来就是官网价格6188，希望分期乐升值一下可以提前还款的功能就好了！
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12 pj_pic">
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNrGAXJQ2AACzsXY2c00394_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNp2Acq3vAAChViH61aQ864_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNoSABKyHAACVDJZ_55k358_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNmuAb-blAAC7v5QksE0913_180x180.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+                <div class="pingjia_item">
+                    <div class="item1 am-g">
+                        <div class="am-u-sm-6">
+                            <span class="xingxing"></span>
+                        </div>
+                        <div class="am-u-sm-6 name">
+                            温**
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="pj_content am-u-sm-12">
+                            分期乐真是一个很好的平台，让年轻人可以轻松买到心爱你手机。宝贝是正品，玫瑰金很好看，很喜欢。
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12 pj_pic">
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNrGAXJQ2AACzsXY2c00394_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNp2Acq3vAAChViH61aQ864_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNoSABKyHAACVDJZ_55k358_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNmuAb-blAAC7v5QksE0913_180x180.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---->
+                <div class="pingjia_item">
+                    <div class="item1 am-g">
+                        <div class="am-u-sm-6">
+                            <span class="xingxing"></span>
+                        </div>
+                        <div class="am-u-sm-6 name">
+                            周**
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="pj_content am-u-sm-12">
+                            很不错噢，从大学开始用这个平台，到现在买了三个啦，都是正品，除了第一次审核很慢以外，后面两次都非常迅速，跟一般网站买的一样，全部用顺丰，下单到收到三天都不到，我们还在云南县上，手机就不用说了，因为这只是一个平台不是手机制造商，过多说优缺点没用，是正品就行了
+                        </div>
+                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12 pj_pic">
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNrGAXJQ2AACzsXY2c00394_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNp2Acq3vAAChViH61aQ864_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNoSABKyHAACVDJZ_55k358_180x180.png" />
+                            </div>
+                            <div class="pj_pic1">
+                                <img src="https://imgs1.fenqile.com/service/M00/5D/2C/4SICAFkgNmuAb-blAAC7v5QksE0913_180x180.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--购买咨询-->
+        <div class="cut_price am-g ping sell">
+            <div class="am-u-sm-6 pingjia">
+                购买咨询
+            </div>
+            <div class="am-u-sm-6 pingjia1">
+                <span class="pingjia_text">
+                    查看所有商品咨询
+                </span>
+                <a href="##">
+                    <span class="am-icon-angle-right"></span>
+                </a>
+            </div>
+        </div>
+        <div class="good_wrap">
+            <div class="am-g">
+                <div class="am-u-sm-8">
+                    <div class="am-g">
+                        <div class="am-u-sm-2 good_pic">
+                            <img src="https://cimg1.fenqile.com/product/M00/AE/AD/hBoGAFkQPfyATYkjAAANCtTdgMY556.jpg" />
+                        </div>
+                        <div class="am-u-sm-10 good_text">
+                            <div class="good_txt">
+                                分期乐Apple产品专营店
+                                <span class="self_sail">自营</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-4">
+                    <span class=" good_text1">
+                        逛一下
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--收藏信息-->
+        <div class="am-g save_message">
+            <div class="am-u-sm-4 am-text-center save_title">
+                <div class=" am-text-center save_title1">
+                    48
+                </div>
+                <div class=" am-text-center save_title2">
+                    全部商品
+                </div>
+            </div>
+            <div class="am-u-sm-4 am-text-center save_title">
+                <div class=" am-text-center save_title1">
+                    0
+                </div>
+                <div class=" am-text-center save_title2">
+                    上新商品
+                </div>
+            </div>
+            <div class="am-u-sm-4 am-text-center save_title">
+                <div class=" am-text-center save_title1">
+                    18328
+                </div>
+                <div class=" am-text-center save_title2">
+                    收藏人数
+                </div>
+            </div>
+        </div>
+        <!--商品介绍-->
+        <div data-am-widget="tabs" class="am-tabs am-tabs-default scroll_panel">
+            <ul class="am-tabs-nav am-cf am-g save_message save_message1">
+                <li class="am-active am-u-sm-4 am-text-center save_title">
+                    <a href="[data-tab-panel-0]">
+                        <div class=" am-text-center save_title11">
+                            商品介绍
+                        </div>
+                    </a>
+                </li>
+                <li class="am-u-sm-4 am-text-center save_title">
+                    <a href="[data-tab-panel-1]">
+                        <div class=" am-text-center save_title11">
+                            商品参数
+                        </div>
+                    </a>
+                </li>
+                <li class="am-u-sm-4 am-text-center save_title">
+                    <a href="[data-tab-panel-2]">
+                        <div class=" am-text-center save_title11">
+                            包装售后
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <div class="am-tabs-bd">
+                <!--第一个-->
+                <div data-tab-panel-0 class="am-tab-panel am-active">
+                    <div class="save">
+                        <div class="am-g">
+                            <div class="am-u-sm-12">
+                                <div class="save_pic">
+                                    <a href="##">
+                                        <img src="https://cimg1.fenqile.com/ibanner/M00/02/48/wycJAFm_cEyATbB1AADGwm9zv0M918.jpg" />
+                                    </a>
+                                </div>
+                                <div class="save_pic">
+                                    <a href="##">
+                                        <img src="https://cimg1.fenqile.com/ibanner/M00/01/B1/wycJAFl-mBCABAtmAAGafuUwrNo810.jpg" />
+                                    </a>
+                                </div>
+                                <div class="am-g">
+                                    <div class="am-text-center save_text am-u-sm-12">
+                                        全网通版本支持移动联通电信4G，双网通仅支持移动联通4G，不支持电信4G
+                                    </div>
+                                </div>
+                                <div class="save_pic">
+                                    <a href="##">
+                                        <img src="https://img30.360buyimg.com/jgsq-productsoa/jfs/t6304/160/69587891/137268/1761e4fd/5938cd79N6e54747c.jpg" />
+                                    </a>
+                                </div>
+                                <div class="save_pic" v-html="goods.detail">
+                                </div>
+                                <div class="text1">
+                                    注：活动期间，如有任何包括但不限于任何盗刷、倒卖、批量机器作弊等不正当或影响其他消费者公平机会的行为，分期乐均有权取消您的活动资格，通过作弊下的订单，无论成功与否，是否发货，分期乐均有权进行作废处理，并追回货物，支付的订单金额最迟在30个工作日退还。（备注：分期乐账号、信用卡、收货人姓名、详细地址、联系方式、手机号、IP地址等与用户身份相关的信息，其中任意一项或数字存在相同、相似、或非真实有效等情形的，均可能被认定为同一用户；如遭遇黑客攻击、大面积虚假交易或作弊事件时，分期乐也将有权采取暂为中止、终止活动）。
+                                </div>
+                                <div class="sail_pic">
+                                    <a href="##">
+                                        <img src="http://cimg1.fenqile.com/detail/M00/00/00/I6EHAFjre0-AaLx1AAIHr18UW20373.png" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="save_pic bottom">
+                        <a href="##">
+                            <img src="https://cimg1.fenqile.com/ibanner/M00/01/5C/wycJAFlThoyAX3hNAAG5meGDE-A925.jpg" />
+                        </a>
+                    </div>
+                </div>
+                <!---->
+                <div data-tab-panel-1 class="am-tab-panel ">
+                    <table class="am-table am-table-bordered am-table-centered">
+                        <tr>
+                            <td colspan="12" class="color4 bg4">主体</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">品牌</td>
+                            <td>苹果（Apple）</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">型号</td>
+                            <td>iPhone 7 </td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">入网型号</td>
+                            <td>A1660</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">上市年份</td>
+                            <td>2016年</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">上市月份</td>
+                            <td>9月</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">基本信息</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">机身颜色</td>
+                            <td>玫瑰金</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">机身长度（mm）</td>
+                            <td>138.3</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">机身宽度（mm）</td>
+                            <td>67.1</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">机身厚度（mm）</td>
+                            <td>7.1</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">机身重量（g）</td>
+                            <td>138</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">运营商标志或内容</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">机身材质分类</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">操作系统</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">操作系统</td>
+                            <td>以官网信息为准</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">主芯片</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">CPU品牌</td>
+                            <td>以官网信息为准</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">最高CPU主频（GHz）</td>
+                            <td>以官网信息为准</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">CPU频率</td>
+                            <td>以官网信息为准</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">CPU核数</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">CPU系列</td>
+                            <td>以官网信息为准</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">CPU型号</td>
+                            <td>A10</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">网络支持</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">双卡机类型</td>
+                            <td>单卡</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">最大支持SIM卡数量</td>
+                            <td>1个</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">SIM卡类型</td>
+                            <td>Nano SIM</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">4G网络</td>
+                            <td>4G：移动（TD-LTE)</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">4G网络</td>
+                            <td>4G：联通(TD-LTE)</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">4G网络</td>
+                            <td>4G：电信(FDD-LTE)</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">3G/2G网络</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">网络频率（2G/3G）</td>
+                            <td>--</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">存储</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">ROM</td>
+                            <td>32GB</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">RAM</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">存储卡</td>
+                            <td>不支持</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">可用空间</td>
+                            <td>（因算法不同，手机显示总容量可能小于机身容量，另，实际可供使用的空间小于手机显示总容量，并会因许多因素而可能有所差异，主要由系统占用导致。）</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">屏幕</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">主屏幕尺寸（英寸）</td>
+                            <td>4.7英寸</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">分辨率</td>
+                            <td>1334*750</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">屏幕材质类型</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">前置摄像头</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">摄像头数量</td>
+                            <td>1个</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">前置摄像头</td>
+                            <td>700万像素</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">前摄光圈大小</td>
+                            <td>f/2.2</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">后置摄像头</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">摄像头数量</td>
+                            <td>1个</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">后置摄像头</td>
+                            <td>1200万像素</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">摄像头传感器品牌</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">电池信息</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">电池容量（mAh）</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">电池是否可拆卸</td>
+                            <td>否</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">充电器</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">娱乐功能</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">音乐播放格式</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">视频播放格式</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">数据接口</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">数据传输接口</td>
+                            <td>WIFI</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">数据传输接口</td>
+                            <td>WiFi热点</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">数据传输接口</td>
+                            <td>蓝牙</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">NFC/NFC模式</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">耳机接口类型</td>
+                            <td>lighting</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">充电接口类型</td>
+                            <td>Lightning(iphone)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">手机特性</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">指纹识别</td>
+                            <td>支持</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">GPS</td>
+                            <td>支持</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">陀螺仪</td>
+                            <td>支持</td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="color4 bg4">辅助功能</td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td class="tdTitle">常用功能</td>
+                            <td>其他</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他</td>
+                            <td>所有产品信息，以苹果官网为准（apple.com.cn)</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他特性</td>
+                            <td>iPhone 7 和 iPhone 7 Plus 可防溅、抗水、防尘，在受控实验室条件下经测试，其效果在 IEC 60529 标准下达到 IP67 级别。防溅、抗水、防尘功能并非永久有效</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他1</td>
+                            <td>防护性能可能会因日常磨损而下降。请勿为潮湿状态下的 iPhone 充电；请参阅使用手册了解清洁和干燥说明。由于浸入液体而导致的损坏不在保修范围之内。</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他2</td>
+                            <td>亮黑色 iPhone7 和 iPhone7Plus 高光泽度的外观，采用包含九道精密工序的阳极氧化与抛光工艺打造而成。其表面硬度与其他采用阳极氧化处理的 Apple 产品相同</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他3</td>
+                            <td>但是，高光泽度表面可能随着日常使用而出现细微磨损。如果对此有所担心，建议你选择一款合适的保护壳来保护你的 iPhone。</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他4</td>
+                            <td>Apple Pay 仅在部分市场提供。请到苹果官网查看 Apple&nbsp;Pay 适用的国家和地区列表。</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他5</td>
+                            <td>所有电池性能信息取决于网络设置和许多其它因素，实际结果可能有所不同。电池充电周期次数有限，最终可能需由 Apple 服务提供商更换。</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他6</td>
+                            <td>电池使用时间和充电周期次数依设置和使用情况的不同而可能有所差异。详情请参阅&nbsp;www.apple.com/cn/batteries&nbsp;和&nbsp;www.apple.com/cn/iphone/battery.html。</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他7</td>
+                            <td>需要使用数据计划。4G LTE Advanced 和 4G LTE 功能适用于特定国家或地区的特定运营商。速度依据理论上的数据吞吐量，并基于现场状况和不同运营商而可能有所差异</td>
+                        </tr>
+                        <tr>
+                            <td class="tdTitle">其他8</td>
+                            <td>有关 4G LTE 支持的详情，请联系你的运营商并查看 www.apple.com/iphone/LTE。</td>
+                        </tr>
+                    </table>
+                </div>
+                <!---->
+                <div data-tab-panel-2 class="am-tab-panel ">
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <div id="packing_list_aftersale" data-index="2">
+                                <br>装有 iOS 10 的 iPhone*1，采用 Lightning 接头的 EarPods*1，Lightning 至 3.5 毫米耳机插孔转换器*1，Lightning 至 USB 连接线*1，USB 电源适配器*1，资料*1.
+                                <table cellpadding="0" cellspacing="1" width="100%" border="0" class="Ptable">
+                                </table>
+                                <br>
+                                <br>
+                                <br>
+                                <h3 style="text-align:center;">
 	 <span style="line-height:1.5;font-size:16px;font-weight:normal;"><strong><b><span style="color:#E53333;">一经拆封将不支持无理由退换货，请确认好需求再拆封</span></b><span style="color:#E53333;"></span></strong></span> 
 </h3>
-									<h3>
+                                <h3>
 	<span style="line-height:1.5;font-size:16px;font-weight:normal;"><strong>售后温馨提示：</strong></span> 
 </h3>
-									<p>
-										本商品不支持7天无理由退货
-									</p>
-									<span>分期乐承诺，商品因质量问题，自售出之日（以实际收货日期为准）起7日内可以退货，15日内可以换货。具体情况请参考：<a href="http://help.fenqile.com/detail/330.html" target="_blank">《退换货服务规则》</a></span><br>
-									<p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
-										1、&nbsp; 分期乐对包装完整且不影响二次销售的商品提供7天无理由退货，商品返回运费需要您承担，请确认需求后再拆封使用；
-									</p>
-									<p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
-										2、&nbsp; 液晶显示屏存在3个以内（含3个）亮点属于正常情况，无法为您办理退换货；
-									</p>
-									<p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
-										3、&nbsp; 如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务，建议您保留商品外包装15天；
-									</p>
-									<p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
-										4、&nbsp; 如您当地无厂家售后检测、维修中心的，分期乐可代您进行检测、维修，周期为：售后收到商品后代检大约7到15天、代修大约30-45天左右（不含物流时间）。在您收到维修好的商品后请及时进行仔细检查，如有问题请在24小时内联系分期乐；如超时未提交，将无法为您处理；
-									</p>
-									<p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
-										5、&nbsp; 分期乐代为检测的商品如检测无故障会将原物返还给您，同时，我们会提供检测无故障单。但部分厂家品牌商品无法提供无故障单，请您谅解；
-									</p>
-									<p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
-										6、&nbsp; 对于存储类商品，分期乐不提供数据导出服务，请务必在返修前将商品内的数据自行导出，否则若有数据遗失、损坏等分期乐不承担相应责任。
-									</p>
-									<p>
-										<br>
-									</p>
-									<p class="MsoNormal" align="left">
-										<b><span style="font-size:16px;">物流温馨提示：</span></b>
-									</p>
-									<p class="MsoNormal" align="left">
-										<b>1</b><b>、商品发货</b>
-									</p>
-									<p class="MsoNormal" align="left">
-										一般我们会在1-3天内完成发货，为了让您尽早收到的商品，我们尽量在24小时内完成发货（预售和特殊情况除外），商品发出48小时后，您可以在“订单跟踪”中可查看到商品的物流信息。<b></b>
-									</p>
-									<p class="MsoNormal" align="left">
-										<b>2</b><b>、商品配送</b>
-									</p>
-									<p class="MsoNormal" align="left">
-										您订购的商品，在商品正常发出后，一般情况下5天之内可收到商品，具体物流时效以快递公司为准。
-									</p>
-									<p class="MsoNormal" align="left">
-										<b>3</b><b>、商品签收</b>
-									</p>
-									<p class="MsoNormal" align="left">
-										（1）商品送达时请务必由本人签收；
-									</p>
-									<p class="MsoNormal" align="left">
-										（2）货品外包装完好无损、封口处无二次封装痕迹；
-									</p>
-									<p class="MsoNormal" align="left">
-										（3）如货品外包装有明显的破碎、缺口或者其他异常，请拒收，并及时联系在线客服；
-									</p>
-									<p class="MsoNormal" align="left">
-										（4）如您对收到的货品有任何疑问，请您及时联系我们，我们将竭诚为您服务，我们的联系方式：400-005-9151。
-									</p>
-									<p class="MsoNormal" align="left">
-										<b>4</b><b>、商品拒收</b>
-									</p>
-									<p class="MsoNormal" align="left">
-										如果您需要拒收商品，为避免账单产生逾期费用，请您拒收商品以后及时发起售后，自发起售后日起我们会在7～15天内处理好您的拒收订单。
-									</p>
-									<p class="MsoNormal" align="left">
-										<br>
-									</p>
-									<p class="MsoNormal" align="left">
-										<br>
-									</p>
-									<span style="font-size:18px;"><strong>分期乐关于违规订单处理，请参考</strong></span>
-									<a href="http://help.fenqile.com/detail/348.html" target="_blank"><span style="font-size:18px;"><strong>《</strong></span></a>
-									<a href="http://help.fenqile.com/detail/348.html" target="_blank"><span style="font-size:18px;"><strong>违规订单处理规则</strong><u><strong>》</strong></u></span><span style="font-size:18px;"><u><strong></strong></u></span></a><br><br>
-									<p class="MsoListParagraph" align="left" style="margin-bottom:4pt;">
-										<b><span style="font-size:16px;">价格说明</span></b>
-									</p>
-									<p style="margin-bottom:4pt;">
-										<b>未划线价格：</b>指商品的实时标价，不因表述的差异改变性质。具体成交价格根据商品参加活动，或会员使用优惠券发生变化，最终以订单结算页价格为准。
-									</p>
-									<p style="margin-bottom:4pt;">
-										<b>划线价格：</b>商品展示的划横线价格为参考价，该价格可能是品牌专柜标价、商品吊牌价、厂家建议零售价、厂家指导价或者该商品的曾经展示过的销售价等， 由于地区、时间的差异和市场行情波动，品牌专柜标价、商品吊牌价等可能会与您购物时展示的不一致，该价格仅供参考。
-									</p>
-									<p style="margin-bottom:32pt;">
-										商品的具体售价以订单结算页价格为准；如您发现活动商品售价或促销信息有异常，建议购买前先咨询客服/商家。
-									</p>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer">
-				<div class="am-g">
-					<div class="am-u-sm-4 am-g am-text-center footer_txt">
-						<div class="am-u-sm-12 footer_te">
-							月供：<span class="money">￥158.73</span>起
-						</div>
-					</div>
-
-					<div class="am-u-sm-6 am-cf foot">
-						<div class="am-u-sm-12 gobuy">
-							立即购买
-						</div>
-					</div>
-					<div class="am-u-sm-2 am-cf foot_ser">
-
-						<div class="footer_te2">
-							<i class="service"></i> 客服
-						</div>
-						<div class="line2">
-
-						</div>
-					</div>
-				</div>
-			</div>
-			<a href="#top">
-				<div class="gotop" id="go_top_icon"></div>
-			</a>
-		</div>
-
-	</body>
-	<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/detail.js" type="text/javascript" charset="utf-8"></script>
-	<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-	<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-	<script src="assets/js/amazeui.min.js"></script>
-	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		//获取url参数
-		function GetRequest() {
-			var url = location.search; //获取url中"?"符后的字串
-			var theRequest = new Object();
-			if(url.indexOf("?") != -1) {
-				var str = url.substr(1);
-				strs = str.split("&");
-				for(var i = 0; i < strs.length; i++) {
-					theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-				}
-			}
-			return theRequest;
-		}
-
-		var app = new Vue({
-			el: "#app",
-			data: {
-				goods: {}
-			},
-			mounted: function() {
-				var id = GetRequest().id;
-				$.getJSON("/goods/detail/?_id=" + id, function(response) {
-					app.goods = response.data;
-				});
-			},
-			updated: function() {
-				$('.am-slider').flexslider({
-					animation: "slide",
-					slideshow: false,
-				});
-			}
-		});
-	</script>
+                                <p>
+                                    本商品不支持7天无理由退货
+                                </p>
+                                <span>分期乐承诺，商品因质量问题，自售出之日（以实际收货日期为准）起7日内可以退货，15日内可以换货。具体情况请参考：
+                                    <a href="http://help.fenqile.com/detail/330.html" target="_blank">《退换货服务规则》</a>
+                                </span>
+                                <br>
+                                <p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
+                                    1、&nbsp; 分期乐对包装完整且不影响二次销售的商品提供7天无理由退货，商品返回运费需要您承担，请确认需求后再拆封使用；
+                                </p>
+                                <p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
+                                    2、&nbsp; 液晶显示屏存在3个以内（含3个）亮点属于正常情况，无法为您办理退换货；
+                                </p>
+                                <p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
+                                    3、&nbsp; 如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务，建议您保留商品外包装15天；
+                                </p>
+                                <p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
+                                    4、&nbsp; 如您当地无厂家售后检测、维修中心的，分期乐可代您进行检测、维修，周期为：售后收到商品后代检大约7到15天、代修大约30-45天左右（不含物流时间）。在您收到维修好的商品后请及时进行仔细检查，如有问题请在24小时内联系分期乐；如超时未提交，将无法为您处理；
+                                </p>
+                                <p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
+                                    5、&nbsp; 分期乐代为检测的商品如检测无故障会将原物返还给您，同时，我们会提供检测无故障单。但部分厂家品牌商品无法提供无故障单，请您谅解；
+                                </p>
+                                <p class="MsoListParagraph" align="left" style="margin-left:0cm;text-indent:0cm;">
+                                    6、&nbsp; 对于存储类商品，分期乐不提供数据导出服务，请务必在返修前将商品内的数据自行导出，否则若有数据遗失、损坏等分期乐不承担相应责任。
+                                </p>
+                                <p>
+                                    <br>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <b><span style="font-size:16px;">物流温馨提示：</span></b>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <b>1</b><b>、商品发货</b>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    一般我们会在1-3天内完成发货，为了让您尽早收到的商品，我们尽量在24小时内完成发货（预售和特殊情况除外），商品发出48小时后，您可以在“订单跟踪”中可查看到商品的物流信息。<b></b>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <b>2</b><b>、商品配送</b>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    您订购的商品，在商品正常发出后，一般情况下5天之内可收到商品，具体物流时效以快递公司为准。
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <b>3</b><b>、商品签收</b>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    （1）商品送达时请务必由本人签收；
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    （2）货品外包装完好无损、封口处无二次封装痕迹；
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    （3）如货品外包装有明显的破碎、缺口或者其他异常，请拒收，并及时联系在线客服；
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    （4）如您对收到的货品有任何疑问，请您及时联系我们，我们将竭诚为您服务，我们的联系方式：400-005-9151。
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <b>4</b><b>、商品拒收</b>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    如果您需要拒收商品，为避免账单产生逾期费用，请您拒收商品以后及时发起售后，自发起售后日起我们会在7～15天内处理好您的拒收订单。
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <br>
+                                </p>
+                                <p class="MsoNormal" align="left">
+                                    <br>
+                                </p>
+                                <span style="font-size:18px;"><strong>分期乐关于违规订单处理，请参考</strong></span>
+                                <a href="http://help.fenqile.com/detail/348.html" target="_blank">
+                                    <span style="font-size:18px;"><strong>《</strong></span>
+                                </a>
+                                <a href="http://help.fenqile.com/detail/348.html" target="_blank">
+                                    <span style="font-size:18px;"><strong>违规订单处理规则</strong><u><strong>》</strong></u></span>
+                                    <span style="font-size:18px;"><u><strong></strong></u></span>
+                                </a>
+                                <br>
+                                <br>
+                                <p class="MsoListParagraph" align="left" style="margin-bottom:4pt;">
+                                    <b><span style="font-size:16px;">价格说明</span></b>
+                                </p>
+                                <p style="margin-bottom:4pt;">
+                                    <b>未划线价格：</b>指商品的实时标价，不因表述的差异改变性质。具体成交价格根据商品参加活动，或会员使用优惠券发生变化，最终以订单结算页价格为准。
+                                </p>
+                                <p style="margin-bottom:4pt;">
+                                    <b>划线价格：</b>商品展示的划横线价格为参考价，该价格可能是品牌专柜标价、商品吊牌价、厂家建议零售价、厂家指导价或者该商品的曾经展示过的销售价等， 由于地区、时间的差异和市场行情波动，品牌专柜标价、商品吊牌价等可能会与您购物时展示的不一致，该价格仅供参考。
+                                </p>
+                                <p style="margin-bottom:32pt;">
+                                    商品的具体售价以订单结算页价格为准；如您发现活动商品售价或促销信息有异常，建议购买前先咨询客服/商家。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="am-g">
+                <div class="am-u-sm-4 am-g am-text-center footer_txt">
+                    <div class="am-u-sm-12 footer_te">
+                        月供：
+                        <span class="money">￥158.73</span>起
+                    </div>
+                </div>
+                <div class="am-u-sm-6 am-cf foot">
+                    <div class="am-u-sm-12 gobuy">
+                        立即购买
+                    </div>
+                </div>
+                <div class="am-u-sm-2 am-cf foot_ser">
+                    <div class="footer_te2">
+                        <i class="service"></i> 客服
+                    </div>
+                    <div class="line2">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#top">
+            <div class="gotop" id="go_top_icon"></div>
+        </a>
+    </div>
+</body>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/detail.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<script src="assets/js/amazeui.min.js"></script>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<!-- vue -->
+<script type="text/javascript" src="js/vue.js"></script>
+<!-- axios -->
+<script type="text/javascript" src="js/axios.min.js"></script>
+<!-- service -->
+<script type="text/javascript" src="js/service.js"></script>
+<script type="text/javascript">
+//获取url参数
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = new Object();
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}
+var app = new Vue({
+    el: "#app",
+    data: {
+        goods: {}
+    },
+    methods: {
+        getDetail: function() {
+            var data = {
+                _id: GetRequest().id
+            }
+            getGoodsDetail(data).then(function(result) {
+                if (result.data.status) {
+                    app.goods = result.data.data;
+                } else {
+                    alert(result.data.msg);
+                }
+            });
+        }
+    },
+    mounted: function() {
+        this.getDetail();
+    },
+    updated: function() {
+        // js插件初始化
+        $('.am-slider').flexslider({
+            animation: "slide",
+            slideshow: false,
+        });
+    }
+});
+</script>
 
 </html>

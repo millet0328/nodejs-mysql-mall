@@ -66,7 +66,7 @@
         <div class="main">
             <ul class="good-list am-margin-top-sm">
                 <li v-for="item in list" class="am-cf">
-                    <a href="">
+                    <a :href="'detail.html?id='+item._id">
                         <div class="img-box am-fl">
                             <img height="88" width="88" :src="item.mdImg" />
                         </div>
