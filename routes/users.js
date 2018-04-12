@@ -16,10 +16,6 @@ router.post('/register/', function(req, res) {
     }, function(err, result) {
         if (err) {
             console.log(err);
-            res.json({
-                status: false,
-                msg: "注册失败！"
-            });
             return;
         }
         // 如果账号已存在
@@ -35,10 +31,6 @@ router.post('/register/', function(req, res) {
         user.save(function(err) {
             if (err) {
                 console.log(err);
-                res.json({
-                    status: false,
-                    msg: "注册失败！"
-                });
                 return;
             }
             // 存储成功
