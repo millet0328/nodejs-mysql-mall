@@ -7,6 +7,10 @@ var User = models.User;
 var Address = models.Address;
 
 // 注册
+/*
+    account:账号
+    password:密码
+*/
 router.post('/register/', function(req, res) {
     // 实例化
     var user = new User(req.body);
@@ -44,29 +48,33 @@ router.post('/register/', function(req, res) {
 
 });
 // 登录
+/*
+    account : 账号
+    password ：密码
+*/
 router.post('/login/', function(req, res) {
-    console.log(req.body);
-    User.find(req.body, function(err, users) {
+    User.findOne(req.body, function(err, user) {
         if (err) {
             console.log(err);
             res.json({
                 status: false,
-                msg: "登录失败！"
+                msg: err
             });
             return;
         }
-        console.log(users);
-        if (!users.length) {
+        // 账号密码错误
+        if (!user) {
             res.json({
                 status: false,
                 msg: "账号或者密码错误！"
             });
             return;
         }
-        // 成功
+        // 登录成功
         res.json({
             status: true,
-            msg: "登录成功！"
+            msg: "登录成功！",
+            _id: user._id
         });
 
     });
@@ -74,6 +82,9 @@ router.post('/login/', function(req, res) {
 });
 
 //获取个人资料
+/*
+    _id:账户ID
+*/
 router.get("/getInfo/", function(req, res) {
     //查询账户数据
     User
@@ -122,9 +133,18 @@ router.post("/updateInfo/", function(req, res) {
         });
     });
 });
-
-//添加收货地址
-router.post("/insertAddress/", function(req, res) {
+// 添加收货地址
+/*
+    uid: 账户ID,
+    name: 收货人姓名,
+    tel: 电话,
+    province: 省,
+    city: 市,
+    area:区,
+    street: 街道,
+    isDefault: 是否默认
+*/
+router.post("/address/insert", function(req, res) {
     //账户id
     User.findOne({
         account: req.body.account

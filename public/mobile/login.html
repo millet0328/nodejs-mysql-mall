@@ -31,26 +31,19 @@
 </head>
 
 <body>
-    <!--错误提示-->
-    <div class="tips-box" id="tips">
-        <span></span>
-    </div>
-    <div class="tips-box" id="tips2">
-        <span></span>
-    </div>
     <div class="logo-banner txt-center">
         <img height="70" src="http://cres1.fenqile.cn/passport/img/m/login/login_logo--2479b32e49.png" />
     </div>
+    <!-- 手机邮箱登录 -->
     <div class="login_1">
-        <form action="#" class="" id="form" method="post">
-            <!--<fieldset>-->
-            <ul class="form-new ">
+        <form action="/users/login/" id="account-form" method="post">
+            <ul class="form-new">
                 <li class="form-input am-g">
                     <div class="am-u-sm-1">
                         <i class="icon icon-user "></i>
                     </div>
                     <div class="am-u-sm-10 am-margin-left-sm ">
-                        <input datatype="e|myphone" class="txt12" type="text" name="reg1_ph" id="phone1" value="" placeholder="手机号/邮箱" nullmsg='手机号/邮箱不能为空 ' errormsg="手机号/邮箱格式错误" />
+                        <input datatype="e|myphone" class="txt12" type="text" name="account" id="account" value="" placeholder="手机号/邮箱" nullmsg='手机号/邮箱不能为空 ' errormsg="手机号/邮箱格式错误" />
                     </div>
                 </li>
                 <li class="form-input am-g relative">
@@ -58,7 +51,7 @@
                         <i class="icon icon-pwd "></i>
                     </div>
                     <div class="am-u-sm-10 am-margin-left-sm">
-                        <input datatype="*6-16" type="password" name="pwd1" id="" value="" placeholder="登录密码" nullmsg='密码不能为空 ' />
+                        <input datatype="*6-16" type="password" name="password" value="" placeholder="登录密码" nullmsg='密码不能为空 ' />
                     </div>
                     <div class="pwd-eye">
                         <i class="icon icon-eye" id="icon-eye"></i>
@@ -74,10 +67,7 @@
                     <div id="v_container" style="width: 60px;height: 30px;"></div>
                 </li>
             </ul>
-            <!--<a href="index.html">-->
-            <button class="am-btn am-btn-secondary" type="submit" id="btn_sub">登录</button>
-            <!--</a>-->
-            <!--</fieldset>-->
+            <button class="am-btn am-btn-secondary" type="submit">登录</button>
         </form>
         <div class="box am-cf am-container txt14 am-margin-top-sm">
             <a class="am-fl kj_login1">短信快捷登录</a>
@@ -87,7 +77,7 @@
     <!--短信登录-->
     <div class="login_2">
         <!--输入-->
-        <form action="#" class="" id="form2" method="post">
+        <form action="#" class="" id="code-form" method="post">
             <div class="white2">
                 <div class="write">
                     <div class="write_1">
@@ -119,7 +109,7 @@
             </div>
             <!--按钮-->
             <div class="plr15">
-                <button type="submit" class="btn_my" id="login_btn">登录</button>
+                <button type="submit" class="btn_my">登录</button>
             </div>
             <!--快捷登录-->
             <div class="am-g">
@@ -133,8 +123,15 @@
     </div>
     <div class="to-res txt14">
         <a href="regist.html">
-                没有账号？极速注册
-            </a>
+            没有账号？极速注册
+        </a>
+    </div>
+    <!--错误提示-->
+    <div class="tips-box" id="tips">
+        <span></span>
+    </div>
+    <div class="tips-box" id="tips2">
+        <span></span>
     </div>
     <!--[if (gte IE 9)|!(IE)]><!-->
     <!--<![endif]-->
@@ -174,35 +171,46 @@ $("#icon-eye").click(function() {
     }
 }) //初始化验证码
 var verifyCode = new GVerify("v_container");
-$("#btn_sub").onclick = function() {
-
-}
 //表单验证
 var showmsg = function(msg) {
-    $("#tips").text(msg);
-    $("#tips").css("opacity", "1");
-    $("#tips").css("display", "block");
+    $("#tips").text(msg).fadeIn().delay(300).fadeOut();
 }
-var showmsg2 = function(msg) {
-    $("#tips2").text(msg);
-    $("#tips2").css("opacity", "1");
-    $("#tips2").css("display", "block");
-}
-$("#form2").Validform({
-    btnSubmit: "#login_btn",
-    //          tiptype: 1,
+$("#account-form").Validform({
     tiptype: function(msg) {
-        showmsg2(msg);
+        showmsg(msg);
     },
+    ajaxPost: true,
+    datatype: {
+        "*6-20": /^[^\s]{6,20}$/,
+        "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
+        "myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
+        "usercode": function(gets, obj, curform, regxp) {
+            var res = verifyCode.validate(document.getElementById("usercode").value);
+            if (res) {
+                return true;
+            } else {
+                return "验证码错误"
+            }
+        },
+    },
+    callback: function(result) {
+        if (result.status) {
+            // 登录成功
+            // 储存账户状态
+            sessionStorage.uid = result._id;
+            // 跳转页面
+            location.href = "/mobile/index.html";
+        } else {
+            alert(result.msg);
+        }
+    }
+});
 
-    ignoreHidden: false,
-    dragonfly: false,
-    tipSweep: true,
-    label: ".label",
-    showAllError: false,
-    postonce: true,
-    //          ajaxPost: true,
-
+$("#code-form").Validform({
+    tiptype: function(msg) {
+        showmsg(msg);
+    },
+    ajaxPost: true,
     datatype: {
         "*6-20": /^[^\s]{6,20}$/,
         "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
@@ -217,136 +225,8 @@ $("#form2").Validform({
             }
         },
     },
-    usePlugin: {
-        swfupload: {},
-        datepicker: {},
-        passwordstrength: {},
-        jqtransform: {
-            selector: "select,input"
-        }
-    },
-    beforeCheck: function(curform) {
-        //在表单提交执行验证之前执行的函数，curform参数是当前表单对象。
-        //这里明确return false的话将不会继续执行验证操作;    
-    },
-    beforeSubmit: function(curform) {
-        //在验证成功后，表单提交前执行的函数，curform参数是当前表单对象。
-        //这里明确return false的话表单将不会提交;    
-
-        var data = $("#form2").serialize();
-        $.post('/users/login2/', data, function(data, textStatus, xhr) {
-            if (data.status) {
-                // 储存账户状态
-                console.log(data);
-                console.log(55555555)
-                sessionStorage.myid = $("#phone2").val();
-                // 跳转页面
-                location.href = "/mobile/index.html";
-            } else {
-                alert(data.msg);
-            }
-        });
-        // location.href = "index.html";
-        return false;
-    },
     callback: function(data) {
-        //返回数据data是json对象，{"info":"demo info","status":"y"}
-        //info: 输出提示信息;
-        //status: 返回提交数据的状态,是否提交成功。如可以用"y"表示提交成功，"n"表示提交失败，在ajax_post.php文件返回数据里自定字符，主要用在callback函数里根据该值执行相应的回调操作;
-        //你也可以在ajax_post.php文件返回更多信息在这里获取，进行相应操作；
-        //ajax遇到服务端错误时也会执行回调，这时的data是{ status:**, statusText:**, readyState:**, responseText:** }；
 
-        //这里执行回调操作;
-        //注意：如果不是ajax方式提交表单，传入callback，这时data参数是当前表单对象，回调函数会在表单验证全部通过后执行，然后判断是否提交表单，如果callback里明确return false，则表单不会提交，如果return true或没有return，则会提交表单。
-    }
-});
-$("#form").Validform({
-    btnSubmit: "#btn_sub",
-    //          tiptype: 1,
-    tiptype: function(msg) {
-        showmsg(msg);
-    },
-
-    ignoreHidden: false,
-    dragonfly: false,
-    tipSweep: true,
-    label: ".label",
-    showAllError: false,
-    postonce: true,
-    //          ajaxPost: true,
-
-    datatype: {
-        "*6-20": /^[^\s]{6,20}$/,
-        "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
-        "myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
-        "usercode": function(gets, obj, curform, regxp) {
-            var res = verifyCode.validate(document.getElementById("usercode").value);
-            if (res) {
-                return true;
-            } else {
-                return "验证码错误"
-            }
-        },
-    },
-    usePlugin: {
-        swfupload: {},
-        datepicker: {},
-        passwordstrength: {},
-        jqtransform: {
-            selector: "select,input"
-        }
-    },
-    beforeCheck: function(curform) {
-        //在表单提交执行验证之前执行的函数，curform参数是当前表单对象。
-        //这里明确return false的话将不会继续执行验证操作;    
-    },
-    beforeSubmit: function(curform) {
-        //在验证成功后，表单提交前执行的函数，curform参数是当前表单对象。
-        //这里明确return false的话表单将不会提交; 
-        if ($("#phone1").val() % 1 != 0) {
-            $("#phone1").attr("name", "email");
-            $.ajax({
-                url: '/users/login_/',
-                type: 'get',
-                async: true,
-                data: { email: $("#phone1").val() },
-                success: function(result) {
-                    if (result.status) {
-                        sessionStorage.myid = result.data.reg1_ph;
-                        // sessionStorage.uid = result.data._id;
-                        console.log(result.data)
-                    } else {
-                        alert(result.msg);
-                    }
-
-                }
-            })
-        } else {
-            sessionStorage.myid = $("#phone1").val();
-        }
-        var data = $("#form").serialize();
-        $.post('/users/login/', data, function(data, textStatus, xhr) {
-            if (data.status) {
-                // 储存账户状态
-                // sessionStorage.myid = $("#phone1").val();
-                // 跳转页面
-                location.href = "/mobile/index.html";
-                $("#phone1").attr("name", "reg1_ph");
-            } else {
-                alert(data.msg);
-            }
-        });
-        return false;
-    },
-    callback: function(data) {
-        //返回数据data是json对象，{"info":"demo info","status":"y"}
-        //info: 输出提示信息;
-        //status: 返回提交数据的状态,是否提交成功。如可以用"y"表示提交成功，"n"表示提交失败，在ajax_post.php文件返回数据里自定字符，主要用在callback函数里根据该值执行相应的回调操作;
-        //你也可以在ajax_post.php文件返回更多信息在这里获取，进行相应操作；
-        //ajax遇到服务端错误时也会执行回调，这时的data是{ status:**, statusText:**, readyState:**, responseText:** }；
-
-        //这里执行回调操作;
-        //注意：如果不是ajax方式提交表单，传入callback，这时data参数是当前表单对象，回调函数会在表单验证全部通过后执行，然后判断是否提交表单，如果callback里明确return false，则表单不会提交，如果return true或没有return，则会提交表单。
     }
 });
 </script>

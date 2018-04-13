@@ -32,7 +32,9 @@ var addressSchema = mongoose.Schema({
     },
     name: String,
     tel: String,
+    province: String,
     city: String,
+    area:String,
     street: String,
     isDefault: Boolean
 });
