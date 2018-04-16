@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>第五大道注册-王晓迪</title>
+		<link rel="shotcut icon" href="img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/my_order.css" />
+	</head>
+
+	<body>
+		<!--选择支付方式-->
+		<div class="tab_top">
+			<a href="unpaid_order.html">
+				<div class="return"></div>
+			</a>
+			<div class="text">选择支付方式 </div>
+		</div>
+		<div class="payWay">
+			<div class="price">
+				<span class="text">应付金额:</span>
+				<strong class="num">1168.00</strong>
+			</div>
+			<ul class="pay_way">
+				<li class="list">
+					<div class="list_left clearfix">
+						<img class="fl" src="img/other/payway01.png" />
+						<div class="pay_text fl">
+							<p class="pay_name">银联在线支付</p>
+							<p class="pay_detail">推荐无需开通网银，大额支付单笔最高限额2万元</p>
+						</div>
+					</div>
+					<div class="list_right"></div>					
+				</li>
+				<li class="list active">
+					<div class="list_left clearfix">
+						<img class="fl" src="img/other/payway02.png" />
+						<div class="pay_text fl">
+							<p class="pay_name">支付宝</p>
+							<p class="pay_detail">推荐支付宝用户使用</p>
+						</div>
+					</div>
+					<div class="list_right"></div>					
+				</li>
+				<li class="list">
+					<div class="list_left clearfix">
+						<img class="fl" src="img/other/payway01.png" />
+						<div class="pay_text fl">
+							<p class="pay_name">工商银行</p>
+							<p class="pay_detail">工商银行在线支付</p>
+						</div>
+					</div>
+					<div class="list_right"></div>					
+				</li>
+			</ul>
+			<div class="paybtn"> 
+				<a href="#"><span class="ispay"> 确定 </span></a> 
+			</div>
+		</div>
+	</body>
+	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".list").click(function () {
+				$(".list").removeClass("active");
+				$(this).addClass("active");
+			})
+		})
+	</script>
+
+</html>

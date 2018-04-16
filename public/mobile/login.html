@@ -1,234 +1,80 @@
-<!doctype html>
-<html class="no-js">
+<!DOCTYPE html>
+<html>
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>登录</title>
-    <!-- Set render engine for 360 browser -->
-    <meta name="renderer" content="webkit">
-    <!-- No Baidu Siteapp-->
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/pic_logo.png">
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
-    <meta name="msapplication-TileColor" content="#0e90d2">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" type="text/css" href="css/login.css" />
-    <link rel="stylesheet" type="text/css" href="css/login2.css" />
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>第五大道登录-王晓迪</title>
+		<link rel="shotcut icon" href="img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/my_order.css" />
+	</head>
 
-<body>
-    <div class="logo-banner txt-center">
-        <img height="70" src="http://cres1.fenqile.cn/passport/img/m/login/login_logo--2479b32e49.png" />
-    </div>
-    <!-- 手机邮箱登录 -->
-    <div class="login_1">
-        <form action="/users/login/" id="account-form" method="post">
-            <ul class="form-new">
-                <li class="form-input am-g">
-                    <div class="am-u-sm-1">
-                        <i class="icon icon-user "></i>
-                    </div>
-                    <div class="am-u-sm-10 am-margin-left-sm ">
-                        <input datatype="e|myphone" class="txt12" type="text" name="account" id="account" value="" placeholder="手机号/邮箱" nullmsg='手机号/邮箱不能为空 ' errormsg="手机号/邮箱格式错误" />
-                    </div>
-                </li>
-                <li class="form-input am-g relative">
-                    <div class="am-u-sm-1">
-                        <i class="icon icon-pwd "></i>
-                    </div>
-                    <div class="am-u-sm-10 am-margin-left-sm">
-                        <input datatype="*6-16" type="password" name="password" value="" placeholder="登录密码" nullmsg='密码不能为空 ' />
-                    </div>
-                    <div class="pwd-eye">
-                        <i class="icon icon-eye" id="icon-eye"></i>
-                    </div>
-                </li>
-                <li class="form-input am-g relative">
-                    <div class="am-u-sm-1">
-                        <i class="icon icon-code "></i>
-                    </div>
-                    <div class="am-u-sm-10 am-margin-left-sm">
-                        <input type="text" name="" id="usercode" value="" placeholder="验证码" datatype="usercode" nullmsg="请输入验证码" />
-                    </div>
-                    <div id="v_container" style="width: 60px;height: 30px;"></div>
-                </li>
-            </ul>
-            <button class="am-btn am-btn-secondary" type="submit">登录</button>
-        </form>
-        <div class="box am-cf am-container txt14 am-margin-top-sm">
-            <a class="am-fl kj_login1">短信快捷登录</a>
-            <a href="findpassw.html" class="am-fr">忘记密码</a>
-        </div>
-    </div>
-    <!--短信登录-->
-    <div class="login_2">
-        <!--输入-->
-        <form action="#" class="" id="code-form" method="post">
-            <div class="white2">
-                <div class="write">
-                    <div class="write_1">
-                        <div class="am-g">
-                            <div class="am-u-sm-1 am-text-center">
-                                <span class="write1 write5"></span>
-                            </div>
-                            <div class="am-u-sm-9">
-                                <input type="text" name="reg1_ph" id="phone2" value="" placeholder="输入手机号" datatype="myphone" nullmsg='手机号不能为空 ' errormsg="手机号格式错误" />
-                            </div>
-                            <div class="am-u-sm-2">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="write_1 zd2">
-                        <div class="am-g">
-                            <div class="am-u-sm-1 am-text-center">
-                                <span class="write1 write6"></span>
-                            </div>
-                            <div class="am-u-sm-6">
-                                <input type="text" name="" id="" value="" placeholder="6位数字验证码" datatype="numcode" nullmsg="请输入六位数字验证码" errormsg="数字验证码格式错误" />
-                            </div>
-                            <div class="am-u-sm-5 am-text-right">
-                                <span class="hq">获取验证码</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--按钮-->
-            <div class="plr15">
-                <button type="submit" class="btn_my">登录</button>
-            </div>
-            <!--快捷登录-->
-            <div class="am-g">
-                <div class="am-u-sm-6 kj am-text-left">
-                    <span class="kj_login kj_login2">账号密码登录</span>
-                </div>
-                <div class="am-u-sm-6 kj am-text-right">
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="to-res txt14">
-        <a href="regist.html">
-            没有账号？极速注册
-        </a>
-    </div>
-    <!--错误提示-->
-    <div class="tips-box" id="tips">
-        <span></span>
-    </div>
-    <div class="tips-box" id="tips2">
-        <span></span>
-    </div>
-    <!--[if (gte IE 9)|!(IE)]><!-->
-    <!--<![endif]-->
-    <!--[if lte IE 8 ]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="assets/js/amazeui.min.js"></script>
-    <script src="js/gVerify.js" type="text/javascript" charset="utf-8"></script>
-    <!--<script src="js/Validform_v5.3.2_min.js" type="text/javascript" charset="utf-8"></script>-->
-    <script src="js/login.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/Validform_v5.3.2.js" type="text/javascript" charset="utf-8"></script>
-</body>
-<script type="text/javascript">
-//判断密码是否可见
-function pwd_eye() {
-    var flag = $("#icon-eye").hasClass("icon-eye");
-    if (flag) {
-        $("#icon-eye").parent(".pwd-eye").siblings().find("input").attr("type", "password")
-    } else {
-        $("#icon-eye").parent(".pwd-eye").siblings().find("input").attr("type", "text");
-    }
-}
-//密码可见
-var eyeFlag = true;
-$("#icon-eye").click(function() {
-    if (eyeFlag) {
-        $(this).removeClass("icon-eye").addClass("icon-eye1");
-        pwd_eye();
-        eyeFlag = !eyeFlag;
-    } else {
-        $(this).removeClass("icon-eye1").addClass("icon-eye");
-        pwd_eye();
-        eyeFlag = !eyeFlag;
-    }
-}) //初始化验证码
-var verifyCode = new GVerify("v_container");
-//表单验证
-var showmsg = function(msg) {
-    $("#tips").text(msg).fadeIn().delay(300).fadeOut();
-}
-$("#account-form").Validform({
-    tiptype: function(msg) {
-        showmsg(msg);
-    },
-    ajaxPost: true,
-    datatype: {
-        "*6-20": /^[^\s]{6,20}$/,
-        "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
-        "myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
-        "usercode": function(gets, obj, curform, regxp) {
-            var res = verifyCode.validate(document.getElementById("usercode").value);
-            if (res) {
-                return true;
-            } else {
-                return "验证码错误"
-            }
-        },
-    },
-    callback: function(result) {
-        if (result.status) {
-            // 登录成功
-            // 储存账户状态
-            sessionStorage.uid = result._id;
-            // 跳转页面
-            location.href = "/mobile/index.html";
-        } else {
-            alert(result.msg);
-        }
-    }
-});
-
-$("#code-form").Validform({
-    tiptype: function(msg) {
-        showmsg(msg);
-    },
-    ajaxPost: true,
-    datatype: {
-        "*6-20": /^[^\s]{6,20}$/,
-        "z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
-        "myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
-        "numcode": /^\d{6}$/,
-        "usercode": function(gets, obj, curform, regxp) {
-            var res = verifyCode.validate(document.getElementById("usercode").value);
-            if (res) {
-                return true;
-            } else {
-                return "验证码错误"
-            }
-        },
-    },
-    callback: function(data) {
-
-    }
-});
-</script>
+	<body>
+		<!--我的订单-->
+		<div class="tab_top">
+			<a href="personal.html">
+				<div class="return"></div>
+			</a>
+			<div class="text">登录第五大道 </div>
+		</div>
+		<form class="login">
+			<div class="userName">
+				<input name="account" type="text" placeholder="请输入邮箱/手机号">
+			</div>
+			<div class="password relative">
+				<input name="password" type="password" visible placeholder="请输入密码">
+				<img class="unsee" src="img/other/login_pass.png" />
+				<img class="see" src="img/other/login_passee.png" />
+			</div>
+			<button type="button" disabled class="btn" id="loginBtn">登录</button>
+			<div class="other clearfix">
+				<a class="fl" href="#">忘记密码?</a>
+				<a class="fr" href="register.html">用户注册</a>
+			</div>
+		</form>
+	</body>
+	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			//登入页面
+			$("input").keyup(function() {
+				if($(".userName input").val() != '' && $(".password input").val() != '') {
+					$(".btn").prop("disabled", false);
+				} else {
+					$(".btn").prop("disabled", true);
+				}
+			});
+			//密码显示隐藏
+			$(".see").click(function() {
+				$(this).css("display", "none");
+				$(".unsee").css("display", "block");
+				$(".password input").prop("type", "password");
+			})
+			$(".unsee").click(function() {
+				$(this).css("display", "none");
+				$(".see").css("display", "block");
+				$(".password input").prop("type", "text");
+			});
+			//登录账户
+			$("#loginBtn").click(function() {
+				var data = $("form").serialize();
+				$.ajax({
+					type: "post",
+					url: "/users/login/",
+					async: true,
+					data: data,
+					success: function(result) {
+						if(result.status) {
+							sessionStorage.uid = result._id;
+							location.href = "index.html";
+						} else {
+							alert(result.msg);
+						}
+					}
+				});
+			});
+		})
+	</script>
 
 </html>

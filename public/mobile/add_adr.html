@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>第五大道添加收货地址-王晓迪</title>
+		<link rel="shotcut icon" href="img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/my_order.css" />
+	</head>
+
+	<body>
+		<!--我的订单-->
+		<div class="tab_top">
+			<a href="address.html">
+				<div class="return"></div>
+			</a>
+			<div class="text">添加收货地址 </div>
+		</div>
+		<form class="addr_con">
+			<div class="default">
+				<span class="fl">设置为默认</span>
+				<span class="logo fr"></span>
+				<input type="hidden" name="isDefault" id="isDefault" value="false" />
+			</div>
+			<div class="addr_box">
+				<div class="box">
+					<span class="name">收货人</span>
+					<input name="name" class="detail" type="text" placeholder="请输入姓名">
+				</div>
+				<div class="box">
+					<span class="name">手机</span>
+					<input name="tel" class="detail" type="text" placeholder="请输入手机号">
+				</div>
+			</div>
+			<div class="addr_box">
+				<div class="box">
+					<span class="name">省</span>
+					<select class="detail" name="province">
+
+					</select>
+				</div>
+				<div class="box">
+					<span class="name">市</span>
+					<select class="detail" name="city">
+
+					</select>
+				</div>
+				<div class="box">
+					<span class="name">区</span>
+					<select class="detail" name="area">
+
+					</select>
+				</div>
+				<div class="box">
+					<span class="name">邮编</span>
+					<input name="code" class="detail" type="text" placeholder="请输入邮编">
+				</div>
+				<div class="box">
+					<span class="name">详细地址</span>
+					<input name="street" class="detail" type="text" placeholder="请输入地址">
+				</div>
+				<!--账户id-->
+				<input type="hidden" name="uid" id="uid" value="" />
+			</div>
+		</form>
+
+		<div class="adr_btn">
+			<span class="add_adr fl">保存地址</span>
+			<a href="address.html">
+				<span class="ok_adr fr">确定</span>
+			</a>
+		</div>
+		<div class="adr_alert">
+			<div class="alert_box">
+				<div class="alt_title">成功保存！</div>
+				<div class="alt_ok">确定</div>
+			</div>
+		</div>
+	</body>
+	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/PCASClass.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".logo").click(function() {
+				if($(this).hasClass("active")) {
+					$("#isDefault").val("false");
+					$(this).removeClass("active");
+				} else {
+					$("#isDefault").val("true");
+					$(this).addClass("active");
+				}
+			});
+			//省市区三级联动
+			new PCAS("province", "city", "area", "吉林省", "白城市", "大安市");
+			//添加收货地址
+			$(".add_adr").click(function() {
+				//获取uid,设置隐藏数据
+				$("#uid").val(sessionStorage.uid);
+				var data = $("form").serialize();
+				$.ajax({
+					type: "post",
+					url: "/users/address/insert/",
+					async: true,
+					data: data,
+					success: function(result) {
+						if(result.status) {
+							$(".adr_alert").fadeIn();
+						} else {
+							alert(result.msg);
+						}
+					}
+				});
+
+			})
+			$(".alt_ok").click(function() {
+				$(".adr_alert").fadeOut(function() {
+					location.href = "address.html"
+				});
+			});
+		})
+	</script>
+
+</html>

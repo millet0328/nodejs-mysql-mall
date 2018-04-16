@@ -1,0 +1,675 @@
+@charset "utf-8";
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clearfix {
+	clear: both;
+	content: "";
+	display: block;
+}
+
+.relative {
+	position: relative;
+}
+
+body {
+	width: 100%;
+	overflow: hidden;
+}
+
+
+/*我的订单*/
+
+.tab_top {
+	top: 0;
+	left: 0;
+	height: 44px;
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+	line-height: 44px;
+	border-bottom: 1px solid #ccc;
+	z-index: 2;
+}
+
+.tab_top .return {
+	width: 22px;
+	height: 22px;
+	background: url(../img/other/return.png) no-repeat;
+	background-size: 22px 22px;
+	position: absolute;
+	padding: 11px 15px;
+	background-position: 15px 11px;
+	left: 0;
+	top: 0;
+	z-index: 3;
+}
+
+.order_lead {
+	height: 39px;
+	padding: 0 40px;
+	overflow: hidden;
+	background: #fff;
+	position: fixed;
+	width: calc(100% - 80px);
+	left: 0;
+	top: 44px;
+	z-index: 3;
+	border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+
+.order_lead a {
+	display: inline-block;
+	height: 96%;
+	line-height: 39px;
+	text-align: center;
+	width: 32.4%;
+	font-size: 15px;
+	color: #000;
+}
+
+.order_lead a.active {
+	color: #9b885f;
+	border-bottom: 3px solid #9b885f;
+}
+
+
+/*商品订单*/
+
+.order {
+	margin-bottom: 10px;
+}
+
+.order_first {
+	margin-top: 100px;
+}
+
+.order .title {
+	height: 34px;
+	padding: 0 15px;
+	width: calc(100% - 30px);
+	border-bottom: 1px solid #ccc;
+	line-height: 34px;
+}
+
+.order .title .order_id {
+	font-size: 12px;
+	color: #333;
+	margin-right: 10px;
+}
+
+.order .title .order_flag {
+	font-size: 11px;
+	color: #fff;
+	background: #9b885f;
+	width: 40px;
+	height: 13px;
+	text-align: center;
+	line-height: 13px;
+	display: inline-block;
+}
+
+.order .con {
+	height: 55px;
+	padding: 10px 15px;
+	width: calc(100% - 30px);
+	border-bottom: 1px solid #f7f7f7;
+}
+
+.order .con .img {
+	height: 100%;
+	margin-right: 10px;
+	width: 55px;
+}
+
+.order .con .img img {
+	height: 100%;
+	width: 100%;
+}
+
+.order .con .txt {
+	height: 100%;
+	width: calc(100% - 75px);
+}
+
+.order .con .txt p {
+	font-size: 12px;
+	line-height: 20px;
+	color: #333;
+	max-width: 95%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.order .con .txt p:last-child {
+	color: #999;
+}
+
+.order .btm01 {
+	font-size: 12px;
+	color: #333;
+	height: 12px;
+	padding: 12.5px 15px 19px;
+	text-align: right;
+}
+
+.order .btm01 span {
+	color: #9b885f;
+}
+
+.order .btm02 {
+	padding: 0 15px;
+	text-align: right;
+}
+
+.order .btm02 span {
+	display: inline-block;
+	width: 68px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	font-size: 12px;
+}
+
+.order .btm02 span:first-child {
+	border: 1px solid #9b885f;
+	color: #9b885f;
+}
+
+.order .btm02 span:last-child {
+	background: #9b885f;
+	color: #fff;
+	margin-left: 5px;
+	border: 1px solid #9b885f;
+}
+
+
+/*/////////////////////*/
+
+
+/*待收货页面*/
+
+.unpaid {
+	width: 100%;
+	left: 0;
+	top: 90px;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+}
+
+.unpaid img {
+	display: block;
+	width: 37.5%;
+	margin: 0 auto;
+	margin-top: 10%;
+}
+
+.unpaid .name {
+	padding-top: 6.5%;
+	font-size: 15px;
+	color: #333;
+}
+
+.unpaid .detail {
+	font-size: 15px;
+	padding-top: 2.5%;
+	color: #999;
+	padding-bottom: 4.5%;
+}
+
+.unpaid span {
+	display: block;
+	width: 240px;
+	height: 40px;
+	margin: 0 auto;
+	background: #9b885f;
+	border-radius: 4px;
+	font-size: 15px;
+	line-height: 40px;
+}
+
+
+/*////////////////////////////////////////////////////*/
+
+
+/*登录页面*/
+
+.login {
+	margin: 0 40px;
+	margin-top: 96px;
+}
+
+.login input {
+	outline: none;
+	font-size: 16px;
+	color: #666;
+	height: 100%;
+	border: none;
+}
+
+.login input::-webkit-input-placeholder {
+	color: #ccc;
+	font-size: 13px;
+}
+
+.login .userName,
+.login .password,
+.login .confirm,
+.login .confirm_code {
+	height: 40px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.login .userName input,
+.login .confirm input {
+	width: 100%;
+}
+
+.login .password input {
+	width: 91.5%;
+}
+
+.login .password img.unsee {
+	position: absolute;
+	top: 10px;
+	width: 20px;
+	height: 20px;
+	right: 0;
+}
+
+.login .password img.see {
+	position: absolute;
+	top: 10px;
+	width: 20px;
+	height: 20px;
+	right: 0;
+	display: none;
+}
+
+.login .btn {
+	margin-top: 8%;
+	height: 40px;
+	border-radius: 4px;
+	font-size: 15px;
+	color: #fff;
+	text-align: center;
+	line-height: 40px;
+	display: block;
+	width: 100%;
+	border: 0;
+	background: #bf9d60;
+}
+
+.login .btn[disabled] {
+	background: #ccc;
+}
+
+.login .other {
+	padding: 20px 0px;
+	font-size: 12px;
+	color: #999;
+	text-align: center;
+}
+
+.login .other a {
+	color: #7e8c8d;
+}
+
+.login .confirm_code input {
+	width: 71%;
+}
+
+.login .confirm_code .txt {
+	display: inline-block;
+	width: 27.3%;
+	font-size: 14px;
+	color: #ccb27f;
+	height: 24px;
+	line-height: 20px;
+	text-align: center;
+	border-left: 1px solid #e5e5e5;
+	vertical-align: middle;
+}
+
+
+/*///////////////////////////////*/
+
+
+/*选择支付方式页面*/
+
+.payWay {
+	width: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 44px;
+	bottom: 0;
+	left: 0;
+	background: #e5e5e5;
+}
+
+.payWay .price {
+	background: #fff;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+}
+
+.payWay .price .text {
+	font-size: 14px;
+	color: #333;
+}
+
+.payWay .price .num {
+	font-size: 20px;
+	color: #9b885f;
+	font-family: Arial;
+	font-weight: 100;
+}
+
+.payWay .pay_way {
+	background: #fff;
+}
+
+.payWay .pay_way .list {
+	margin-top: 10px;
+	margin-left: 15px;
+	padding-right: 17px;
+	height: 50px;
+	position: relative;
+	border-bottom: 1px solid #ccc;
+	width: calc(100%-15px);
+}
+
+.payWay .pay_way .list .list_left {
+	width: 89%;
+	height: 100%;
+}
+
+.payWay .pay_way .list .list_left img {
+	width: 23px;
+	height: 23px;
+	margin: 15px 9px 0 0;
+}
+
+.payWay .pay_way .list .list_left .pay_text {
+	width: 89%;
+	margin-top: 9px;
+}
+
+.payWay .pay_way .list_left .pay_text .pay_name {
+	font-size: 14px;
+	color: #333;
+}
+
+.payWay .pay_way .list_left .pay_text .pay_detail {
+	color: #999;
+	font-size: 10px;
+}
+
+.payWay .pay_way .list .list_right {
+	position: absolute;
+	top: 15px;
+	right: 17px;
+	background: url(../img/other/payway_no.png) no-repeat;
+	width: 22px;
+	height: 22px;
+	background-size: 22px 22px;
+}
+
+.payWay .pay_way .list.active .list_right {
+	background: url(../img/other/payway_yes.png) no-repeat;
+	background-size: 22px 22px;
+}
+
+.payWay .paybtn {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background: #fff;
+	text-align: center;
+}
+
+.payWay .paybtn .ispay {
+	text-align: center;
+	height: 40px;
+	background: #9b885f;
+	font-size: 15px;
+	color: #fff;
+	border-radius: 4px;
+	width: 42.4%;
+	display: block;
+	line-height: 40px;
+	margin-left: 28.8%;
+	margin-top: 10px;
+}
+
+
+/*//////////////////////////*/
+
+
+/*地址*/
+
+.address {
+	position: absolute;
+	background: #e5e5e5;
+	overflow: hidden;
+	left: 0;
+	top: 44px;
+	bottom: 0;
+	width: 100%;
+}
+
+.address .adr_list {
+	height: 90px;
+	margin-top: 10px;
+	background: #fff;
+	width: 100%;
+}
+
+.address .adr_list .img {
+	width: 18px;
+	height: 18px;
+	margin: 35px 13px;
+	background: url(../img/other/payway_no.png) no-repeat;
+	background-size: 18px 18px;
+}
+
+.address .adr_list.active .img {
+	background: url(../img/other/payway_yes.png) no-repeat;
+	background-size: 18px 18px;
+}
+
+.address .adr_list .adr_txt {
+	height: 100%;
+	text-align: left;
+	width: calc(100% - 100px);
+	font-size: 14px;
+	color: #333;
+}
+
+.address .adr_list .adr_txt .adr_title {
+	padding-top: 17px;
+	padding-bottom: 10px;
+	height: 14px;
+}
+
+.address .adr_list .adr_txt .adr_con {
+	line-height: 19px;
+	overflow: hidden;
+	margin-bottom: 14px;
+}
+
+.address .adr_list .editor {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	padding-right: 17px;
+	padding-bottom: 20px;
+	font-size: 14px;
+	color: #ccc;
+}
+
+.adr_btn {
+	left: 0;
+	bottom: 0;
+	height: 60px;
+	width: 100%;
+	background: #fff;
+	position: absolute;
+	text-align: center;
+	border-top: 1px solid #ccc;
+}
+
+.adr_btn .add_adr,
+.adr_btn .ok_adr {
+	font-size: 15px;
+	width: 44%;
+	height: 40px;
+	border-radius: 4px;
+	display: inline-block;
+	line-height: 40px;
+	margin-top: 10px;
+}
+
+.adr_btn .add_adr {
+	margin-left: 4%;
+	border: 1px solid #9b885f;
+	color: #9b885f;
+}
+
+.adr_btn .ok_adr {
+	margin-right: 4%;
+	background: #9b885f;
+	color: #fff;
+	border: 1px solid #9b885f;
+}
+
+
+/*////////////////////////*/
+
+
+/*添加收货地址*/
+
+
+/*弹出页面*/
+
+.adr_alert {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	bottom: 0;
+	background: rgba(0, 0, 0, .5);
+	z-index: 100;
+	display: none;
+}
+
+.adr_alert .alert_box {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -135px;
+	margin-top: -51.5px;
+	width: 270px;
+	height: 103px;
+	background: #fff;
+	border-radius: 8px;
+	z-index: 102;
+	text-align: center;
+}
+
+.adr_alert .alert_box .alt_title {
+	height: 58px;
+	font-size: 17px;
+	line-height: 58px;
+	border-bottom: 1px solid #e5e5e5;
+	color: #000000;
+}
+
+.adr_alert .alert_box .alt_ok {
+	height: 44px;
+	line-height: 44px;
+	font-size: 15px;
+	color: #9b885f;
+}
+
+.addr_con {
+	position: absolute;
+	top: 44px;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: #e5e5e5;
+	overflow: hidden;
+}
+
+.addr_con .default {
+	margin-top: 10px;
+	background: #fff;
+	padding: 0 20px 0 15px;
+	height: 44px;
+	width: calc(100%-45px);
+	color: #333;
+	font-size: 14px;
+	line-height: 44px;
+}
+
+.addr_con .default .logo {
+	background: url(../img/other/addr01.png) no-repeat;
+	width: 51px;
+	height: 31px;
+	background-size: 51px 31px;
+	margin-top: 6px;
+}
+
+.addr_con .default .logo.active {
+	background: url(../img/other/addr02.png) no-repeat;
+	background-size: 51px 31px;
+}
+
+.addr_con .addr_box {
+	background: #fff;
+	margin-top: 10px;
+	padding-left: 15px;
+	width: calc(100%-15px);
+}
+
+.addr_con .addr_box .box {
+	height: 44px;
+	width: 100%;
+	color: #333;
+	font-size: 14px;
+	line-height: 44px;
+	border-bottom: 1px solid #ddd;
+}
+
+.addr_con .addr_box .box:last-child {
+	border: none;
+}
+
+.addr_con .addr_box .box .name {
+	display: inline-block;
+	width: 70px;
+	text-align: left;
+}
+
+.addr_con .addr_box .box .detail {
+	width: 78%;
+	height: 100%;
+	border: none;
+	outline: none;
+	color: #999;
+}

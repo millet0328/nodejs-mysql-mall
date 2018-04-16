@@ -1,0 +1,59 @@
+@charset "utf-8";
+
+.foot_nav li:nth-child(2) a{
+	color: #fff;
+}
+p{
+	margin: 0;
+}
+.content{
+	width: 100%;
+	overflow: hidden;
+}
+.content ul li{
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.content ul a{
+	display: block;
+	width: 100%;
+}
+.content ul .img{
+	height: 0;
+	padding-bottom: 100%;	
+}
+.content ul .img div{
+	position: absolute;
+    height: 75%;
+    width: 100%;
+    text-align: center;
+}
+.content ul .img img{
+	height: 100%;
+}
+.content ul p{
+	margin: 0;
+	text-align: center;	
+	height: 20px;
+	line-height: 20px;	
+    font-size: 14px;
+}
+.content ul .name{
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+.content ul .price{
+    color: #666;
+}
+.content .foot_txt{
+	font-size: 14px;
+    color: #999;
+    line-height: 15px;
+    height: 15px;
+    text-align: center;
+    margin: 10px 0 15px;
+}

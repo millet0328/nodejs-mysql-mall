@@ -1,1 +1,24 @@
 /* Write your styles */
+.good_name{
+	width: 300px;
+	overflow: hidden;
+	white-space: nowrap;/*强制文本不换行*/
+	text-overflow: ellipsis;/*多余的文字使用...代替*/
+}
+.good_des{
+	width: 300px;
+	overflow:hidden;
+	height: 80px;
+}
+
+.am-form{
+	width: 800px;
+	margin: 0 auto;
+}
+.txt{
+	color: #AAAAAA;
+	font-size: 14px;
+}
+#txt{
+	color: orange;
+}

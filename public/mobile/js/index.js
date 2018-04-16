@@ -1,137 +1,54 @@
-$(document).ready(function() {
-	//拖动导航条
-	var Hammer = $.AMUI.Hammer;
-	var oDao = document.getElementById("dao");
-	var hammer1 = new Hammer(oDao);
-	var w = window.innerWidth;
-	var left1 = oDao.offsetLeft;
-	hammer1.on("panstart", function(ev) {
-		var left = oDao.offsetLeft;
-		var flag = 0;
-		var ww = oDao.clientWidth;
-		var t = ww - w;
-		hammer1.on("panmove", function(ev) {
-			oDao.style.left = left + ev.deltaX + "px";
-		})
-		hammer1.on("panend", function(ev) {
-			left = oDao.offsetLeft;
-			if(left >= left1) {
-				oDao.style.left = left1 + "px";
-			} else if(left <= -t - left1) {
-				oDao.style.left = -t - left1 + "px";
-			}
-		})
-	})
-	//点击下拉条
-	$(".zhankai").click(function() {
-		$(".bg3").css("display", "block")
-	})
-	$(".choose_icon1").click(function() {
-		$(".bg3").css("display", "none")
-	})
-	//点击导航条项目
-	$tep1 = 0;
-	$.each($(".dao_text"), function(i) {
-		$(this).click(function() {
-			$(".dao_text").removeClass("change1");
-			$(this).addClass("change1");
-			$tep1 = i;
-			$(".dao_text2").removeClass("change2")
-			$(".dao_text2").eq($tep1).addClass("change2");
-
-		})
-	})
-	$.each($(".dao_text2"), function(i) {
-		$(this).click(function() {
-			$(".dao_text2").removeClass("change2");
-			$(this).addClass("change2");
-			$tep1 = i;
-			$(".dao_text").removeClass("change1")
-			$(".dao_text").eq($tep1).addClass("change1");
-
-		})
-	})
-	//拖动新人礼
-	var oShow = document.getElementById("show");
-	var hammer2 = new Hammer(oShow);
-	var left2 = oShow.offsetLeft;
-	hammer2.on("panstart", function(ev) {
-		var left = oShow.offsetLeft;
-		var flag = 0;
-		var ww = oShow.clientWidth;
-		var t = ww - w;
-		hammer2.on("panmove", function(ev) {
-			oShow.style.left = left + ev.deltaX + "px";
-		})
-		hammer2.on("panend", function(ev) {
-			left = oShow.offsetLeft;
-			if(left >= left2) {
-				oShow.style.left = left2 + "px";
-			} else if(left <= -t - left2) {
-				oShow.style.left = -t - left2 + "px";
-			}
-		})
-	})
-
-	//倒计时
-	function istwo(n) {
-		if(n < 10) {
-			n = "0" + n;
-		} else {
-			n = "" + n;
-		}
-		return n;
-	}
-	var timer = null;
-	var ordertime = new Date();
-	if(ordertime.getTime() % 1000 != 0) {
-		ordertime = new Date(ordertime.getTime() - ordertime.getTime() % 1000);
-	}
-	var endtime = new Date(ordertime.getTime() + 24 * 60 * 60 * 1000);
-	timer = setInterval(function() {
-		var currenttime = new Date();
-		if(currenttime.getTime() % 1000 != 0) {
-			currenttime = new Date(currenttime.getTime() - currenttime.getTime() % 1000);
-		}
-		var dec = endtime.getTime() - currenttime.getTime();
-		var sec = istwo(((dec / 1000) % 60));
-		var min = istwo(parseInt((dec / (1000 * 60)) % 60));
-		var hour = istwo(parseInt((dec / (1000 * 60 * 60)) % 24));
-		$(".dao_h").eq(0)[0].innerText = hour;
-		$(".dao_m").eq(0)[0].innerText = min;
-		$(".dao_s").eq(0)[0].innerText = sec;
-	}, 1000);
-
-	//拖动乐疯抢
-	var oModel = document.querySelectorAll(".model");
-	var arr = [];
-	var left3 = [];
-	for(var i = 0; i < oModel.length; i++) {
-		arr.push(new Hammer(oModel[i]));
-		left3.push(oModel[i].offsetLeft);
-	}
-	$.each(arr, function(i) {
-		arr[i].on("panstart", function(ev) {
-			var left = oModel[i].offsetLeft;
-			console.log(left)
-			var flag = 0;
-			var ww = oModel[i].clientWidth;
-			var t = ww - w;
-			arr[i].on("panmove", function(ev) {
-				oModel[i].style.left = left + ev.deltaX + "px";
-			})
-			arr[i].on("panend", function(ev) {
-				left = oModel[i].offsetLeft;
-				if(left >= left3[i]) {
-					oModel[i].style.left = left3[i] + "px";
-				} else if(left <= -t - left3[i]) {
-					oModel[i].style.left = -t - left3[i] + "px";
-				}
-			})
-		})
+$(function() {
+	$('#swiper').swiper({
+		pagination: '.swiper-pagination',
+		autoplay: 2000,
+		autoplayDisableOnInteraction: false,
+		paginationClickable: true
 	});
-	$(".model_pic img").click(function() {
-		location.href = "detail.html";
+	$('#swiper01').swiper({
+		autoplay: 2000,
+		autoplayDisableOnInteraction: false,
+		slidesPerView:3,
+		spaceBetween: 0
+	});
+	$('#swiper02').swiper({
+		autoplay: 2000,
+		autoplayDisableOnInteraction: false,
+		slidesPerView:3,
+		spaceBetween: 0
+	});
+	$('#swiper03').swiper({
+		autoplay: 2000,
+		autoplayDisableOnInteraction: false,
+		slidesPerView:3,
+		spaceBetween: 0
+	});
+	$('#swiper04').swiper({
+		autoplay: 2000,
+		autoplayDisableOnInteraction: false,
+		slidesPerView:3,
+		spaceBetween: 0
+	});
+	//滚动显示
+	$(window).scroll(function() {
+		//滚动显示顶部搜索框
+		if($("#head_nav").offset().top > 470) {
+			$("#head_nav").css("opacity", 1);
+		}else{
+			$("#head_nav").css("opacity", 0);
+		}
+		var search_top = $("#search").offset().top/400;
+		if(search_top<=1){
+			$("#search").css("background-color", 'rgba(0,0,0,' + search_top + ')');
+		}else{
+			$("#search").css("background-color", 'rgba(0,0,0,1)');
+		}
+		//滚动显示返回顶部按钮
+		if($("#gotop").offset().top > 800){
+			$("#gotop").css("opacity", 1);
+		}else{
+			$("#gotop").css("opacity", 0);
+		}
 	})
 
 })

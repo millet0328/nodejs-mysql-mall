@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+.tab_top{
+	top: 0;
+    left: 0;
+    height: 44px;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    line-height: 44px;
+    border-bottom: 1px solid #ccc;
+    z-index: 2;
+}
+.tab_top .return{
+	width: 22px;
+    height: 22px;
+    background: url(../img/other/return.png) no-repeat;
+    background-size: 22px 22px;
+    position: absolute;
+    padding: 11px 15px;
+    background-position: 15px 11px;
+    left: 0;
+    top: 0;
+    z-index: 3;
+}
+/*lead*/
+.tab_lead{
+	position: fixed;
+	top: 44px;
+	left: 0;
+	height: 39px;
+    background: #fff;
+    width: 100%;
+    line-height: 39px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    border-bottom: 1px solid #ccc;
+    z-index: 2;
+}
+.tab_lead .use{
+	width: 50%;
+    text-align: center;
+}
+.tab_lead .use span{
+	padding: 0 5px;
+	display: inline-block;
+	height: 100%;
+}
+.tab_lead .use span.active{
+	color: #9b885f;
+	border-bottom: 1px solid #9b885f;;
+}
+/*内容*/
+.content{
+	position: absolute;
+    left: 0;
+    top: 83px;
+    bottom: 0;
+    width: 100%;	
+    display: none;
+    z-index: 1;
+}
+.content.active{
+	display: block;
+}
+.content .available{
+	position: relative;
+    margin: 4%;
+    width: 92%;
+    height: 0;
+    padding-bottom: 130px;
+    background-image: url(../img/other/ava_bg.png);
+    background-size: 2px 100%;
+    background-repeat-y: no-repeat;
+}
+.con .available{
+	background-image: url(../img/other/noava_bg.png);
+}
+.available .left,
+.available .right{
+	vertical-align: top;
+    position: absolute;
+    top: 0;
+    height: 100%;
+}
+.available .left{
+	left: 0;
+}
+.available .right{
+	right: 0;
+}
+.available .cony{
+    width: 100%;
+    height: calc(100% - 50px); 
+    padding-bottom: 24px; 
+    padding-top: 26px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    color: #9b885f;
+    line-height: 1;
+}
+.available .cony .price .p_num {
+    font-size: 48px;
+}
+.available .cony .price .p_dan {
+    font-size: 14px;
+}
+.available .cony .canuse{
+	font-size: 11px;
+    padding: 5px 0;
+}
+.available .cony .text{
+	font-size: 11px;
+	margin-top: 5px;
+}

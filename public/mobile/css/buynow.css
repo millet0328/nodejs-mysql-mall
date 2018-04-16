@@ -1,0 +1,286 @@
+@charset "utf-8";
+body{
+	padding-bottom: 50px;
+	background: #e5e5e5;
+	height: 100%;
+}
+
+
+/*订单结算*/
+.tab_top{
+	top: 0;
+    left: 0;
+    height: 44px;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    line-height: 44px;
+    border-bottom: 1px solid #ccc;
+    z-index: 2;
+}
+.tab_top .return{
+	width: 22px;
+    height: 22px;
+    background: url(../img/other/return.png) no-repeat;
+    background-size: 22px 22px;
+    position: absolute;
+    padding: 11px 15px;
+    background-position: 15px 11px;
+    left: 0;
+    top: 0;
+    z-index: 3;
+}
+/*内容*/
+.content{
+	background: #e5e5e5;
+	position: absolute;
+    top: 44px;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 60px;
+    z-index: 1;
+}
+/*收件人信息*/
+.content .info{
+	position: relative;
+    height: 88px;
+    background: #fff;
+    font-size: 0;
+}
+.content .info:after{
+	display: inline-block;
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: url(../img/other/info_after.png) no-repeat;
+    background-size: 100% 100%;
+}
+.info .info_logo{
+	background: url(../img/other/info_GPS.png) no-repeat;
+	width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    background-size: 20px 20px;
+}
+.info .info_name{
+	padding-top: 15px;
+    padding-left: 45px;
+    color: #333;
+}
+.info .info_name .name{
+    font-size: 14px;
+    padding-right: 15px;
+}
+.info .info_name .phone{
+    font-size: 14px;
+}
+.info .info_add{
+	padding: 15px 49px 0 45px;
+    margin-bottom: 15px;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: left;
+    overflow: hidden;
+    color: #000000;
+}
+.info .more{
+	background: url(../img/other/info_more.png) no-repeat;
+	position: absolute;
+    right: 17px;
+    bottom: 33px;
+    width: 22px;
+    height: 22px;
+    background-size: 22px 22px;
+}
+/*第五大道自营*/
+.goods{
+	margin-top: 10px;
+    background: #fff;
+}
+.goods .title{
+	height: 44px;
+    padding-left: 15px;
+    color: #333;
+    font-size: 14px;
+    line-height: 44px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.goods .good_list{
+	height: 110px;
+	position: relative;
+    margin: 0 15px;
+}
+.goods .good_list .img{
+	width: 80px;
+    height: 80px;
+    margin-top: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.goods .good_list .img img{
+	height: 100%;
+}
+.goods .good_list .txt{
+	width: 70%;
+	margin: 15px 0 0 10px;
+    text-align: left;
+}
+.goods .good_list .txt p{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.goods .good_list .txt .name{
+	font-size: 12px;
+    color: #333;
+    margin: 1px 0 5px;
+}
+.goods .good_list .txt .detail{
+	font-size: 12px;
+    color: #333;
+}
+.goods .good_list .txt .rongl {
+    font-size: 12px;
+    color: #999;
+    margin: 5px 0 10px;
+}
+.goods .good_list .txt .price {
+    font-size: 13px;
+    color: #9b885f;
+}
+.goods .good_list .txt .price .number{
+	color: #333;
+}
+/*配送方式*/
+.goods .ps_type,
+.goods .total_num{
+	height: 44px;
+	padding: 0 15px;
+	line-height: 44px;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	font-size: 14px;
+    color: #333;
+}
+.goods .ps_type .ps_right{
+	font-size: 12px;
+	color: #999;
+}
+.goods .ps_type .ps_right .more{
+	display: inline-block;
+	background: url(../img/other/info_more.png) no-repeat;
+	width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    vertical-align: middle;
+    padding-bottom: 4px;
+}
+/*共计*/
+.goods .total_num{
+	text-align: right;
+}
+.goods .total_num span{
+    color: #9b885f;
+}
+/*现金券*/
+.money{
+	margin-top: 10px;
+	background: #fff;
+	padding: 0 15px;
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+    color: #333;
+}
+.money .money_right{
+	font-size: 12px;
+	color: #999;
+}
+.money .money_right .more{
+	display: inline-block;
+	background: url(../img/other/info_more.png) no-repeat;
+	width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    vertical-align: middle;
+    padding-bottom: 4px;
+}
+/*留言*/
+.message{
+    margin-top: 10px;
+    position: relative;
+    height: 44px;
+    background: #fff;
+    padding-left: 15px;
+}
+.message input{
+	outline: none;
+	height: 100%;
+    font-size: 14px;
+    width: 100%;
+    border: none;
+}
+/*金额计算*/
+.sum_price{
+	margin: 10px 0;
+	background-color: #fff;
+	padding: 0 15px;
+}
+.sum_price li{
+	height: 44px;
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	font-size: 14px;
+    color: #999;
+    line-height: 44px;
+}
+.sum_price li:last-child .fr{
+	color: #9b885f;
+}
+/*底部提交订单*/
+.tab_btm{
+	width: 100%;
+    height: 60px;
+    background: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 2;
+    border-top: 1px solid #ddd;
+}
+.tab_btm .choose{
+	background: url(../img/other/choose.png) no-repeat;
+	width: 22px;
+    height: 22px;
+    background-size: 22px 22px;
+    margin: 19px 9px 0 15px;
+} 
+.tab_btm .btm_txt{
+	text-align: left;
+	line-height: 18px;
+	font-size: 12px;
+    color: #333;
+    margin-top: 12px;
+}
+.tab_btm .btm_txt .price{
+	color: #9b885f;
+	font-size: 13px;
+}
+.btm_right {
+    margin-right: 15px;
+    height: 40px;
+    width: 115px;
+    line-height: 40px;
+    border-radius: 4px;
+    background: #9b885f;
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 10px;
+}

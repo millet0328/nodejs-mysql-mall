@@ -1,0 +1,223 @@
+@charset "utf-8";
+.relative {
+	position: relative;
+}
+
+body {
+	padding-bottom: 50px;
+}
+
+
+/*修改checkbox样式*/
+
+input[type=checkbox] {
+	position: relative;
+	background: transparent;
+	border: none;
+	width: 10px;
+	height: 1px;
+}
+
+input[type=checkbox]::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 22px;
+	height: 22px;
+	background-color: #fff;
+	background: url(../img/other/check_before.png) no-repeat;
+	background-size: 22px 22px;
+}
+
+input[type=checkbox]:checked::before {
+	background: url(../img/other/check_after.png) no-repeat;
+	content: '';
+	background-size: 22px 22px;
+}
+
+
+/*购物袋*/
+
+.tab_top {
+	top: 0;
+	left: 0;
+	height: 44px;
+	width: 100%;
+	background: #fff;
+	position: fixed;
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+	line-height: 44px;
+	border-bottom: 1px solid #ccc;
+	z-index: 2;
+}
+
+.tab_top .return {
+	width: 22px;
+	height: 22px;
+	background: url(../img/other/return.png) no-repeat;
+	background-size: 22px 22px;
+	position: absolute;
+	padding: 11px 15px;
+	background-position: 15px 11px;
+	left: 0;
+	top: 0;
+	z-index: 3;
+}
+
+
+
+/*内容*/
+
+.content {
+	width: 100%;
+	position: absolute;
+    top: 44px;
+    overflow: hidden;
+    padding-bottom: 60px;
+    z-index: 1;
+}
+.content .good_list {
+	width: 100%;
+	margin-top: 10px;
+	border-bottom: 1px solid #ccc;
+	background-color: #fff;
+}
+.content .good_list .title{
+	height: 42px;
+	line-height: 42px;
+	border-bottom: 1px solid #ccc;
+}
+.content .good_list .title span{
+	margin-left: 15px;
+	font-size: 13px;
+    color: #666;
+}
+.content  .good_list .title .delete{
+	margin-right: 15px;
+	font-size: 13px;
+}
+.content  .good_list .goods{
+	padding: 10px 0;
+	height: 90px;
+}
+.content  .good_list .goods .good_left{
+	margin-left: 15px;
+	margin-top: 24px;
+}
+.content  .good_list .goods .good_right{
+	width: 88%;
+	margin-left: 8px;
+}
+.content  .good_list .goods .good_right .img{
+	width: 90px;
+    height: 90px;
+}
+.content  .good_list .goods .good_right .img img{
+	height: 100%;
+}
+.content  .good_list .goods .good_right .txt{
+	width: 63%;
+	padding: 3px 15px 0 10px;
+}
+.goods .good_right .txt p{
+	width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 1;
+}
+.goods .good_right .txt .name,
+.goods .good_right .txt .detail{
+	color: #333;
+    padding-bottom: 6.5px;
+}
+.goods .good_right .txt .type{
+	color: #999;
+    margin-bottom: 21px;
+}
+.goods .good_right .txt .price {
+    font-family: Arial-Regular;
+    font-size: 13px;
+    color: #9b885f;
+}
+/*数量*/
+.goods .count {
+	width: 90px;
+	position: absolute;
+    right: 15px;
+    bottom: 0;
+}
+.goods .count .reduce,
+.goods .count .add{
+	display: block;
+    width: 23px;
+    height: 24px;
+    border: 1px solid #ccc;
+    color: #999;
+    float: left;
+    line-height: 22px;
+    cursor: pointer;
+    text-align: center;
+	font-size: 24px;
+}
+.goods .count .reduce{
+	border-right: none;
+}
+.goods .count .add{
+	border-left: none;
+}
+.goods .count .count_num{
+	width: 40px;
+    height: 24px;
+    border: 1px solid #d7cbc6;
+    line-height: 22px;
+    text-align: center;
+    font-size: 14px;
+    outline: none;
+}
+
+/*底部结算*/
+
+.btm {
+	height: 60px;
+	background: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	z-index: 3;
+	border-top: 1px solid #ddd;
+}
+
+.btm .btm01 {
+	margin-left: 15px;
+	margin-top: 9px;
+}
+.btm .btm02 {
+    margin: 22px 16px 0 20px;
+	font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+}
+.btm .btm03{
+	height: 100%;
+	line-height: 65px;
+	font-size: 16px;
+    color: #9b885f;
+    text-align: left;
+}
+.btm .btm04{
+	width: 115px;
+    height: 40px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 15px;
+    background: #9b885f;
+    margin: 10px 15px 0 0;
+    text-align: center;
+    line-height: 40px;
+}

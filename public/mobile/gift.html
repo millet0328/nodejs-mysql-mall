@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>第五大道礼金券-王晓迪</title>
+		<link rel="shotcut icon" href="img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<link rel="stylesheet" type="text/css" href="css/gift.css" />
+	</head>
+
+	<body>
+		<!--我的礼券-->
+		<div class="tab_top">
+			<a href="personal.html">
+				<div class="return"></div>
+			</a>
+			<div class="text"> 我的礼券  </div>
+		</div>
+		<!--lead-->
+		<div class="tab_lead clearfix">
+			<div class="use fl">
+				<span class="active">
+					可用礼券
+				</span>
+			</div>
+			<div class="use fr">
+				<span >
+					不可用礼券
+				</span>
+			</div>
+		</div>
+		<!--可用礼券-->	
+		<div class="content active">
+			<div class="available">
+				<img class="left" src="img/other/ava_left.png"/>
+				<img class="right" src="img/other/ava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">20</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满0元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+			<div class="available">
+				<img class="left" src="img/other/ava_left.png"/>
+				<img class="right" src="img/other/ava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">60</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满999元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+			<div class="available">
+				<img class="left" src="img/other/ava_left.png"/>
+				<img class="right" src="img/other/ava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">99</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满98元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+		</div>
+		<!--不可用礼券-->
+		<div class="content con">
+			<div class="available">
+				<img class="left" src="img/other/noava_left.png"/>
+				<img class="right" src="img/other/noava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">100</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满1999元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+			<div class="available">
+				<img class="left" src="img/other/noava_left.png"/>
+				<img class="right" src="img/other/noava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">200</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满3999元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+			<div class="available">
+				<img class="left" src="img/other/noava_left.png"/>
+				<img class="right" src="img/other/noava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">500</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满9999元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+			<div class="available">
+				<img class="left" src="img/other/noava_left.png"/>
+				<img class="right" src="img/other/noava_right.png"/>
+				<div class="cony">
+					<div class="price"> 
+						<span class="p_num">1000</span> 
+						<span class="p_dan">元</span> 
+					</div>
+					<div class="canuse">满19999元可用</div>
+					<div class="text">—— 2017.09.26-2018.12.31 ——</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function () {
+			$(".use span").click(function () {
+				$(".use span").removeClass("active");
+				$(this).addClass("active");
+				var num=$(this).index($(".use span"));
+				console.log(num);
+				$(".content").removeClass("active");
+				$(".content").eq(num).addClass("active");
+			})
+		})
+	</script>
+</html>
