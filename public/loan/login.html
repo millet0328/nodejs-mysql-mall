@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+	</head>
+
+	<body>
+		<div class="logo-banner txt-center">
+			<img height="70" src="img/login_logo--2479b32e49.png" />
+		</div>
+		<form action="" class="am-form" id="form-with-tooltip">
+			<fieldset>
+				<div class="am-form-group am-g relative">
+					<i class="icon icon-user"></i>
+					<input type="text" id="doc-vld-name-2-0" minlength="3" placeholder="手机号/邮箱" required data-foolish-msg="请输入正确的邮箱或手机号" />
+				</div>
+
+				<div class="am-form-group relative">
+					<i class="icon icon-pwd"></i>
+					<input type="password" id="doc-vld-pwd-1-0" placeholder="登录密码" minlength="6" maxlength="16" required data-foolish-msg="请输入正确的密码" />
+				</div>
+				<div class="am-form-group relative">
+					<i class="icon icon-code"></i>
+					<div id="v_container" style="width: 60px;height: 30px;"></div>
+					<input type="text" id="code_input" value="" placeholder="请输入验证码" />
+					<!--<button id="my_button">验证</button>-->
+				</div>
+				<a href="index.html">
+					<button class="am-btn am-btn-secondary" type="submit">登录</button>
+				</a>
+			</fieldset>
+		</form>
+		<div class="box am-cf am-container">
+			<a href="" class="am-fl">短信快捷登录</a>
+			<a href="" class="am-fr">忘记密码</a>
+		</div>
+		<div class="to-res">
+			<a href="register.html">
+				没有账号？极速注册
+			</a>
+		</div>
+
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<script src="js/gVerify.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+	<script type="text/javascript">
+		(function($) {
+			if($.AMUI && $.AMUI.validator) {
+				// 增加多个正则
+				$.AMUI.validator.patterns = $.extend($.AMUI.validator.patterns, {
+					//					user - name: /^(1[0-9]{10}|\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+))*$/;
+				});
+			}
+		})(window.jQuery);
+
+		$(function() {
+			var $form = $('#form-with-tooltip');
+			var $tooltip = $('<div id="vld-tooltip">提示信息！</div>');
+			$tooltip.appendTo(document.body);
+
+			$form.validator();
+
+			var validator = $form.data('amui.validator');
+
+			$form.on('focusin focusout', '.am-form-error input', function(e) {
+				if(e.type === 'focusin') {
+					var $this = $(this);
+					var offset = $this.offset();
+					var msg = $this.data('foolishMsg') || validator.getValidationMessage($this.data('validity'));
+
+					$tooltip.text(msg).show().css({
+						left: offset.left + 10,
+						top: offset.top + $(this).outerHeight() + 10
+					});
+				} else {
+					$tooltip.hide();
+				}
+			});
+		});
+		$(window).ready(function() {
+			var verifyCode = new GVerify("v_container");
+			$(".am-btn").onclick = function() {
+				var res = verifyCode.validate(document.getElementById("code_input").value);
+				if(res) {
+					alert("验证正确");
+				} else {
+					alert("验证码错误");
+				}
+			}
+
+		})
+	</script>
+
+</html>

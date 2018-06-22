@@ -222,7 +222,7 @@ router.get("/getAddress/", function(req, res) {
 		});
 	});
 });
-//根据id获取收货地址
+//根据id获取收货地址详情
 router.get("/getAddressById/", function(req, res) {
 	Address.findOne(req.query, function(err, doc) {
 		if(err) {

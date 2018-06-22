@@ -152,26 +152,31 @@ $(document).ready(function() {
                 }
             }
         });
-        //				//ztree结构转换成json--递归
-        //				nodes = formateChildren(nodes);
+        //              //ztree结构转换成json--递归
+        //              nodes = formateChildren(nodes);
         //
-        //				function formateChildren(nodes) {
-        //					var children = [];
-        //					for(var i = 0; i < nodes.length; i++) {
-        //						var obj = {};
-        //						obj.tId = nodes[i].tId;
-        //						obj.name = nodes[i].name;
-        //						if(nodes[i].children) {
-        //							obj.children = formateChildren(nodes[i].children)
-        //						}
-        //						children.push(obj);
-        //					}
-        //					return children;
-        //				}
+        //              function formateChildren(nodes) {
+        //                  var children = [];
+        //                  for(var i = 0; i < nodes.length; i++) {
+        //                      var obj = {};
+        //                      obj.tId = nodes[i].tId;
+        //                      obj.name = nodes[i].name;
+        //                      if(nodes[i].children) {
+        //                          obj.children = formateChildren(nodes[i].children)
+        //                      }
+        //                      children.push(obj);
+        //                  }
+        //                  return children;
+        //              }
 
     });
     //重置按钮
     $("#resetBtn").click(function() {
+        // var zNodes = [
+        //     { id: 1, pId: 0, name: "父节点1" },
+        //     { id: 11, pId: 1, name: "子节点1" },
+        //     { id: 12, pId: 1, name: "子节点2" }
+        // ];
         ztree = $.fn.zTree.init($category, setting, zNodes);
     });
 });

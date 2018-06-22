@@ -1,0 +1,334 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/select-address.css" />
+    <link rel="stylesheet" href="css/ydui.css?rev=@@hash" />
+</head>
+
+<body>
+    <!--错误提示-->
+    <div class="tips-box" id="tips">
+        <span></span>
+    </div>
+    <!--<div class="black-cover">
+		</div>-->
+    <!--选择地址-->
+    <!--<div class="address-wrap">
+			<div class="title">
+				请选择
+			</div>
+			<div class="">
+				<span class="province"></span>
+				<span class=""></span>
+				<span class=""></span>
+			</div>
+			<ul class="">
+				<li class=""></li>
+			</ul>
+		</div>-->
+    <!--黑色遮罩-->
+    <div class="tips-cover">
+        <div class="cover-box">
+            <div class="title">
+                确认要删除该收货地址码
+            </div>
+            <div class="btn-box am-cf">
+                <div class="cancel-btn am-fl blue">
+                    取消
+                </div>
+                <div class="ok-btn am-fl blue">
+                    确定
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tips-cover1">
+        <div class="cover-box1">
+            <div class="title">
+                至少要保留一个收货地址哦~
+            </div>
+            <div class="btn-box am-cf">
+                <div class="ok-btn1 am-fl blue">
+                    确定
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-1" id="page-1">
+        <div class="head-fixed bg-wrap">
+            <a href="" class="go-back am-block" id="huitui">
+					<i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+			</a>
+            <span class="head-til">我的收货地址</span>
+            <span class="manage blue">管理</span>
+        </div>
+        <div class="person-address">
+            <ul class="address-list" id="address-list1">
+                <!-- <li class="address-item txt12 relative bg-wrap">
+                    <div class="address-top-box relative padding-20">
+                        <div class="person-info">
+                            <span class="blue person-default-logo relative logo-active">默认</span>
+                            <span class="person-name">张百惠</span>
+                            <span class="person-tel">17854259001</span>
+                        </div>
+                        <div class="gray2 am-padding-top-xs person-address-detail relative">
+                            <span class="person-province">山东</span>
+                            <span class="person-city">青岛市</span>
+                            <span class="person-county">黄岛区</span>
+                            <span class="person-detail">山东科技大学</span>
+                        </div>
+                    </div>
+                </li> -->
+                <!-- <li class="address-item txt12 relative bg-wrap">
+                    <div class="address-top-box relative padding-20">
+                        <div class="person-info">
+                            <span class="blue person-default-logo relative">默认</span>
+                            <span class="person-name">张张</span>
+                            <span class="person-tel">17854259001</span>
+                        </div>
+                        <div class="gray2 am-padding-top-xs person-address-detail relative">
+                            <span class="person-province">山东</span>
+                            <span class="person-city">青岛市</span>
+                            <span class="person-county">黄岛区</span>
+                            <span class="person-detail">山东科技大学A17</span>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <div class="page-2">
+        <div class="head-fixed bg-wrap">
+            <div class="go-back am-block">
+                <i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+            </div>
+            <span class="head-til">管理收货地址</span>
+        </div>
+        <div class="person-address">
+            <ul class="address-list" id="address-list2">
+                <li class="address-item txt12 relative bg-wrap">
+                    <div class="address-top-box relative padding-20">
+                        <div class="person-info">
+                            <span class="blue person-default-logo logo-active relative ">默认</span>
+                            <span class="person-name">张百惠</span>
+                            <span class="person-tel">17854259001</span>
+                        </div>
+                        <div class="gray2 am-padding-top-xs person-address-detail relative">
+                            <span class="person-province">山东</span>
+                            <span class="person-city">青岛市</span>
+                            <span class="person-county">黄岛区</span>
+                            <span class="person-detail">山东科技大学</span>
+                        </div>
+                    </div>
+                    <div class="manage-box am-cf padding-20">
+                        <div class="default-btn am-fl txt14 am-cf">
+                            <span id="" class="default-btn-icon active relative am-fl"></span>
+                            <span class="address-cn am-fl">默认地址</span>
+                        </div>
+                        <div class="del-btn am-fr">
+                            <span class="am-icon-trash am-icon-sm txt14"> 删除</span>
+                        </div>
+                        <div class="edit-btn am-fr  am-margin-right-sm">
+                            <span class="am-icon-edit am-icon-sm txt14"> 编辑</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="address-item txt12 relative bg-wrap">
+                    <div class="address-top-box relative padding-20">
+                        <div class="person-info">
+                            <span class="blue person-default-logo relative">默认</span>
+                            <span class="person-name">张张</span>
+                            <span class="person-tel">17854259001</span>
+                        </div>
+                        <div class="gray2 am-padding-top-xs person-address-detail relative">
+                            <span class="person-province">山东</span>
+                            <span class="person-city">青岛市</span>
+                            <span class="person-county">黄岛区</span>
+                            <span class="person-detail">山东科技大学A17</span>
+                        </div>
+                    </div>
+                    <div class="manage-box am-cf padding-20">
+                        <div class="default-btn am-fl txt14 am-cf">
+                            <span id="" class="default-btn-icon relative am-fl"></span>
+                            <span class="address-cn am-fl">设为默认</span>
+                        </div>
+                        <div class="del-btn am-fr">
+                            <span class="am-icon-trash am-icon-sm txt14"> 删除</span>
+                        </div>
+                        <div class="edit-btn am-fr  am-margin-right-sm">
+                            <span class="am-icon-edit am-icon-sm txt14"> 编辑</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <!--添加新地址-->
+            <div class="add-new blue bg-wrap">
+                添加新地址
+            </div>
+            <!--添加地址-->
+        </div>
+    </div>
+    <!--添加新地址-->
+    <div class="page-3">
+        <div class="head-fixed bg-wrap">
+            <div class="go-back am-block">
+                <i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+            </div>
+            <span class="head-til">添加收货地址</span>
+        </div>
+        <div class="new-address-box">
+            <form action="" method="post" id="page3-form">
+                <ul class="mod-wrap">
+                    <li class="mod-input-wrap">
+                        <label class="mod-label">收货人</label>
+                        <div class="mod-input">
+                            <input class="mod-input-row" type="text" name="account" datatype="z1-16" nullmsg="请输入收货姓名" errormsg="你的收货姓名只能包括汉字及符号·" placeholder="请输入收货人姓名" value="">
+                        </div>
+                    </li>
+                    <li class="mod-input-wrap">
+                        <label class="mod-label">联系电话</label>
+                        <div class="mod-input">
+                            <input class="mod-input-row" type="text" name="tel" datatype="myphone|m" placeholder="请输入收货人电话" nullmsg="收货人电话不能为空" errormsg="手机号或电话格式不正确" placeholder="请输入收货人电话" value="">
+                        </div>
+                    </li>
+                    <li class="mod-list-wrap">
+                        <label class="mod-label">所在地区</label>
+                        <div class="mod-input relative mod-list-text ">
+                            <div class="select-diy-text">
+                                <input type="text" datatype="*" class="mod-input-row" readonly id="J_Address" placeholder="请选择收货地址" nullmsg="请选择收货地址">
+                                <i></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-textarea-wrap">
+                        <textarea class="" type="text" datatype="*" name="street" nullmsg="请填写详细收货地址" data-required="" placeholder="请补充详细收货地址，如街道、门牌号、楼层及房间号等。"></textarea>
+                    </li>
+                </ul>
+                <label>
+                    <input type="checkbox" name="isDefault" value="true">
+                </label>
+                <!--提交按钮-->
+                <span class="manage blue" id="baocun-btn1">保存</span>
+                <label class="am-checkbox-inline">
+                    <input type="checkbox" value="true" data-am-ucheck name="isDefault"> 设为默认
+                </label>
+            </form>
+        </div>
+    </div>
+    <div class="page-4">
+        <div class="head-fixed bg-wrap">
+            <div class="go-back am-block">
+                <i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+            </div>
+            <span class="head-til">修改收货地址</span>
+        </div>
+        <div class="new-address-box">
+            <form action="" method="post" id="page4-form">
+                <ul class="mod-wrap">
+                    <li class="mod-input-wrap">
+                        <label class="mod-label">收货人</label>
+                        <div class="mod-input">
+                            <input class="mod-input-row" type="text" name="person-name" datatype="z1-16" nullmsg="请输入收货姓名" errormsg="你的收货姓名只能包括汉字及符号·" placeholder="请输入收货人姓名" value="">
+                        </div>
+                    </li>
+                    <li class="mod-input-wrap">
+                        <label class="mod-label">联系电话</label>
+                        <div class="mod-input">
+                            <input class="mod-input-row" type="text" name="person-tel" datatype="myphone|m" placeholder="请输入收货人电话" value="" nullmsg="收货人电话不能为空" errormsg="手机号或电话格式不正确">
+                        </div>
+                    </li>
+                    <li class="mod-list-wrap">
+                        <label class="mod-label">所在地区</label>
+                        <div class="mod-input relative mod-list-text ">
+                            <div class="select-diy-text">
+                                <input type="text" datatype="*" name="person-address" class="mod-input-row" readonly id="J_Address1" placeholder="请选择收货地址" nullmsg="请选择收货地址">
+                                <i></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mod-textarea-wrap">
+                        <textarea class="" type="text" datatype="*" name="person-detail" nullmsg="请填写详细收货地址" placeholder="请补充详细收货地址，如街道、门牌号、楼层及房间号等。"></textarea>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="isDefault" value="true">
+                    </li>
+                </ul>
+                <span class="manage blue" id="baocun-btn2">保存</span>
+            </form>
+        </div>
+    </div>
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="js/Validform_v5.3.2_min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="js/ydui.citys.js"></script>
+    <script type="text/javascript" src="js/ydui.js"></script>
+    <script src="js/template-web.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/html" id="page1-address-list">
+        {{each data}}
+        <li class="address-item txt12 relative bg-wrap">
+            <div class="address-top-box relative padding-20">
+                <div class="person-info">
+                    <span class="blue person-default-logo relative logo-active">默认</span>
+                    <span class="person-name am-padding-left-xs">{{$value.account}}</span>
+                    <span class="person-tel">{{$value.tel}}</span>
+                </div>
+                <div class="gray2 am-padding-top-xs person-address-detail relative">
+                    <span class="person-province">{{$value.city}}</span>
+                    <span class="person-detail">{{$value.street}}</span>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </script>
+    <script type="text/html" id="page2-address-list">
+        {{each data}}
+        <li class="address-item txt12 relative bg-wrap">
+            <div class="address-top-box relative padding-20">
+                <div class="person-info">
+                    <span class="blue person-default-logo logo-active relative ">默认</span>
+                    <span class="person-name">{{$value.account}}</span>
+                    <span class="person-tel">{{$value.tel}}</span>
+                </div>
+                <div class="gray2 am-padding-top-xs person-address-detail relative">
+                    <span class="person-province">{{$value.city}}</span>
+                    <span class="person-detail">{{$value.street}}</span>
+                </div>
+            </div>
+            <div class="manage-box am-cf padding-20">
+                <div class="default-btn am-fl txt14 am-cf">
+                    <span id="" class="default-btn-icon active relative am-fl"></span>
+                    <span class="address-cn am-fl">默认地址</span>
+                </div>
+                <div class="del-btn am-fr">
+                    <span class="am-icon-trash am-icon-sm txt14"> 删除</span>
+                </div>
+                <div class="edit-btn am-fr  am-margin-right-sm">
+                    <a href="address-edit.html?id={{$value._id}}" class="am-icon-edit am-icon-sm txt14"> 编辑</a>
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </script>
+</body>
+<!--<script src="js/main.js" type="text/javascript" charset="utf-8"></script>-->
+
+</html>

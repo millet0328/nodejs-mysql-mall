@@ -1,0 +1,279 @@
+@charset "utf-8";
+
+/*公共类*/
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.relative {
+	position: relative;
+}
+
+.txt-center {
+	text-align: center;
+}
+
+.ver-mid {
+	vertical-align: middle;
+}
+
+.am-thumbnail {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.separator-bg {
+	width: 100%;
+	height: 10px;
+	background-color: #EEEEEE;
+}
+p{
+	margin: 0;
+}
+
+/*头*/
+
+.set-up {
+	color: #fff;
+	font-size: 16px;
+}
+
+.account-body {
+	position: relative;
+	background: url(../img/top_bd.png) no-repeat;
+	background-size: 100% 16rem;
+	width: 100%;
+	overflow: hidden;
+}
+
+.account-info {
+	padding: 2rem 1.5rem 4rem;
+}
+
+.account-info a {
+	display: block;
+}
+
+.account-info span {
+	color: white;
+	font-size: 14px;
+	padding-left: 10px;
+}
+.separator-line {
+	border-bottom: 1px solid #EEEEEE;
+	width: 95%;
+	margin: 0 auto;
+}
+
+/*蓝色背景*/
+
+.item-bd {
+	background-color: rgba(255, 255, 255, .2);
+	/*background-color: cornflowerblue;*/
+}
+
+.item-bd p {
+	margin: 0;
+}
+
+.item-bd a {
+	color: white;
+	font-size: 14px;
+}
+
+.item-bd li:after {
+	content: "";
+	position: absolute;
+	left: 100%;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	border-left: 1px solid #FFFFFF;
+	height: 80%;
+}
+
+
+/*白色部分*/
+
+.item-hd {
+	display: block;
+	color: #929292;
+	font-size: 1.4rem;
+	padding: 0 1.5rem;
+	position: relative;
+	height: 5rem;
+	line-height: 5rem;
+}
+
+.icon {
+	display: inline-block;
+	width: 2rem;
+	height: 2rem;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	margin-right: 1rem;
+	position: relative;
+	top: .5rem;
+}
+.i-account-bill {
+	background-image: url(../img/i_bill.png);
+}
+.blue{
+	color: #3b9bff;
+}
+.bill-list p,
+.order-list p{
+	margin-top: 5px;
+	color: #929292;
+    font-size: 1.2rem;
+}
+.bill-list .day{
+	 color: #292929;
+}
+.i-account-order {
+    background-image: url(../img/i_order.png);
+}
+.i-icon-order {
+   background: url(../img/order_state.png) no-repeat;
+}
+.i-notpaid{
+	display: block;
+	width: 20px;
+    height: 18px;
+    background-position: 0 -56px;
+    background-size: cover;
+    margin: 0 auto;
+}
+.i-check{
+	display: block;
+	width: 20px;
+    height: 18px;
+    background-position: 0 -18px;
+    background-size: cover;
+    margin: 0 auto;
+}
+.i-receive{
+	display: block;
+	width: 20px;
+    height: 18px;
+    background-position: 0 0px;
+    background-size: cover;
+    margin: 0 auto;
+}
+.i-evaluate{
+	display: block;
+	width: 20px;
+    height: 18px;
+    background-position: 0 -36px;
+    background-size: cover;
+    margin: 0 auto;
+}
+/**/
+.my-list li{
+	height: 60px;
+	line-height: 60px;
+}
+.my-list li a{
+	display: block;
+}
+.my-list li:after{
+	content: "";
+	border-bottom: 1px solid #eeeeee;
+	position: absolute;
+	top: 100%;
+	left: 10px;
+	width: 95%;
+}
+.icon1{
+	display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-right: 1rem;
+    position: relative;
+    top: .5rem;
+}
+.icon-01{
+	background-image: url(http://mall.m.fenqile.com/res/img/app/wallet_index/i_cart.png);
+}
+
+.icon-02{
+	background-image: url(http://cres.fenqile.cn/mobile/img/app/wallet_index/invite_ico.png);
+	
+}
+.icon-03{
+	background-image: url(http://cc.m.fenqile.com/res/img/v1/card/card-icon.png);
+}
+.icon-04{
+	background-image: url(http://m.mall.fenqile.com/res/img/app/wallet_index/i_sub.png);
+}
+.icon-05{
+	background-image: url(http://m.mall.fenqile.com/res/img/app/wallet_index/i_safe.png);
+
+}
+.icon-06{
+	background-image: url(http://help.fenqile.com/res/img/m/help/i_help_service--0ec6e096ce.png);
+}
+.my-list li .gray{
+	color: #b9b9b9;
+}
+.my-list li span{
+	font-size: 1.6rem;
+    color: #191919;
+    font-weight: 400;
+}
+/*底部导航栏*/
+
+.bottom-bar {
+	display: flex;
+	left: 0;
+	right: 0;
+	height: 55px;
+	position: fixed;
+	bottom: 0;
+	background-color: #fafafa;
+	border-top: 1px solid #d9d9d9;
+	margin: 0 auto;
+	box-sizing: border-box;
+	z-index: 999;
+	width: 100%;
+}
+.bottom-bar ul{
+	width: 100%;
+	list-style: none;
+	border: 0;
+	padding: 0;
+}
+.bottom-bar ul li{
+	width: 20%;
+}
+.bottom-bar ul li a span{
+	display: block;
+	margin: 0 auto;
+}
+.bottom-bar ul li a .pic {
+    background-size: 23px;
+    background-repeat: no-repeat;
+    display: block;
+    width: 23px;
+    height: 23px;
+    position: relative;
+}
+.blue{
+	color: #3B9BFF;
+}
+.bottom-bar a{
+	color: #969696;
+    height: 49px;
+    text-align: center;
+}

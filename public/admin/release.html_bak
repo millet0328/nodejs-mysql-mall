@@ -247,11 +247,8 @@
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <!--引入模板引擎-->
     <script src="lib/artTemplate/template-web.js" type="text/javascript" charset="utf-8"></script>
-    <!-- 表单验证 -->
     <script src="lib/Validform/Validform_v5.3.2.js" type="text/javascript" charset="utf-8"></script>
-    <!-- 富文本编辑器 -->
     <script src="lib/wangEditor/wangEditor.min.js" type="text/javascript" charset="utf-8"></script>
-    <!-- 省市区三级联动 -->
     <script src="lib/PCASClass/PCASClass.js" type="text/javascript"></script>
     <!-- 公共函数 -->
     <script type="text/javascript" src="js/app.js"></script>
@@ -274,7 +271,7 @@
         // 监控变化，同步更新到 textarea
         $detail.val(html);
     }
-    // 配置图片上传服务器端地址
+    // 配置服务器端地址
     editor.customConfig.uploadImgServer = '/api/upload/common/';
     //自定义 fileName
     editor.customConfig.uploadFileName = 'file';
@@ -286,34 +283,6 @@
     <script type="text/javascript">
     //ajax提交文件
     $(document).ready(function() {
-        // 主图上传
-        $("#fbtn").change(function() {
-            // 获取file对象-H5 API
-            var oFile = $(this)[0].files[0];
-            // formData 表单对象
-            var formData = new FormData();
-            formData.append("file", oFile);
-            // ajax上传文件
-            $.ajax({
-                type: "post",
-                url: "/api/upload/img/",
-                async: true,
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function(result) {
-                    if (result.status) {
-                        // 插入图片
-                        $(".pic_box").append('<img src="' + result.mdImg + '">');
-                        // 储存隐藏数据
-                        $("#lgImg").val(result.lgImg);
-                        $("#mdImg").val(result.mdImg);
-                    } else {
-                        alert(result.msg);
-                    }
-                }
-            });
-        });
         var $preview = $("#preview");
         //轮播图数组
         var imgs = [];
@@ -349,6 +318,33 @@
             //删除DOM元素
             $(this).parent().remove();
         });
+
+        //主图上传
+        $("#fbtn").change(function() {
+            var formData = new FormData();
+            //file对象
+            var oFile = $(this)[0].files[0];
+            formData.append("file", oFile);
+            $.ajax({
+                type: "post",
+                url: "/api/upload/img/",
+                async: true,
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function(result) {
+                    if (result.status) {
+                        $(".pic_box").html('<img src="' + result.mdImg + '" />');
+                        //隐藏数据
+                        $("#lgImg").val(result.lgImg);
+                        $("#mdImg").val(result.mdImg);
+                    } else {
+                        alert(result.msg);
+                    }
+
+                }
+            });
+        });
         //表单验证
         $("#form").Validform({
             tiptype: 3,
@@ -370,50 +366,54 @@
     });
     </script>
     <script type="text/javascript">
-    // 获取一级分类
-    $.getJSON('/api/getCategory/first/', function(result) {
-        if (result.status) {
-            // 模板引擎
-            var html = template('tmpl-option', result);
-            $('#cate_first').html(html);
-            // 获取二级
-            getCate_2nd(result.data[0].id);
+    $(document).ready(function() {
+        var $cate_1st = $("#cate_first");
+        var $cate_2nd = $("#cate_second");
+        // 获取菜单
+        function getCate_1st(element) {
+            $.getJSON("/api/getCategory/first/", function(result) {
+                if (!result.status) {
+                    alert(result.msg);
+                    return
+                }
+                var html = template("tmpl-option", result);
+                element.html(html);
+                // 执行回调函数
+                var $next = element.next("select");
+                if ($next.length > 0) {
+                    getCate_2nd($next, result.data[0].id);
+                }
+            });
         }
-    });
-    // 获取二级分类
-    function getCate_2nd(i) {
-        $.getJSON('/api/getCategory/sub/', { pId: i }, function(result) {
-            if (result.status) {
-                // 模板引擎
-                var html = template('tmpl-option', result);
-                $('#cate_second').html(html);
-                // 获取三级
-                getCate_3rd(result.data[0].id);
-            }
-        });
-    }
-    // 获取三级分类
-    function getCate_3rd(i) {
-        $.getJSON('/api/getCategory/sub/', { pId: i }, function(result) {
-            if (result.status) {
-                // 模板引擎
-                var html = template('tmpl-option', result);
-                $('#cate_third').html(html);
-            }
-        });
-    }
-    $("#cate_first").change(function() {
-        // 一级id
-        var id = $(this).val();
-        // 请求二级
-        getCate_2nd(id);
-    });
 
-    $("#cate_second").change(function() {
-        // 二级id
-        var id = $(this).val();
-        // 请求三级
-        getCate_3rd(id);
+        function getCate_2nd(element, id) {
+            $.getJSON("/api/getCategory/sub/", { pId: id }, function(result) {
+                if (!result.status) {
+                    alert(result.msg);
+                    return
+                }
+                var html = template("tmpl-option", result);
+                element.html(html);
+                // 获取下一级菜单
+                var $next = element.next("select");
+                if ($next.length > 0) {
+                    getCate_2nd($next, result.data[0].id);
+                }
+            });
+        }
+        // 获取一级菜单
+        getCate_1st($cate_1st);
+        // 获取二级菜单
+        $cate_1st.change(function() {
+            var selected = $(this).val();
+            getCate_2nd($cate_2nd, selected);
+        });
+        // 获取三级菜单
+        $cate_2nd.change(function() {
+            var selected = $(this).val();
+            getCate_2nd($("#cate_third"), selected);
+        });
+
     });
     </script>
 </body>

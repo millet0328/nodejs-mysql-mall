@@ -1,0 +1,187 @@
+<!doctype html>
+<html class="no-js">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/forgetpwd.css" />
+	</head>
+
+	<body>
+		<!--错误提示-->
+		<div class="tips-box" id="tips">
+			<span></span>
+		</div>
+		<form action="" method="post">
+			<!--修改密码-->
+			<div class="">
+				<div class="head-fixed">
+					<span>修改密码</span>
+					<a href="profile.html" class="go-back am-block">
+						<i class="am-header-icon am-icon-angle-left" style="font-size: 30px;"></i>
+					</a>
+				</div>
+				<div class="title">
+					请重新设置并牢记密码
+				</div>
+				<ul class="form-new ">
+					<li class="form-input am-g relative">
+						<div class="am-u-sm-3">
+							<label for="pwd2">原密码</label>
+						</div>
+						<div class="am-u-sm-9">
+							<input datatype="*6-16" type="password" name="" id="" value="" placeholder="请输入原密码" nullmsg='原密码不能为空' />
+						</div>
+						<div class="pwd-eye">
+							<i class="icon icon-eye eye-btn" id="icon-eye"></i>
+						</div>
+					</li>
+					<li class="form-input am-g relative">
+						<div class="am-u-sm-3">
+							<label for="pwd1">设置新密码</label>
+						</div>
+						<div class="am-u-sm-9 ">
+							<input datatype="*6-16" type="password" name="password" id="pwd1" value="" placeholder="请设置6-16位任意字符登录密码" nullmsg='必须设置一个登陆密码 ' errormsg="密码格式应为6~16位任意字符" />
+						</div>
+						<div class="pwd-eye">
+							<i class="icon icon-eye eye-btn" id="icon-eye"></i>
+						</div>
+					</li>
+					<li class="form-input am-g relative">
+						<div class="am-u-sm-3">
+							<label for="pwd2">确认新密码</label>
+						</div>
+						<div class="am-u-sm-9">
+							<input datatype="*6-16" type="password" name="" id="pwd2" recheck="password" value="" placeholder="请再次输入登录密码" nullmsg='必须确认您的登陆密码' />
+						</div>
+						<div class="pwd-eye">
+							<i class="icon icon-eye eye-btn" id="icon-eye"></i>
+						</div>
+					</li>
+
+				</ul>
+				<div class="agree">
+
+				</div>
+				<button class="am-btn am-btn-secondary" type="submit" id="ok-btn">确认修改</button>
+			</div>
+		</form>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<script src="js/gVerify.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Validform_v5.3.2_min.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		//判断密码是否可见
+		function pwd_eye(obj) {
+			var flag = obj.hasClass("icon-eye");
+			if(flag) {
+				obj.parent(".pwd-eye").siblings().find("input").attr("type", "password")
+			} else {
+				obj.parent(".pwd-eye").siblings().find("input").attr("type", "text");
+			}
+		}
+		//密码可见
+		var eyeFlag1 = true;
+		var eyeFlag2 = true;
+		var eyeFlag3 = true;
+		$(".eye-btn").click(function() {
+			console.log($(this).parents("li").index());
+			if($(this).parents("li").index() == 0) {
+				if(eyeFlag1) {
+					$(this).removeClass("icon-eye").addClass("icon-eye1");
+					pwd_eye($(this));
+					eyeFlag1 = !eyeFlag1;
+				} else {
+					$(this).removeClass("icon-eye1").addClass("icon-eye");
+					pwd_eye($(this));
+					eyeFlag1 = !eyeFlag1;
+				}
+			}
+			if($(this).parents("li").index() == 1) {
+				if(eyeFlag2) {
+					$(this).removeClass("icon-eye").addClass("icon-eye1");
+					pwd_eye($(this));
+					eyeFlag2 = !eyeFlag2;
+				} else {
+					$(this).removeClass("icon-eye1").addClass("icon-eye");
+					pwd_eye($(this));
+					eyeFlag2 = !eyeFlag2;
+				}
+			} else {
+				if(eyeFlag3) {
+					$(this).removeClass("icon-eye").addClass("icon-eye1");
+					pwd_eye($(this));
+					eyeFlag3 = !eyeFlag3;
+				} else {
+					$(this).removeClass("icon-eye1").addClass("icon-eye");
+					pwd_eye($(this));
+					eyeFlag3 = !eyeFlag3;
+				}
+			}
+		})
+		//表单验证
+		var showmsg = function(msg) {
+			$(".tips-box").text(msg);
+			$(".tips-box").css("display", "block");
+			setInterval(function() {
+				$(".tips-box").css("display", "none");
+			}, 3000)
+		}
+		$("form").Validform({
+			btnSubmit: "#ok-btn",
+			tiptype: function(msg) {
+				showmsg(msg);
+			},
+			ignoreHidden: false,
+			dragonfly: false,
+			tipSweep: true,
+			label: ".label",
+			showAllError: false,
+			postonce: true,
+			ajaxPost: true,
+			datatype: {
+				"*6-20": /^[^\s]{6,20}$/,
+				"z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
+				"myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
+				"numcode": /^\d{6}$/,
+				"divpwd": function(gets, obj, curform, regxp) {
+					var res = verifyCode.validate(document.getElementById("usercode").value);
+					if(res) {
+						return true;
+					} else {
+						return "新密码不能和原密码一致";
+					}
+				},
+			},
+			beforeSubmit: function(curform) {
+				//在验证成功后，表单提交前执行的函数，curform参数是当前表单对象。
+				//这里明确return false的话表单将不会提交;	
+				var data = $("form").serialize();
+				console.log(data);
+				$.post('/users/register/', data, function(data, textStatus, xhr) {
+
+				});
+				location.href = "/mobile/profile.html";
+				return false;
+			},
+		});
+	</script>
+
+</html>

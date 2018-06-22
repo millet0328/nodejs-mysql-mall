@@ -1,0 +1,199 @@
+<!doctype html>
+<html class="no-js">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/_login.css" />
+	</head>
+
+	<body>
+		<!--错误提示-->
+		<div class="tips-box" id="tips">
+			<span></span>
+		</div>
+		<div class="logo-banner txt-center">
+			<img height="70" src="img/login_logo--2479b32e49.png" />
+		</div>
+		<form action="" class="" id="form" method="post">
+			<!--<fieldset>-->
+			<ul class="form-new ">
+				<li class="form-input am-g">
+					<div class="am-u-sm-1">
+						<i class="icon icon-user "></i>
+					</div>
+					<div class="am-u-sm-10 am-margin-left-sm ">
+						<input datatype="e|myphone" class="txt12" type="text" name="username" id="pwd-input" value="" placeholder="手机号/邮箱" nullmsg='手机号/邮箱不能为空 ' errormsg="手机号/邮箱格式错误" />
+					</div>
+				</li>
+				<li class="form-input am-g relative">
+					<div class="am-u-sm-1">
+						<i class="icon icon-pwd "></i>
+					</div>
+					<div class="am-u-sm-10 am-margin-left-sm">
+						<input datatype="*6-16" type="password" name="pwd" id="" value="" placeholder="登录密码" nullmsg='密码不能为空 ' />
+					</div>
+					<div class="pwd-eye">
+						<i class="icon icon-eye" id="icon-eye"></i>
+					</div>
+				</li>
+				<li class="form-input am-g relative">
+					<div class="am-u-sm-1">
+						<i class="icon icon-code "></i>
+					</div>
+					<div class="am-u-sm-10 am-margin-left-sm">
+						<input type="text" name="" id="usercode" value="" placeholder="验证码" datatype="usercode" nullmsg="请输入验证码" />
+					</div>
+					<div id="v_container" style="width: 60px;height: 30px;"></div>
+				</li>
+			</ul>
+			<a href="index.html">
+				<button class="am-btn am-btn-secondary" type="submit" id="btn_sub">登录</button>
+			</a>
+			<!--</fieldset>-->
+		</form>
+		<div class="box am-cf am-container txt14 am-margin-top-sm">
+			<a href="_login.html" class="am-fl">短信快捷登录</a>
+			<a href="forgetpwd.html" class="am-fr">忘记密码</a>
+		</div>
+		<div class="to-res txt14">
+			<a href="register.html">
+				没有账号？极速注册
+			</a>
+		</div>
+
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<script src="js/gVerify.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/Validform_v5.3.2_min.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		//判断密码是否可见
+		function pwd_eye() {
+			var flag = $("#icon-eye").hasClass("icon-eye");
+			if(flag) {
+				$("#icon-eye").parent(".pwd-eye").siblings().find("input").attr("type", "password")
+			} else {
+				$("#icon-eye").parent(".pwd-eye").siblings().find("input").attr("type", "text");
+			}
+		}
+		//密码可见
+		var eyeFlag = true;
+		$("#icon-eye").click(function() {
+			if(eyeFlag) {
+				$(this).removeClass("icon-eye").addClass("icon-eye1");
+				pwd_eye();
+				eyeFlag = !eyeFlag;
+			} else {
+				$(this).removeClass("icon-eye1").addClass("icon-eye");
+				pwd_eye();
+				eyeFlag = !eyeFlag;
+			}
+		}) //初始化验证码
+		var verifyCode = new GVerify("v_container");
+		$("#btn_sub").onclick = function() {
+
+		}
+		//表单验证
+		var showmsg = function(msg) {
+			$(".tips-box").text(msg);
+			$(".tips-box").css("display", "block");
+			setInterval(function() {
+				$(".tips-box").css("display", "none");
+			}, 3000)
+		}
+		$("form").Validform({
+			btnSubmit: "#btn_sub",
+			//			tiptype: 1,
+			tiptype: function(msg) {
+				showmsg(msg);
+			},
+
+			ignoreHidden: false,
+			dragonfly: false,
+			tipSweep: true,
+			label: ".label",
+			showAllError: false,
+			postonce: true,
+			//			ajaxPost: true,
+
+			datatype: {
+				"*6-20": /^[^\s]{6,20}$/,
+				"z2-4": /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
+				"myphone": /^[1][3,4,5,7,8][0-9]{9}$/,
+				"usercode": function(gets, obj, curform, regxp) {
+					var res = verifyCode.validate(document.getElementById("usercode").value);
+					if(res) {
+						return true;
+					} else {
+						return "验证码错误"
+					}
+				},
+			},
+			usePlugin: {
+				swfupload: {},
+				datepicker: {},
+				passwordstrength: {},
+				jqtransform: {
+					selector: "select,input"
+				}
+			},
+			beforeCheck: function(curform) {
+				//在表单提交执行验证之前执行的函数，curform参数是当前表单对象。
+				//这里明确return false的话将不会继续执行验证操作;	
+			},
+			beforeSubmit: function(curform) {
+				//在验证成功后，表单提交前执行的函数，curform参数是当前表单对象。
+				//这里明确return false的话表单将不会提交;	
+				location.href = "index.html";
+				return false;
+			},
+			callback: function(data) {
+				//返回数据data是json对象，{"info":"demo info","status":"y"}
+				//info: 输出提示信息;
+				//status: 返回提交数据的状态,是否提交成功。如可以用"y"表示提交成功，"n"表示提交失败，在ajax_post.php文件返回数据里自定字符，主要用在callback函数里根据该值执行相应的回调操作;
+				//你也可以在ajax_post.php文件返回更多信息在这里获取，进行相应操作；
+				//ajax遇到服务端错误时也会执行回调，这时的data是{ status:**, statusText:**, readyState:**, responseText:** }；
+
+				//这里执行回调操作;
+				//注意：如果不是ajax方式提交表单，传入callback，这时data参数是当前表单对象，回调函数会在表单验证全部通过后执行，然后判断是否提交表单，如果callback里明确return false，则表单不会提交，如果return true或没有return，则会提交表单。
+			}
+		});
+	</script>
+
+</html>

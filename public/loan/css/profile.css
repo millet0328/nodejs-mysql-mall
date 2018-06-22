@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+/*公共类*/
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.relative {
+	position: relative;
+}
+
+.txt-center {
+	text-align: center;
+}
+.ver-mid {
+	vertical-align: middle;
+}
+.am-thumbnail {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+.separator-bg {
+	width: 100%;
+	height: 10px;
+	background-color: #EEEEEE;
+}
+p {
+	margin: 0;
+}
+body{
+	background-color: #f5f7f6;
+}
+/*非公共类*/
+/*头*/
+.go-back{
+	position: absolute;
+	top: 0px;
+	left: 15px;
+	color: #b9b9b9;
+}
+.bg{
+	background-color: white;
+	width: 100%;
+	overflow: hidden;
+}
+.head{
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 18px;
+    color: #394050;
+}
+.gray{
+	color: #b9b9b9;
+}
+.my-info li{
+	height: 44px;
+	line-height: 44px;
+	font-size: 14px;
+}
+.my-info li a{
+	color: #394050;
+}
+.my-info li:after{
+	content: "";
+	border-bottom: 1px solid #eeeeee;
+	position: absolute;
+	top: 100%;
+	left: 10px;
+	width: 98%;
+}
+.my-info input{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	opacity: 0;
+}

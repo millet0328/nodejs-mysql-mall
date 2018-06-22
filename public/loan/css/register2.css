@@ -1,0 +1,259 @@
+@charset "utf-8";
+body {
+	background-color: #f5f7f6;
+	
+}
+ul {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.relative {
+	position: relative;
+}
+.txt-center{
+	text-align: center;
+}
+.ver-mid {
+	vertical-align: middle;
+}
+
+.am-thumbnail {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+.txt12{
+	font-size: 12px;
+}
+.txt14{
+	font-size: 14px;
+}
+.gray {
+	color: #a7afc2;
+}
+
+.blue {
+	color: #3b9bff;
+}
+.bg-wrap{
+	background-color: white;
+}
+/*非公共类*/
+.page-2 .head-fixed{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 44px;
+	line-height: 44px;
+	color: white;
+	background-color: #3b9bff;
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid rgba(255,255,255,0.6);
+}
+.page-2 .go-back{
+	position: absolute;
+	top: 0;
+	left: 20px;
+	color: white;
+}
+.page-2 .title{
+	margin-top: 60px;
+	height:40px;
+	line-height: 40px;
+	padding-left:15px ;
+	font-size: 14px;
+}
+.page-2 .icon {
+	background-image: url(../img/icons--ab188f470a.png);
+}
+.page-2 .icon-eye {
+	display: inline-block;
+	width: 1.7rem;
+	height: 1.5rem;
+	background-size: 4.2rem auto;
+	/*background-position: -2.6rem -4.1rem;*/
+	background-position: -.1rem -4.1rem;
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}
+.page-2 .icon-eye1 {
+	display: inline-block;
+	width: 1.7rem;
+	height: 1.5rem;
+	background-size: 4.2rem auto;
+	background-position: -2.6rem -4.1rem;
+	/*background-position: -.1rem -4.1rem;*/
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}
+.page-2 .form-new{
+	width: 100%;
+	background-color: white;
+}
+.page-2 .form-input{
+	width: 100%;
+	/*border-bottom: 1px solid #EEEEEE;*/
+	height: 50px;
+	line-height: 40px;
+}
+.page-2 label{
+	font-size: 14px;
+	font-weight: 400;
+	padding-top: 4px;
+}
+.page-2 input{
+	font-size: 14px;
+	border: 0px;
+	outline: 0;
+	width: 100%;
+	padding: 5px;
+}
+.page-2 button.am-btn {
+    display: block;
+    vertical-align: middle;
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    border-radius: 6px;
+    width: 90%;
+    padding: 1.35rem 0;
+    background-color: #44a0ff;
+    color: #fff;
+    border: 1px solid #0487e3;
+    box-sizing: border-box;
+    margin: 0 auto;
+    outline: 0;
+}
+.page-2 .agree{
+	margin-top: 30px;
+	height:40px;
+	line-height: 40px;
+	padding-left:15px ;
+	font-size: 14px;
+}
+.page-2 .form-input:after{
+	content: "";
+	border-bottom: 1px solid #EEEEEE;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	left: 0;
+}
+
+/*表单验证*/
+/*==========以下部分是Validform必须的===========*/
+
+.Validform_checktip {
+	margin-left: 8px;
+	line-height: 20px;
+	height: 20px;
+	overflow: hidden;
+	color: #999;
+	font-size: 12px;
+}
+
+.Validform_right {
+	color: #71b83d;
+	padding-left: 20px;
+	background: url(../images/right.png) no-repeat left center;
+}
+
+.Validform_wrong {
+	color: red;
+	padding-left: 20px;
+	white-space: nowrap;
+	background: url(../images/error.png) no-repeat left center;
+}
+
+.Validform_loading {
+	padding-left: 20px;
+	background: url(../images/onLoad.gif) no-repeat left center;
+}
+
+.Validform_error {
+	background-color: #ffe7e7;
+}
+
+#Validform_msg {
+	color: #7d8289;
+	font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+	width: 280px;
+	-webkit-box-shadow: 2px 2px 3px #aaa;
+	-moz-box-shadow: 2px 2px 3px #aaa;
+	background: #fff;
+	position: absolute;
+	top: 0px;
+	right: 50px;
+	z-index: 99999;
+	display: none;
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999');
+}
+
+#Validform_msg .iframe {
+	position: absolute;
+	left: 0px;
+	top: -1px;
+	z-index: -1;
+}
+
+#Validform_msg .Validform_title {
+	line-height: 25px;
+	height: 25px;
+	text-align: left;
+	font-weight: bold;
+	padding: 0 8px;
+	color: #fff;
+	position: relative;
+	background-color: #000;
+}
+
+#Validform_msg a.Validform_close:link,
+#Validform_msg a.Validform_close:visited {
+	line-height: 22px;
+	position: absolute;
+	right: 8px;
+	top: 0px;
+	color: #fff;
+	text-decoration: none;
+}
+
+#Validform_msg a.Validform_close:hover {
+	color: #cc0;
+}
+
+#Validform_msg .Validform_info {
+	padding: 8px;
+	border: 1px solid #000;
+	border-top: none;
+	text-align: left;
+}
+
+/*提示框*/
+.tips-box{
+	position: fixed;
+	width: 300px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 100;
+	/*top: 500px;
+	left: 100px;*/
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	color: white;
+	border-radius: 5px;
+	display: none;
+	font-size: 14px;
+}

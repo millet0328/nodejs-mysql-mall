@@ -1,0 +1,184 @@
+<!doctype html>
+<html class="no-js">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+		<!-- Set render engine for 360 browser -->
+		<meta name="renderer" content="webkit">
+
+		<!-- No Baidu Siteapp-->
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+		<link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+		<!-- Add to homescreen for Chrome on Android -->
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Add to homescreen for Safari on iOS -->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Amaze UI" />
+		<link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+
+		<!-- Tile icon for Win8 (144x144 + tile color) -->
+		<meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
+		<meta name="msapplication-TileColor" content="#0e90d2">
+
+		<link rel="stylesheet" href="assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
+		<link rel="stylesheet" type="text/css" href="css/order.css" />
+
+	</head>
+
+	<body>
+		<!--回顶部-->
+		<a href="#top">
+			<div class="to-top-box">
+				<span class="gotoico"></span>
+			</div>
+		</a>
+		<div class="head-fixed">
+			<a href="user-center.html" class="go-back am-block" onClick="javascript :history.back();">
+				<i class="am-header-icon am-icon-angle-left gray" style="font-size: 30px;"></i>
+			</a>
+			<span class="head-til">我的订单</span>
+		</div>
+		<div style="height: 44px;" id="top"></div>
+
+		<div class="">
+			<div class="am-tabs" data-am-tabs="{noSwipe: 1}">
+				<ul class="am-tabs-nav am-nav am-nav-tabs am-g tab-title" id="tab-title">
+					<li class="am-active am-u-sm-3 txt-center">
+						<a href="#tab1">全部</a>
+					</li>
+					<li class="am-u-sm-3 txt-center">
+						<a href="#tab2">代付款</a>
+					</li>
+					<li class="am-u-sm-3 txt-center">
+						<a href="#tab3">待收货</a>
+					</li>
+					<li class="am-u-sm-3 txt-center">
+						<a href="#tab4">待评价</a>
+					</li>
+				</ul>
+				<div class="am-tabs-bd">
+					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+						<ul class="order-list">
+							<li class="relative">
+								<div class="separator-bg"></div>
+								<div class="order-title am-container am-cf">
+									<span class="am-fl txt14">分期乐</span>
+									<span class="order-state am-fr blue txt12">订单待确认支付</span>
+								</div>
+								<a href="detail.html" class="am-g order-detail">
+									<div class="order-img am-u-sm-3">
+										<img class="am-thumbnail" src="https://cimg1.fenqile.com/product/M00/BC/AB/hhoGAFl2sXCACzoJAACOaFmhQzQ900.jpg" />
+									</div>
+									<div class="am-u-sm-9">
+										<p class="item-txt txt14">山东 移动 话费充值 30</p>
+										<p class="blue rmb txt14">金额：30元</p>
+									</div>
+								</a>
+								<div class="pmonth txt12">
+									月供：
+									<span class="blue txt12">30.00元 x 1</span>
+								</div>
+								<div class="btn-box am-cf">
+									<a class="pay-btn am-fr btn-active">去支付</a>
+									<a class="cancel-btn am-fr am-margin-right-sm">取消订单</a>
+								</div>
+							</li>
+							<li class="relative">
+								<div class="separator-bg"></div>
+								<div class="order-title am-container am-cf">
+									<span class="am-fl txt14">饿了么</span>
+									<span class="order-state am-fr blue txt12">订单已关闭</span>
+								</div>
+								<a href="detail.html" class="am-g order-detail">
+									<div class="order-img am-u-sm-3">
+										<img class="am-thumbnail" src="https://cimg1.fenqile.com/product/M00/1C/05/gRoGAFcLUiSABu9UAAAIbuseG6g624.png" />
+									</div>
+									<div class="am-u-sm-9">
+										<p class="item-txt txt14">饿了么</p>
+										<p class="blue rmb txt14">金额：28.010元</p>
+									</div>
+								</a>
+								<div class="pmonth txt12">
+									月供：
+									<span class="blue txt12">28.01元 x 1</span>
+								</div>
+								<div class="btn-box am-cf">
+									<a href="order.html" class="cancel-btn am-fr am-margin-right-sm">订单跟踪</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="am-tab-panel am-fade" id="tab2">
+						<!--<div class="separator-bg"></div>-->
+						<ul class="order-list">
+							<li class="relative">
+								<div class="separator-bg"></div>
+								<div class="order-title am-container am-cf">
+									<span class="am-fl txt14">分期乐</span>
+									<span class="order-state am-fr blue txt12">订单待确认支付</span>
+								</div>
+								<a href="detail.html" class="am-g order-detail">
+									<div class="order-img am-u-sm-3">
+										<img class="am-thumbnail" src="https://cimg1.fenqile.com/product/M00/BC/AB/hhoGAFl2sXCACzoJAACOaFmhQzQ900.jpg" />
+									</div>
+									<div class="am-u-sm-9">
+										<p class="item-txt txt14">山东 移动 话费充值 30</p>
+										<p class="blue rmb txt14">金额：30元</p>
+									</div>
+								</a>
+								<div class="pmonth txt12">
+									月供：
+									<span class="blue txt12">30.00元 x 1</span>
+								</div>
+								<div class="btn-box am-cf">
+									<a class="pay-btn am-fr btn-active">去支付</a>
+									<a class="cancel-btn am-fr am-margin-right-sm">取消订单</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="am-tab-panel am-fade" id="tab3">
+						<div class="no-order txt-center">
+							<img src="img/no_collect--1f12ac8246.png" width="160" height="160" />
+							<p class="am-margin-xl">暂时没有订单，可以先到首页逛逛</p>
+							<a href="index.html" class="return-old blue">回到首页</a>
+						</div>
+						<!--<ul class="order-list">
+						</ul>-->
+					</div>
+					<div class="am-tab-panel am-fade" id="tab4">
+						<div class="no-order txt-center">
+							<img src="img/no_collect--1f12ac8246.png" width="160" height="160" />
+							<p class="am-margin-xl">暂时没有订单，可以先到首页逛逛</p>
+							<a href="index.html" class="return-old blue">回到首页</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="assets/js/amazeui.min.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+	</body>
+
+</html>

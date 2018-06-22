@@ -111,7 +111,7 @@ router.get("/getCategory/sub", function(req, res) {
 
 //图片接口
 /*
-file:file文件对象
+ * file:file文件对象
 */
 router.post("/upload/img", upload.single('file'), function(req, res) {
     //文件类型
