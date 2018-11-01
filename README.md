@@ -1,2 +1,3 @@
-#tmall
-#手机端商城，基于node.js+express+mongoDB
+# nodejs-mysql-mall
+基于nodejs+mySQL+express的商城后台
+
