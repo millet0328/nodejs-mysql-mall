@@ -1,86 +1,72 @@
 var express = require('express');
 var router = express.Router();
-// 数据结构
-var models = require("../models/models");
-
-var User = models.User;
-var Address = models.Address;
-
-// 注册
-/*
-    account:账号
-    password:密码
-*/
+// 数据库
+let db = require('../config/mysql');
+/**
+ * @api {post} /users/register/ 注册
+ * @apiName register 注册
+ * @apiGroup User
+ * 
+ * @apiParam {String} username 用户账户名.
+ * @apiParam {String} password 用户密码.
+ * 
+ * @apiSampleRequest /users/register
+ */
 router.post('/register/', function(req, res) {
-	// 实例化
-	var user = new User(req.body);
 	// 查询账户是否存在
-	User.findOne({
-		account: req.body.account
-	}, function(err, result) {
-		if(err) {
-			console.log(err);
-			return;
-		}
-		// 如果账号已存在
-		if(result) {
+	let sql = `SELECT * FROM USERS WHERE username = ?`
+	db.query(sql, [req.body.username], function(results, fields) {
+		if(results.length) {
 			res.json({
 				status: false,
 				msg: "账号已经存在！"
 			});
-			return;
+			return false;
 		}
-		// 如果账号不存在,执行注册
-		// 储存数据
-		user.save(function(err, doc) {
-			if(err) {
-				console.log(err);
-				return;
-			}
-			console.log(doc);
+		let sql = `INSERT INTO USERS (username,password) VALUES (?,?)`
+		db.query(sql, [req.body.username, req.body.password], function(results, fields) {
 			// 存储成功
 			res.json({
 				status: true,
 				msg: "注册成功！",
-				_id: doc._id
+				data: {
+					id: results.insertId
+				}
 			});
-		});
-
+		})
 	});
-
 });
-// 登录
-/*
-    account : 账号
-    password ：密码
-*/
+/**
+ * @api {post} /users/login/ 登录
+ * @apiName login 登录
+ * @apiGroup User
+ * 
+ * @apiParam {String} username 用户账户名.
+ * @apiParam {String} password 用户密码.
+ * 
+ * @apiSampleRequest /users/login
+ */
+
 router.post('/login/', function(req, res) {
-	User.findOne(req.body, function(err, doc) {
-		if(err) {
-			console.log(err);
-			res.json({
-				status: false,
-				msg: err
-			});
-			return;
-		}
+	let sql = `SELECT * FROM USERS WHERE username = ? AND password = ? `;
+	db.query(sql, [req.body.username, req.body.password], function(results, fields) {
 		// 账号密码错误
-		if(!doc) {
+		if(!results.length) {
 			res.json({
 				status: false,
 				msg: "账号或者密码错误！"
 			});
-			return;
+			return false;
 		}
 		// 登录成功
 		res.json({
 			status: true,
 			msg: "登录成功！",
-			_id: doc._id
+			data: {
+				id: results[0].id
+			}
 		});
-
 	});
-
 });
 
 //获取个人资料
