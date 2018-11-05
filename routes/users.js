@@ -68,166 +68,190 @@ router.post('/login/', function(req, res) {
 		});
 	});
 });
-
-//获取个人资料
-/*
-    _id:账户ID
-*/
-router.get("/getInfo/", function(req, res) {
+/**
+ * @api {get} /users/info/ 获取个人资料
+ * @apiName /info 获取个人资料
+ * @apiGroup User
+ * 
+ * @apiParam {Number} uid 用户id.
+ * 
+ * @apiSampleRequest /users/info
+ */
+router.get("/info/", function(req, res) {
 	//查询账户数据
-	User
-		.findOne(req.query)
-		.select("nickname sex avatar")
-		.exec(function(err, user) {
-			if(err) {
-				console.log(err);
-				return;
-			}
-			console.log(user);
-			if(!user) {
-				res.json({
-					status: false,
-					msg: "查询账户信息失败!"
-				});
-				return;
-			}
-			res.json({
-				status: true,
-				data: user
-			});
-
+	let sql = `SELECT username,nickname,sex,avatar FROM USERS WHERE id = ?`;
+	db.query(sql, [req.query.uid], function(results, fields) {
+		// 获取成功
+		res.json({
+			status: true,
+			msg: "获取成功！",
+			data: results[0]
 		});
+	})
 });
-//更新资料
+/**
+ * @api {post} /users/updateInfo/ 更新个人资料
+ * @apiName /updateInfo 更新个人资料
+ * @apiGroup User
+ * 
+ * @apiParam {Number} uid 用户id.
+ * @apiParam {String} nickname 昵称.
+ * @apiParam {String} sex 性别.
+ * @apiParam {String} avatar 头像.
+ * 
+ * @apiSampleRequest /users/updateInfo
+ */
 router.post("/updateInfo/", function(req, res) {
-	//修改数据
-	User.update({
-		account: req.body.account
-	}, req.body, function(err, writeOpResult) {
-		if(err) {
-			console.log(err);
-			return;
-		}
-		if(writeOpResult.ok != 1) {
-			res.json({
-				status: false,
-				msg: "修改失败!"
-			});
-			return;
-		}
+	let sql = `UPDATE users SET id = ?,nickname = ?,sex = ?,avatar = ?`
+	db.query(sql, [req.body.uid, req.body.nickname, req.body.sex, req.body.avatar], function(results, fields) {
 		res.json({
 			status: true,
 			msg: "修改成功！"
 		});
 	});
 });
-// 添加收货地址
-/*
-    uid: 账户ID,
-    name: 收货人姓名,
-    tel: 电话,
-    province: 省,
-    city: 市,
-    area:区,
-    street: 街道,
-    isDefault: 是否默认
-*/
-router.post("/address/insert", function(req, res) {
-	//账户id
-	User.findOne({
-		_id: req.body.uid
-	}, function(err, user) {
-		if(err) {
-			console.log(err);
-			return;
-		}
-		//账号不存在
-		if(!user) {
-			res.json({
-				status: false,
-				msg: "账户信息不存在！"
-			});
-			return false;
-		}
-		var address = new Address(req.body);
-		//是否设置默认收货地址
-		if(req.body.isDefault == "true") {
-			Address.update({
-				uid: user._id
-			}, {
-				$set: {
-					isDefault: false
-				}
-			}, {
-				multi: true
-			}, function(err, writeOpResult) {
-				if(err) {
-					console.log(err);
-					return;
-				}
-				console.log(writeOpResult);
-			});
-		}
-		address.save(function(err, doc) {
-			if(err) {
-				console.log(err);
-				return;
-			}
-			res.json({
-				status: true,
-				msg: "添加收货地址成功！"
-			});
-		});
 
+/**
+ * @api {post} /users/address/add/ 添加收货地址
+ * @apiName /address/add/
+ * @apiGroup Address
+ * 
+ * @apiParam {Number} uid 用户id.
+ * @apiParam {String} name 收货人姓名.
+ * @apiParam {String} tel 电话.
+ * @apiParam {String} province 省.
+ * @apiParam {String} city 市.
+ * @apiParam {String} area 区.
+ * @apiParam {String} street 街道.
+ * @apiParam {String} code 邮编.
+ * @apiParam {Number} isDefault 是否默认 1-默认,0-否.
+ * 
+ * @apiSampleRequest /users/address/add/
+ */
+router.post('/address/add', function(req, res) {
+	let sql;
+	let isDefault = req.body.isDefault;
+	if(isDefault == '1') {
+		sql = `
+		UPDATE addresses SET isDefault = 0 WHERE uid = ${req.body.uid};
+		INSERT INTO addresses(uid,name,tel,province,city,area,street,code,isDefault) VALUES(?,?,?,?,?,?,?,?,?);
+		`
+	} else {
+		sql = `INSERT INTO addresses(uid,name,tel,province,city,area,street,code,isDefault) VALUES(?,?,?,?,?,?,?,?,?)`
+	}
+	db.query(sql, [req.body.uid, req.body.name, req.body.tel, req.body.province, req.body.city, req.body.area, req.body.street, req.body.code, req.body.isDefault], function(results, fields) {
+		res.json({
+			status: true,
+			msg: "添加成功！"
+		});
 	});
 });
-
-//获取收货地址列表
-/*
- * _id:账户id
+/**
+ * @api {post} /users/address/delete/ 删除收货地址
+ * @apiName /address/delete/
+ * @apiGroup Address
+ * 
+ * @apiParam {Number} id 收货地址id.
+ * 
+ * @apiSampleRequest /users/address/delete/
  */
-router.get("/getAddress/", function(req, res) {
-	Address.find({
-		uid: req.query._id
-	}, function(err, docs) {
-		if(err) {
-			console.log(err);
-			return;
-		}
-		if(!docs.length) {
+router.post("/address/delete/", function(req, res) {
+	var sql = `DELETE FROM addresses WHERE id = ? `
+	db.query(sql, [req.body.id], function(results, fields) {
+		res.json({
+			status: true,
+			data: results,
+			msg: "删除成功！"
+		});
+	})
+})
+/**
+ * @api {post} /users/address/update/ 修改收货地址
+ * @apiName /address/update/
+ * @apiGroup Address
+ * 
+ * @apiParam {Number} id 收货地址id.
+ * @apiParam {Number} uid 用户id.
+ * @apiParam {String} name 收货人姓名.
+ * @apiParam {String} tel 电话.
+ * @apiParam {String} province 省.
+ * @apiParam {String} city 市.
+ * @apiParam {String} area 区.
+ * @apiParam {String} street 街道.
+ * @apiParam {String} code 邮编.
+ * @apiParam {Number} isDefault 是否默认.1-默认,0-否.
+ * 
+ * @apiSampleRequest /users/address/update/
+ */
+router.post("/address/update/", function(req, res) {
+	let sql;
+	let isDefault = req.body.isDefault;
+	if(isDefault == '1') {
+		sql = `
+		UPDATE addresses SET isDefault = 0 WHERE uid = ${req.body.uid};
+		UPDATE addresses SET uid = ?,name = ?,tel = ?,province = ?,city = ?,area = ?,street = ?,code = ?,isDefault = ? WHERE id = ?;
+		`
+	} else {
+		sql = `UPDATE addresses SET uid = ?,name = ?,tel = ?,province = ?,city = ?,area = ?,street = ?,code = ?,isDefault = ? WHERE id = ?`
+	}
+	db.query(sql, [req.body.uid, req.body.name, req.body.tel, req.body.province, req.body.city, req.body.area, req.body.street, req.body.code, req.body.isDefault, req.body.id], function(results, fields) {
+		res.json({
+			status: true,
+			msg: "修改成功！"
+		});
+	});
+})
+/**
+ * @api {get} /users/address/list/ 获取收货地址列表
+ * @apiName /address/list/
+ * @apiGroup Address
+ * 
+ * @apiParam {Number} uid 用户id.
+ * 
+ * @apiSampleRequest /users/address/list/
+ */
+router.get('/address/list', function(req, res) {
+	var sql = `SELECT * FROM addresses WHERE uid = ? `
+	db.query(sql, [req.query.uid], function(results, fields) {
+		if(!results.length) {
 			res.json({
 				status: false,
 				msg: "暂无收货地址！"
 			});
-			return;
+			return false;
 		}
 		res.json({
 			status: true,
-			msg: "获取成功！",
-			data: docs
+			data: results,
+			msg: "获取成功！"
 		});
-	});
+	})
 });
-//根据id获取收货地址详情
-router.get("/getAddressById/", function(req, res) {
-	Address.findOne(req.query, function(err, doc) {
-		if(err) {
-			console.log(err);
-			return;
-		}
-		if(!doc) {
+/**
+ * @api {get} /users/address/detail/ 根据id获取收货地址详情
+ * @apiName /address/detail/
+ * @apiGroup Address
+ * 
+ * @apiParam {Number} id 收货地址id.
+ * 
+ * @apiSampleRequest /users/address/detail/
+ */
+router.get("/address/detail/", function(req, res) {
+	var sql = `SELECT * FROM addresses WHERE id = ? `
+	db.query(sql, [req.query.id], function(results, fields) {
+		if(!results.length) {
 			res.json({
 				status: false,
-				msg: "没有地址信息！"
+				msg: "暂无收货地址信息！"
 			});
-			return;
+			return false;
 		}
 		res.json({
 			status: true,
-			msg: "查找成功！",
-			data: doc
+			data: results[0],
+			msg: "获取成功！"
 		});
-	});
+	})
 })
 
 module.exports = router;

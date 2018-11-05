@@ -22,7 +22,7 @@ router.get("/category/all", function(req, res) {
 		//成功
 		res.json({
 			status: true,
-			msg: "获取成功！",
+			msg: "success!",
 			data: results
 		});
 	});
@@ -44,7 +44,7 @@ router.post("/category/add", function(req, res) {
 		//成功
 		res.json({
 			status: true,
-			msg: "插入成功！",
+			msg: "success!",
 			data: {
 				id: results.insertId
 			}
@@ -66,7 +66,7 @@ router.post("/category/delete", function(req, res) {
 		//成功
 		res.json({
 			status: true,
-			msg: "删除成功！"
+			msg: "success!"
 		});
 	});
 });
@@ -86,7 +86,7 @@ router.post("/category/update", function(req, res) {
 		//成功
 		res.json({
 			status: true,
-			msg: "更新成功！"
+			msg: "success!"
 		});
 	});
 });
@@ -105,7 +105,7 @@ router.get("/category/sub/", function(req, res) {
 		//成功
 		res.json({
 			status: true,
-			msg: "获取成功！",
+			msg: "success!",
 			data: results
 		});
 	});
@@ -133,7 +133,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 	if(!flag) {
 		res.json({
 			status: false,
-			msg: "格式错误，请选择一张图片！"
+			msg: "格式错误，请选择一张图片!"
 		});
 		return;
 	}
@@ -141,7 +141,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 	if(size >= 2 * 1024 * 1024) {
 		res.json({
 			status: false,
-			msg: "图片体积太大，请压缩图片！"
+			msg: "图片体积太大，请压缩图片!"
 		});
 		return;
 	}
@@ -177,7 +177,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 	//返回储存结果
 	res.json({
 		status: true,
-		msg: "图片上传处理成功！",
+		msg: "图片上传处理成功!",
 		lgImg: fileFolder + filename + "_720" + extName,
 		mdImg: fileFolder + filename + "_360" + extName
 	});
@@ -205,7 +205,7 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
 	if(!flag) {
 		res.json({
 			status: false,
-			msg: "格式错误，请选择一张图片！"
+			msg: "格式错误，请选择一张图片!"
 		});
 		return;
 	}
@@ -213,7 +213,7 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
 	if(size >= 2 * 1024 * 1024) {
 		res.json({
 			status: false,
-			msg: "图片体积太大，请压缩图片！"
+			msg: "图片体积太大，请压缩图片!"
 		});
 		return;
 	}
@@ -251,7 +251,7 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
 	//返回储存结果
 	res.json({
 		status: true,
-		msg: "图片上传处理成功！",
+		msg: "图片上传处理成功!",
 		src: fileFolder + filename + "_720" + extName
 	});
 });
@@ -277,7 +277,7 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
 	if(!flag) {
 		res.json({
 			errno: 1,
-			msg: "格式错误，请选择一张图片！"
+			msg: "格式错误，请选择一张图片!"
 		});
 		return;
 	}
@@ -285,7 +285,7 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
 	if(size >= 2 * 1024 * 1024) {
 		res.json({
 			errno: 1,
-			msg: "图片体积太大，请压缩图片！"
+			msg: "图片体积太大，请压缩图片!"
 		});
 		return;
 	}
@@ -305,25 +305,103 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
 	//返回储存结果
 	res.json({
 		errno: 0,
-		msg: "图片上传处理成功！",
+		msg: "图片上传处理成功!",
 		data: [fileFolder + filename + extName]
 	});
 });
 
-//发布商品
-/*
-参数：参照商品Schema
-*/
+/**
+ * @api {post} /api/goods/release/ 发布新商品
+ * @apiName goods/release/
+ * @apiGroup Goods
+ * 
+ * @apiParam {Number} cate_1st 一级分类id;
+ * @apiParam {Number} cate_2nd 二级分类id;
+ * @apiParam {Number} cate_3rd 三级分类id;
+ * @apiParam {String} name 商品名称;
+ * @apiParam {String} hotPoint 商品热点描述;
+ * @apiParam {Number} price 商品价格;
+ * @apiParam {Number} marketPrice 市场价;
+ * @apiParam {Number} cost 成本价;
+ * @apiParam {Number} discount 折扣如：75%;
+ * @apiParam {Number} inventory 商品库存;
+ * @apiParam {String} articleNo 商品货号;
+ * @apiParam {String} img_lg 商品主图-720;
+ * @apiParam {String} img_md 商品主图-360;
+ * @apiParam {String} slider 商品轮播图片，例：slider:'src1,src2,src3';
+ * @apiParam {String} brand 商品品牌;
+ * @apiParam {String} detail 商品详情,一般存储为HTML代码;
+ * @apiParam {Number} freight 商品运费;
+ * 
+ * @apiSampleRequest /api/goods/release/
+ */
 router.post("/goods/release", function(req, res) {
-	var goods = new Goods(req.body);
-	goods.save(function(err, doc) {
-		if(err) {
-			console.log(err);
-			return;
-		}
+	let sql = `INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
+	db.query(sql, [req.body.cate_1st, req.body.cate_2nd, req.body.cate_3rd, req.body.name, req.body.hotPoint, req.body.price, req.body.marketPrice, req.body.cost, req.body.discount, req.body.inventory, req.body.articleNo, req.body.img_lg, req.body.img_md, req.body.slider, req.body.brand, req.body.detail, req.body.freight], function(results, fields) {
+		//成功
 		res.json({
 			status: true,
-			msg: "发布成功！"
+			msg: "success!",
+			data: {
+				id: results.insertId
+			}
+		});
+	});
+});
+/**
+ * @api {post} /api/goods/edit/ 编辑商品
+ * @apiName goods/edit/
+ * @apiGroup Goods
+ * 
+ * @apiParam {Number} id 商品id;
+ * @apiParam {Number} cate_1st 一级分类id;
+ * @apiParam {Number} cate_2nd 二级分类id;
+ * @apiParam {Number} cate_3rd 三级分类id;
+ * @apiParam {String} name 商品名称;
+ * @apiParam {String} hotPoint 商品热点描述;
+ * @apiParam {Number} price 商品价格;
+ * @apiParam {Number} marketPrice 市场价;
+ * @apiParam {Number} cost 成本价;
+ * @apiParam {Number} discount 折扣如：75%;
+ * @apiParam {Number} inventory 商品库存;
+ * @apiParam {String} articleNo 商品货号;
+ * @apiParam {String} img_lg 商品主图-720;
+ * @apiParam {String} img_md 商品主图-360;
+ * @apiParam {String} slider 商品轮播图片，例：slider:'src1,src2,src3';
+ * @apiParam {String} brand 商品品牌;
+ * @apiParam {String} detail 商品详情,一般存储为HTML代码;
+ * @apiParam {Number} freight 商品运费;
+ * 
+ * @apiSampleRequest /api/goods/edit/
+ */
+router.post("/goods/edit", function(req, res) {
+	let sql = `UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
+	db.query(sql, [req.body.cate_1st, req.body.cate_2nd, req.body.cate_3rd, req.body.name, req.body.hotPoint, req.body.price, req.body.marketPrice, req.body.cost, req.body.discount, req.body.inventory, req.body.articleNo, req.body.img_lg, req.body.img_md, req.body.slider, req.body.brand, req.body.detail, req.body.freight, req.body.id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results[0]
+		});
+	});
+});
+/**
+ * @api {post} /api/goods/delete/ 删除商品
+ * @apiName goods/delete/
+ * @apiGroup Goods
+ * 
+ * @apiParam {Number} id 商品id;
+ * 
+ * @apiSampleRequest /api/goods/delete/
+ */
+router.post("/goods/delete", function(req, res) {
+	let sql = `DELETE FROM GOODS WHERE id=?`;
+	db.query(sql, [req.body.id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results[0]
 		});
 	});
 });
