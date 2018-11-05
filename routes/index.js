@@ -24,21 +24,38 @@ router.get('/', function(req, res, next) {
  * @apiSampleRequest /api/goods/
  */
 router.get("/goods/", function(req, res) {
-	let defaultOpt = {
-		pageSize: 4,
-		pageIndex: 1,
-		sortByPrice: ''
-	}
-	for(let key in req.query) {
-		if(!req.query[key]) {
-			delete req.query[key]
+	let query = req.query;
+	//取出空键值对
+	for(let key in query) {
+		if(!query[key]) {
+			delete query[key]
 		}
 	}
-	let opt = Object.assign({}, defaultOpt, req.query);
-	let size = parseInt(opt.pageSize);
-	let count = size * (opt.pageIndex - 1);
-	let sql = `SELECT * FROM GOODS WHERE cate_1st = ? AND cate_2nd = ? AND cate_3rd = ? ORDER BY price ${opt.sortByPrice}, create_time ASC`
-	db.query(sql, [opt.cate_1st, opt.cate_2nd, opt.cate_3rd], function(results, fields) {
+	//拼接SQL
+	function produceSQL({
+		pageSize = 4,
+		pageIndex = 1,
+		sortByPrice = '',
+		cate_1st = '',
+		cate_2nd = '',
+		cate_3rd = '',
+	}) {
+		let size = parseInt(pageSize);
+		let count = size * (pageIndex - 1);
+		let sql = `SELECT * FROM GOODS `
+		if(cate_1st) {
+			sql += `WHERE cate_1st = ${cate_1st}`;
+		}
+		if(cate_2nd) {
+			sql += `WHERE cate_2nd = ${cate_2nd}`;
+		}
+		if(cate_3rd) {
+			sql += `WHERE cate_3rd = ${cate_3rd}`;
+		}
+		sql += ` ORDER BY price ${sortByPrice},create_time ASC LIMIT ${count},${size}`
+		return sql;
+	}
+	db.query(produceSQL(req.query), [], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -47,33 +64,25 @@ router.get("/goods/", function(req, res) {
 		});
 	});
 });
-
-//获取商品详情
-/*
- id 商品id
+/**
+ * @api {get} /api/goods/detail/ 获取商品详情
+ * @apiName /goods/detail/ 获取商品详情
+ * @apiGroup Goods
+ * 
+ * @apiParam {Number} id 商品id;
+ * 
+ * @apiSampleRequest /api/goods/detail/
  */
 router.get("/goods/detail/", function(req, res) {
-	Goods
-		.findOne(req.query)
-		.populate('category_1st')
-		.exec(function(err, doc) {
-			if(err) {
-				console.log(err);
-				return;
-			}
-			if(!doc) {
-				res.json({
-					status: false,
-					msg: "暂无商品！"
-				});
-				return;
-			}
-			res.json({
-				status: true,
-				msg: "获取成功！",
-				data: doc
-			});
+	let sql = `SELECT * FROM GOODS WHERE id = ?`
+	db.query(sql, [req.query.id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results[0]
 		});
+	});
 });
 
 module.exports = router;

@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require("fs");
+var path = require("path");
 // 数据库
 let db = require('../config/mysql');
 //文件传输
@@ -182,7 +184,30 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 		mdImg: fileFolder + filename + "_360" + extName
 	});
 });
+/**
+ * @api {post} /api/upload/delete/ 删除图片API
+ * @apiDescription如果上传错误的图片，通过此API删除错误的图片
+ * @apiName upload/delete/
+ * @apiGroup Upload Image
+ * 
+ * @apiParam {String} src 图片文件路径,注：src='./images/goods/file.jpg'，必须严格按照规范路径，'./images'不可省略;
+ * 
+ * @apiSampleRequest /api/upload/delete/
+ */
 
+router.post('/upload/delete/', function(req, res) {
+	let realPath = path.resolve(__dirname, '../public/', req.body.src);
+	console.log(realPath);
+	fs.unlink(realPath, function(err) {
+		if(err) {
+			return console.error(err);
+		}
+		res.json({
+			status: true,
+			msg: "success!"
+		});
+	})
+});
 /**
  * @api {post} /api/upload/slider/ 轮播图上传API
  * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，尺寸（300~1500）必须是正方形，存储至goods文件夹

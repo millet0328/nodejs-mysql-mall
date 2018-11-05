@@ -471,6 +471,34 @@
     "groupTitle": "Goods"
   },
   {
+    "type": "get",
+    "url": "/api/goods/detail/",
+    "title": "获取商品详情",
+    "name": "_goods_detail________",
+    "group": "Goods",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/goods/detail/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Goods"
+  },
+  {
     "type": "post",
     "url": "/api/goods/delete/",
     "title": "删除商品",
@@ -823,6 +851,35 @@
         ]
       }
     },
+    "version": "0.0.0",
+    "filename": "routes/admin.js",
+    "groupTitle": "Upload_Image"
+  },
+  {
+    "type": "post",
+    "url": "/api/upload/delete/",
+    "title": "删除图片API",
+    "description": "<p>如果上传错误的图片，通过此API删除错误的图片</p>",
+    "name": "upload_delete_",
+    "group": "Upload_Image",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "src",
+            "description": "<p>图片文件路径,注：src='./images/goods/file.jpg'，必须严格按照规范路径，'./images'不可省略;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload/delete/"
+      }
+    ],
     "version": "0.0.0",
     "filename": "routes/admin.js",
     "groupTitle": "Upload_Image"
