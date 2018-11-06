@@ -81,6 +81,13 @@ router.get("/info/", function(req, res) {
 	//查询账户数据
 	let sql = `SELECT username,nickname,sex,avatar FROM USERS WHERE id = ?`;
 	db.query(sql, [req.query.uid], function(results, fields) {
+		if(!results.length) {
+			res.json({
+				status: false,
+				msg: "获取失败！"
+			});
+			return false;
+		}
 		// 获取成功
 		res.json({
 			status: true,
