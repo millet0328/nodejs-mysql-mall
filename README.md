@@ -4,6 +4,9 @@
 ## 安装
 `npm i apidoc -g`  
 `$ npm i`
+## 还原数据库
+1. 在mysql中创建mall数据库
+2. 将mall.sql文件还原至mall数据库 
 ## 启动
 `$ npm start`
 ## 重新生成API文档
