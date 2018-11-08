@@ -109,8 +109,8 @@ router.get("/info/", function(req, res) {
  * @apiSampleRequest /users/updateInfo
  */
 router.post("/updateInfo/", function(req, res) {
-	let sql = `UPDATE users SET id = ?,nickname = ?,sex = ?,avatar = ?`
-	db.query(sql, [req.body.uid, req.body.nickname, req.body.sex, req.body.avatar], function(results, fields) {
+	let sql = `UPDATE users SET nickname = ?,sex = ?,avatar = ? WHERE id = ?`
+	db.query(sql, [req.body.nickname, req.body.sex, req.body.avatar,req.body.uid], function(results, fields) {
 		res.json({
 			status: true,
 			msg: "修改成功！"
