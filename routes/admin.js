@@ -133,7 +133,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 	var reg = /^image\/\w+$/;
 	var flag = reg.test(type);
 	if(!flag) {
-		res.json({
+		res.status(400).json({
 			status: false,
 			msg: "格式错误，请选择一张图片!"
 		});
@@ -141,7 +141,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 	}
 	//判断图片体积是否小于2M
 	if(size >= 2 * 1024 * 1024) {
-		res.json({
+		res.status(400).json({
 			status: false,
 			msg: "图片体积太大，请压缩图片!"
 		});
@@ -150,7 +150,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 	//判读图片尺寸
 	var width = images(req.file.buffer).width();
 	if(width < 300 || width > 1500) {
-		res.json({
+		res.status(400).json({
 			status: false,
 			msg: "图片尺寸300-1500，请重新处理!"
 		});
@@ -227,7 +227,7 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
 	var reg = /^image\/\w+$/;
 	var flag = reg.test(type);
 	if(!flag) {
-		res.json({
+		res.status(400).json({
 			status: false,
 			msg: "格式错误，请选择一张图片!"
 		});
@@ -235,7 +235,7 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
 	}
 	//判断图片体积是否小于2M
 	if(size >= 2 * 1024 * 1024) {
-		res.json({
+		res.status(400).json({
 			status: false,
 			msg: "图片体积太大，请压缩图片!"
 		});
@@ -245,14 +245,14 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
 	var width = images(req.file.buffer).width();
 	var height = images(req.file.buffer).height();
 	if(width != height) {
-		res.json({
+		res.status(400).json({
 			status: false,
-			msg: "图片尺寸800*800，请重新上传!"
+			msg: "图片必须为正方形，请重新上传!"
 		});
 		return;
 	}
 	if(width < 300 || width > 1500) {
-		res.json({
+		res.status(400).json({
 			status: false,
 			msg: "图片尺寸300-1500，请重新处理!"
 		});
