@@ -197,7 +197,6 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
 
 router.post('/upload/delete/', function(req, res) {
 	let realPath = path.resolve(__dirname, '../public/', req.body.src);
-	console.log(realPath);
 	fs.unlink(realPath, function(err) {
 		if(err) {
 			return console.error(err);
