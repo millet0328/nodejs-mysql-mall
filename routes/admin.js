@@ -64,12 +64,21 @@ router.post("/category/add", function(req, res) {
  * @apiSampleRequest /api/category/delete/
  */
 router.post("/category/delete", function(req, res) {
-	let sql = `DELETE FROM CATEGORIES WHERE id = ?`;
-	db.query(sql, [req.body.id], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!"
+	let sql = `
+	SELECT img FROM categories WHERE id = ?;
+	DELETE FROM CATEGORIES WHERE id = ?`;
+	db.query(sql, [req.body.id, req.body.id], function(results, fields) {
+		let src = '.' + results[0][0].img;
+		let realPath = path.resolve(__dirname, '../public/', src);
+		fs.unlink(realPath, function(err) {
+			if(err) {
+				return console.error(err);
+			}
+			//成功
+			res.json({
+				status: true,
+				msg: "success!"
+			});
 		});
 	});
 });
