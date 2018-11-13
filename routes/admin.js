@@ -36,13 +36,14 @@ router.get("/category/all", function(req, res) {
  * 
  * @apiParam {String} name 分类名称.
  * @apiParam {Number} pId 父级id.
+ * @apiParam {String} img 分类图片src地址.
  * @apiParam {Number} level 分类所在层级.
  * 
  * @apiSampleRequest /api/category/add/
  */
 router.post("/category/add", function(req, res) {
-	let sql = `INSERT INTO CATEGORIES (name,pId,level) VALUES (?,?,?) `;
-	db.query(sql, [req.body.name, req.body.pId, req.body.level], function(results, fields) {
+	let sql = `INSERT INTO CATEGORIES (name,pId,level,img) VALUES (?,?,?,?) `;
+	db.query(sql, [req.body.name, req.body.pId, req.body.level, req.body.img], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -79,12 +80,13 @@ router.post("/category/delete", function(req, res) {
  * 
  * @apiParam {Number} id 分类id.
  * @apiParam {String} name 分类名称.
+ * @apiParam {String} img 分类图片src地址.
  * 
  * @apiSampleRequest /api/category/update/
  */
 router.post("/category/update", function(req, res) {
-	let sql = `UPDATE CATEGORIES SET name= ? WHERE id = ? `;
-	db.query(sql, [req.body.name, req.body.id], function(results, fields) {
+	let sql = `UPDATE CATEGORIES SET name = ? , img = ? WHERE id = ? `;
+	db.query(sql, [req.body.name, req.body.img, req.body.id], function(results, fields) {
 		//成功
 		res.json({
 			status: true,

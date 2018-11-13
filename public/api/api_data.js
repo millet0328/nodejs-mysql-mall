@@ -283,6 +283,13 @@ define({ "api": [
           },
           {
             "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img",
+            "description": "<p>分类图片src地址.</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Number",
             "optional": false,
             "field": "level",
@@ -393,6 +400,13 @@ define({ "api": [
             "optional": false,
             "field": "name",
             "description": "<p>分类名称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img",
+            "description": "<p>分类图片src地址.</p>"
           }
         ]
       }
