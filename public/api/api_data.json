@@ -424,7 +424,7 @@
     "type": "get",
     "url": "/api/goods/",
     "title": "获取商品列表",
-    "description": "<p>具备商品分页功能</p>",
+    "description": "<p>具备商品分页功能，3个分类参数至多能传1个</p>",
     "name": "_goods________",
     "group": "Goods",
     "parameter": {
@@ -433,42 +433,46 @@
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "pageSize",
             "description": "<p>一个页有多少个商品,默认4个;</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "pageIndex",
             "description": "<p>第几页,默认1;</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "cate_1st",
             "description": "<p>一级分类id;</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "cate_2nd",
             "description": "<p>二级分类id;</p>"
           },
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "cate_3rd",
             "description": "<p>三级分类id;</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "allowedValues": [
+              "\"ASC\"",
+              "\"DESC\""
+            ],
+            "optional": true,
             "field": "sortByPrice",
             "description": "<p>按照价格排序，从小到大-ASC,从大到小-DESC;</p>"
           }
