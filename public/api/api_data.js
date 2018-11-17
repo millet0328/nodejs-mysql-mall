@@ -60,7 +60,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "code",
             "description": "<p>邮编.</p>"
           },
@@ -235,7 +235,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "code",
             "description": "<p>邮编.</p>"
           },
@@ -257,6 +257,34 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "routes/users.js",
     "groupTitle": "Address"
+  },
+  {
+    "type": "post",
+    "url": "/api/cart/add/",
+    "title": "获取商品详情",
+    "name": "_cart_add________",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/cart/add/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Cart"
   },
   {
     "type": "post",
@@ -291,7 +319,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "level",
             "description": "<p>分类所在层级.</p>"
           }
@@ -577,7 +605,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "cate_3rd",
             "description": "<p>三级分类id;</p>"
           },
@@ -591,7 +619,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "hotPoint",
             "description": "<p>商品热点描述;</p>"
           },
@@ -661,7 +689,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "brand",
             "description": "<p>商品品牌;</p>"
           },
@@ -717,7 +745,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "cate_3rd",
             "description": "<p>三级分类id;</p>"
           },
@@ -731,7 +759,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "hotPoint",
             "description": "<p>商品热点描述;</p>"
           },
@@ -801,7 +829,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
-            "optional": false,
+            "optional": true,
             "field": "brand",
             "description": "<p>商品品牌;</p>"
           },
