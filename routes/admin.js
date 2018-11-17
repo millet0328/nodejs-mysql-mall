@@ -19,15 +19,15 @@ var uuidv1 = require('uuid/v1');
  * @apiSampleRequest /api/category/all/
  */
 router.get("/category/all", function(req, res) {
-	let sql = `SELECT * FROM CATEGORIES `;
-	db.query(sql, [], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!",
-			data: results
-		});
-	});
+  let sql = `SELECT * FROM CATEGORIES `;
+  db.query(sql, [], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!",
+      data: results
+    });
+  });
 });
 /**
  * @api {post} /api/category/add/ 添加子分类
@@ -37,22 +37,22 @@ router.get("/category/all", function(req, res) {
  * @apiParam {String} name 分类名称.
  * @apiParam {Number} pId 父级id.
  * @apiParam {String} img 分类图片src地址.
- * @apiParam {Number} level 分类所在层级.
+ * @apiParam {Number} [level] 分类所在层级.
  * 
  * @apiSampleRequest /api/category/add/
  */
 router.post("/category/add", function(req, res) {
-	let sql = `INSERT INTO CATEGORIES (name,pId,level,img) VALUES (?,?,?,?) `;
-	db.query(sql, [req.body.name, req.body.pId, req.body.level, req.body.img], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!",
-			data: {
-				id: results.insertId
-			}
-		});
-	});
+  let sql = `INSERT INTO CATEGORIES (name,pId,level,img) VALUES (?,?,?,?) `;
+  db.query(sql, [req.body.name, req.body.pId, req.body.level, req.body.img], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!",
+      data: {
+        id: results.insertId
+      }
+    });
+  });
 });
 /**
  * @api {post} /api/category/delete/ 删除分类
@@ -64,23 +64,23 @@ router.post("/category/add", function(req, res) {
  * @apiSampleRequest /api/category/delete/
  */
 router.post("/category/delete", function(req, res) {
-	let sql = `
+  let sql = `
 	SELECT img FROM categories WHERE id = ?;
 	DELETE FROM CATEGORIES WHERE id = ?`;
-	db.query(sql, [req.body.id, req.body.id], function(results, fields) {
-		let src = '.' + results[0][0].img;
-		let realPath = path.resolve(__dirname, '../public/', src);
-		fs.unlink(realPath, function(err) {
-			if(err) {
-				return console.error(err);
-			}
-			//成功
-			res.json({
-				status: true,
-				msg: "success!"
-			});
-		});
-	});
+  db.query(sql, [req.body.id, req.body.id], function(results, fields) {
+    let src = '.' + results[0][0].img;
+    let realPath = path.resolve(__dirname, '../public/', src);
+    fs.unlink(realPath, function(err) {
+      if (err) {
+        return console.error(err);
+      }
+      //成功
+      res.json({
+        status: true,
+        msg: "success!"
+      });
+    });
+  });
 });
 /**
  * @api {post} /api/category/update/ 更新分类
@@ -94,14 +94,14 @@ router.post("/category/delete", function(req, res) {
  * @apiSampleRequest /api/category/update/
  */
 router.post("/category/update", function(req, res) {
-	let sql = `UPDATE CATEGORIES SET name = ? , img = ? WHERE id = ? `;
-	db.query(sql, [req.body.name, req.body.img, req.body.id], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!"
-		});
-	});
+  let sql = `UPDATE CATEGORIES SET name = ? , img = ? WHERE id = ? `;
+  db.query(sql, [req.body.name, req.body.img, req.body.id], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!"
+    });
+  });
 });
 /**
  * @api {get} /api/category/sub/ 获取子级分类
@@ -113,15 +113,15 @@ router.post("/category/update", function(req, res) {
  * @apiSampleRequest /api/category/sub/
  */
 router.get("/category/sub/", function(req, res) {
-	let sql = `SELECT * FROM CATEGORIES WHERE pId = ? `;
-	db.query(sql, [req.query.pId], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!",
-			data: results
-		});
-	});
+  let sql = `SELECT * FROM CATEGORIES WHERE pId = ? `;
+  db.query(sql, [req.query.pId], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!",
+      data: results
+    });
+  });
 });
 /**
  * @api {post} /api/upload/goods/ 上传商品主图
@@ -137,63 +137,63 @@ router.get("/category/sub/", function(req, res) {
  * @apiSuccess {String} mdImg 返回360宽度图片地址.
  */
 router.post("/upload/goods/", upload.single('file'), function(req, res) {
-	//文件类型
-	var type = req.file.mimetype;
-	var size = req.file.size;
-	//判断是否为图片
-	var reg = /^image\/\w+$/;
-	var flag = reg.test(type);
-	if(!flag) {
-		res.status(400).json({
-			status: false,
-			msg: "格式错误，请选择一张图片!"
-		});
-		return;
-	}
-	//判断图片体积是否小于2M
-	if(size >= 2 * 1024 * 1024) {
-		res.status(400).json({
-			status: false,
-			msg: "图片体积太大，请压缩图片!"
-		});
-		return;
-	}
-	//判读图片尺寸
-	var width = images(req.file.buffer).width();
-	if(width < 300 || width > 1500) {
-		res.status(400).json({
-			status: false,
-			msg: "图片尺寸300-1500，请重新处理!"
-		});
-		return;
-	}
-	//处理原文件名
-	var originalName = req.file.originalname;
-	var formate = originalName.split(".");
-	//扩展名
-	var extName = "." + formate[formate.length - 1];
-	var filename = uuidv1();
-	//储存文件夹
-	var fileFolder = "/images/goods/";
+  //文件类型
+  var type = req.file.mimetype;
+  var size = req.file.size;
+  //判断是否为图片
+  var reg = /^image\/\w+$/;
+  var flag = reg.test(type);
+  if (!flag) {
+    res.status(400).json({
+      status: false,
+      msg: "格式错误，请选择一张图片!"
+    });
+    return;
+  }
+  //判断图片体积是否小于2M
+  if (size >= 2 * 1024 * 1024) {
+    res.status(400).json({
+      status: false,
+      msg: "图片体积太大，请压缩图片!"
+    });
+    return;
+  }
+  //判读图片尺寸
+  var width = images(req.file.buffer).width();
+  if (width < 300 || width > 1500) {
+    res.status(400).json({
+      status: false,
+      msg: "图片尺寸300-1500，请重新处理!"
+    });
+    return;
+  }
+  //处理原文件名
+  var originalName = req.file.originalname;
+  var formate = originalName.split(".");
+  //扩展名
+  var extName = "." + formate[formate.length - 1];
+  var filename = uuidv1();
+  //储存文件夹
+  var fileFolder = "/images/goods/";
 
-	images(req.file.buffer)
-		.resize(720) //缩放尺寸至720宽
-		.save("public" + fileFolder + filename + "_720" + extName, {
-			quality: 70 //保存图片到文件,图片质量为70
-		});
+  images(req.file.buffer)
+    .resize(720) //缩放尺寸至720宽
+    .save("public" + fileFolder + filename + "_720" + extName, {
+      quality: 70 //保存图片到文件,图片质量为70
+    });
 
-	images(req.file.buffer)
-		.resize(360) //缩放尺寸至360宽
-		.save("public" + fileFolder + filename + "_360" + extName, {
-			quality: 70 //保存图片到文件,图片质量为70
-		});
-	//返回储存结果
-	res.json({
-		status: true,
-		msg: "图片上传处理成功!",
-		lgImg: fileFolder + filename + "_720" + extName,
-		mdImg: fileFolder + filename + "_360" + extName
-	});
+  images(req.file.buffer)
+    .resize(360) //缩放尺寸至360宽
+    .save("public" + fileFolder + filename + "_360" + extName, {
+      quality: 70 //保存图片到文件,图片质量为70
+    });
+  //返回储存结果
+  res.json({
+    status: true,
+    msg: "图片上传处理成功!",
+    lgImg: fileFolder + filename + "_720" + extName,
+    mdImg: fileFolder + filename + "_360" + extName
+  });
 });
 /**
  * @api {post} /api/upload/delete/ 删除图片API
@@ -207,16 +207,16 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
  */
 
 router.post('/upload/delete/', function(req, res) {
-	let realPath = path.resolve(__dirname, '../public/', req.body.src);
-	fs.unlink(realPath, function(err) {
-		if(err) {
-			return console.error(err);
-		}
-		res.json({
-			status: true,
-			msg: "success!"
-		});
-	})
+  let realPath = path.resolve(__dirname, '../public/', req.body.src);
+  fs.unlink(realPath, function(err) {
+    if (err) {
+      return console.error(err);
+    }
+    res.json({
+      status: true,
+      msg: "success!"
+    });
+  })
 });
 /**
  * @api {post} /api/upload/slider/ 轮播图上传API
@@ -231,64 +231,64 @@ router.post('/upload/delete/', function(req, res) {
  * @apiSuccess {String} src 返回720宽度图片地址.
  */
 router.post("/upload/slider", upload.single('file'), function(req, res) {
-	//文件类型
-	var type = req.file.mimetype;
-	var size = req.file.size;
-	//判断是否为图片
-	var reg = /^image\/\w+$/;
-	var flag = reg.test(type);
-	if(!flag) {
-		res.status(400).json({
-			status: false,
-			msg: "格式错误，请选择一张图片!"
-		});
-		return;
-	}
-	//判断图片体积是否小于2M
-	if(size >= 2 * 1024 * 1024) {
-		res.status(400).json({
-			status: false,
-			msg: "图片体积太大，请压缩图片!"
-		});
-		return;
-	}
-	//判读图片尺寸
-	var width = images(req.file.buffer).width();
-	var height = images(req.file.buffer).height();
-	if(width != height) {
-		res.status(400).json({
-			status: false,
-			msg: "图片必须为正方形，请重新上传!"
-		});
-		return;
-	}
-	if(width < 300 || width > 1500) {
-		res.status(400).json({
-			status: false,
-			msg: "图片尺寸300-1500，请重新处理!"
-		});
-		return;
-	}
-	//处理原文件名
-	var originalName = req.file.originalname;
-	var formate = originalName.split(".");
-	//扩展名
-	var extName = "." + formate[formate.length - 1];
-	var filename = uuidv1();
-	//储存文件夹
-	var fileFolder = "/images/goods/";
-	//处理图片
-	images(req.file.buffer)
-		.resize(720) //缩放尺寸至720宽
-		.save("public" + fileFolder + filename + "_720" + extName, {
-			quality: 70 //保存图片到文件,图片质量为70
-		});
-	//返回储存结果
-	res.json({
-		status: true,
-		msg: "图片上传处理成功!",
-		src: fileFolder + filename + "_720" + extName
-	});
+  //文件类型
+  var type = req.file.mimetype;
+  var size = req.file.size;
+  //判断是否为图片
+  var reg = /^image\/\w+$/;
+  var flag = reg.test(type);
+  if (!flag) {
+    res.status(400).json({
+      status: false,
+      msg: "格式错误，请选择一张图片!"
+    });
+    return;
+  }
+  //判断图片体积是否小于2M
+  if (size >= 2 * 1024 * 1024) {
+    res.status(400).json({
+      status: false,
+      msg: "图片体积太大，请压缩图片!"
+    });
+    return;
+  }
+  //判读图片尺寸
+  var width = images(req.file.buffer).width();
+  var height = images(req.file.buffer).height();
+  if (width != height) {
+    res.status(400).json({
+      status: false,
+      msg: "图片必须为正方形，请重新上传!"
+    });
+    return;
+  }
+  if (width < 300 || width > 1500) {
+    res.status(400).json({
+      status: false,
+      msg: "图片尺寸300-1500，请重新处理!"
+    });
+    return;
+  }
+  //处理原文件名
+  var originalName = req.file.originalname;
+  var formate = originalName.split(".");
+  //扩展名
+  var extName = "." + formate[formate.length - 1];
+  var filename = uuidv1();
+  //储存文件夹
+  var fileFolder = "/images/goods/";
+  //处理图片
+  images(req.file.buffer)
+    .resize(720) //缩放尺寸至720宽
+    .save("public" + fileFolder + filename + "_720" + extName, {
+      quality: 70 //保存图片到文件,图片质量为70
+    });
+  //返回储存结果
+  res.json({
+    status: true,
+    msg: "图片上传处理成功!",
+    src: fileFolder + filename + "_720" + extName
+  });
 });
 /**
  * @api {post} /api/upload/common/ 通用图片上传API
@@ -303,46 +303,46 @@ router.post("/upload/slider", upload.single('file'), function(req, res) {
  * @apiSuccess {String[]} data 返回图片地址.
  */
 router.post("/upload/common", upload.single('file'), function(req, res) {
-	//文件类型
-	var type = req.file.mimetype;
-	var size = req.file.size;
-	//判断是否为图片
-	var reg = /^image\/\w+$/;
-	var flag = reg.test(type);
-	if(!flag) {
-		res.json({
-			errno: 1,
-			msg: "格式错误，请选择一张图片!"
-		});
-		return;
-	}
-	//判断图片体积是否小于2M
-	if(size >= 2 * 1024 * 1024) {
-		res.json({
-			errno: 1,
-			msg: "图片体积太大，请压缩图片!"
-		});
-		return;
-	}
-	//处理原文件名
-	var originalName = req.file.originalname;
-	var formate = originalName.split(".");
-	//扩展名
-	var extName = "." + formate[formate.length - 1];
-	var filename = uuidv1();
-	//储存文件夹
-	var fileFolder = "/images/details/";
-	//处理图片
-	images(req.file.buffer)
-		.save("public" + fileFolder + filename + extName, {
-			quality: 70 //保存图片到文件,图片质量为70
-		});
-	//返回储存结果
-	res.json({
-		errno: 0,
-		msg: "图片上传处理成功!",
-		data: [fileFolder + filename + extName]
-	});
+  //文件类型
+  var type = req.file.mimetype;
+  var size = req.file.size;
+  //判断是否为图片
+  var reg = /^image\/\w+$/;
+  var flag = reg.test(type);
+  if (!flag) {
+    res.json({
+      errno: 1,
+      msg: "格式错误，请选择一张图片!"
+    });
+    return;
+  }
+  //判断图片体积是否小于2M
+  if (size >= 2 * 1024 * 1024) {
+    res.json({
+      errno: 1,
+      msg: "图片体积太大，请压缩图片!"
+    });
+    return;
+  }
+  //处理原文件名
+  var originalName = req.file.originalname;
+  var formate = originalName.split(".");
+  //扩展名
+  var extName = "." + formate[formate.length - 1];
+  var filename = uuidv1();
+  //储存文件夹
+  var fileFolder = "/images/details/";
+  //处理图片
+  images(req.file.buffer)
+    .save("public" + fileFolder + filename + extName, {
+      quality: 70 //保存图片到文件,图片质量为70
+    });
+  //返回储存结果
+  res.json({
+    errno: 0,
+    msg: "图片上传处理成功!",
+    data: [fileFolder + filename + extName]
+  });
 });
 
 /**
@@ -352,9 +352,9 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
  * 
  * @apiParam {Number} cate_1st 一级分类id;
  * @apiParam {Number} cate_2nd 二级分类id;
- * @apiParam {Number} cate_3rd 三级分类id;
+ * @apiParam {Number} [cate_3rd] 三级分类id;
  * @apiParam {String} name 商品名称;
- * @apiParam {String} hotPoint 商品热点描述;
+ * @apiParam {String} [hotPoint] 商品热点描述;
  * @apiParam {Number} price 商品价格;
  * @apiParam {Number} marketPrice 市场价;
  * @apiParam {Number} cost 成本价;
@@ -364,24 +364,24 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
  * @apiParam {String} img_lg 商品主图-720;
  * @apiParam {String} img_md 商品主图-360;
  * @apiParam {String} slider 商品轮播图片，例：slider:'src1,src2,src3';
- * @apiParam {String} brand 商品品牌;
+ * @apiParam {String} [brand] 商品品牌;
  * @apiParam {String} detail 商品详情,一般存储为HTML代码;
  * @apiParam {Number} freight 商品运费;
  * 
  * @apiSampleRequest /api/goods/release/
  */
 router.post("/goods/release", function(req, res) {
-	let sql = `INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
-	db.query(sql, [req.body.cate_1st, req.body.cate_2nd, req.body.cate_3rd, req.body.name, req.body.hotPoint, req.body.price, req.body.marketPrice, req.body.cost, req.body.discount, req.body.inventory, req.body.articleNo, req.body.img_lg, req.body.img_md, req.body.slider, req.body.brand, req.body.detail, req.body.freight], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!",
-			data: {
-				id: results.insertId
-			}
-		});
-	});
+  let sql = `INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
+  db.query(sql, [req.body.cate_1st, req.body.cate_2nd, req.body.cate_3rd, req.body.name, req.body.hotPoint, req.body.price, req.body.marketPrice, req.body.cost, req.body.discount, req.body.inventory, req.body.articleNo, req.body.img_lg, req.body.img_md, req.body.slider, req.body.brand, req.body.detail, req.body.freight], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!",
+      data: {
+        id: results.insertId
+      }
+    });
+  });
 });
 /**
  * @api {post} /api/goods/edit/ 编辑商品
@@ -391,9 +391,9 @@ router.post("/goods/release", function(req, res) {
  * @apiParam {Number} id 商品id;
  * @apiParam {Number} cate_1st 一级分类id;
  * @apiParam {Number} cate_2nd 二级分类id;
- * @apiParam {Number} cate_3rd 三级分类id;
+ * @apiParam {Number} [cate_3rd] 三级分类id;
  * @apiParam {String} name 商品名称;
- * @apiParam {String} hotPoint 商品热点描述;
+ * @apiParam {String} [hotPoint] 商品热点描述;
  * @apiParam {Number} price 商品价格;
  * @apiParam {Number} marketPrice 市场价;
  * @apiParam {Number} cost 成本价;
@@ -403,22 +403,22 @@ router.post("/goods/release", function(req, res) {
  * @apiParam {String} img_lg 商品主图-720;
  * @apiParam {String} img_md 商品主图-360;
  * @apiParam {String} slider 商品轮播图片，例：slider:'src1,src2,src3';
- * @apiParam {String} brand 商品品牌;
+ * @apiParam {String} [brand] 商品品牌;
  * @apiParam {String} detail 商品详情,一般存储为HTML代码;
  * @apiParam {Number} freight 商品运费;
  * 
  * @apiSampleRequest /api/goods/edit/
  */
 router.post("/goods/edit", function(req, res) {
-	let sql = `UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
-	db.query(sql, [req.body.cate_1st, req.body.cate_2nd, req.body.cate_3rd, req.body.name, req.body.hotPoint, req.body.price, req.body.marketPrice, req.body.cost, req.body.discount, req.body.inventory, req.body.articleNo, req.body.img_lg, req.body.img_md, req.body.slider, req.body.brand, req.body.detail, req.body.freight, req.body.id], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!",
-			data: results[0]
-		});
-	});
+  let sql = `UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
+  db.query(sql, [req.body.cate_1st, req.body.cate_2nd, req.body.cate_3rd, req.body.name, req.body.hotPoint, req.body.price, req.body.marketPrice, req.body.cost, req.body.discount, req.body.inventory, req.body.articleNo, req.body.img_lg, req.body.img_md, req.body.slider, req.body.brand, req.body.detail, req.body.freight, req.body.id], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!",
+      data: results[0]
+    });
+  });
 });
 /**
  * @api {post} /api/goods/delete/ 删除商品
@@ -430,15 +430,15 @@ router.post("/goods/edit", function(req, res) {
  * @apiSampleRequest /api/goods/delete/
  */
 router.post("/goods/delete", function(req, res) {
-	let sql = `DELETE FROM GOODS WHERE id=?`;
-	db.query(sql, [req.body.id], function(results, fields) {
-		//成功
-		res.json({
-			status: true,
-			msg: "success!",
-			data: results[0]
-		});
-	});
+  let sql = `DELETE FROM GOODS WHERE id=?`;
+  db.query(sql, [req.body.id], function(results, fields) {
+    //成功
+    res.json({
+      status: true,
+      msg: "success!",
+      data: results[0]
+    });
+  });
 });
 
 module.exports = router;

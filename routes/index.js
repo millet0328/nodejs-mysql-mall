@@ -77,5 +77,17 @@ router.get("/goods/detail/", function(req, res) {
     });
   });
 });
+/**
+ * @api {post} /api/cart/add/ 获取商品详情
+ * @apiName /cart/add/ 获取商品详情
+ * @apiGroup Cart
+ * 
+ * @apiParam {Number} id 商品id;
+ * @apiParam {Number} id 商品id;
+ * @apiParam {Number} id 商品id;
+ * @apiParam {Number} id 商品id;
+ * 
+ * @apiSampleRequest /api/cart/add/
+ */
 
 module.exports = router;
