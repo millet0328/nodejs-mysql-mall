@@ -78,8 +78,8 @@ router.get("/goods/detail/", function(req, res) {
   });
 });
 /**
- * @api {post} /api/cart/add/ 获取商品详情
- * @apiName /cart/add/ 获取商品详情
+ * @api {post} /api/cart/add/ 添加商品至购物车
+ * @apiName /cart/add/ 添加商品至购物车
  * @apiGroup Cart
  * 
  * @apiParam {Number} id 商品id;

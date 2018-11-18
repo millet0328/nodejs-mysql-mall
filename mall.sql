@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 14/11/2018 17:53:09
+ Date: 19/11/2018 01:19:17
 */
 
 SET NAMES utf8mb4;
@@ -29,11 +29,26 @@ CREATE TABLE `addresses`  (
   `province` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '省',
   `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '市',
   `area` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '区',
-  `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '街道',
-  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '邮编',
-  `isDefault` int(3) DEFAULT 1 COMMENT '是否默认',
+  `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '街道',
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮编',
+  `isDefault` int(3) NULL DEFAULT 1 COMMENT '是否默认',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for carts
+-- ----------------------------
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE `carts`  (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL COMMENT '用户id',
+  `goods_id` int(10) NOT NULL COMMENT '商品id',
+  `num` int(10) NOT NULL COMMENT '商品数量',
+  `status` tinyint(4) NULL DEFAULT 1 COMMENT '1-正常，0-禁用，-1-删除',
+  `create_time` int(10) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Table structure for categories
@@ -43,7 +58,7 @@ CREATE TABLE `categories`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '名称',
   `pId` int(11) NOT NULL COMMENT '父级id',
-  `level` int(11) DEFAULT NULL COMMENT '层级',
+  `level` int(11) NULL DEFAULT NULL COMMENT '层级',
   `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 85 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -132,23 +147,23 @@ CREATE TABLE `goods`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cate_1st` int(11) NOT NULL COMMENT '一级分类id',
   `cate_2nd` int(11) NOT NULL COMMENT '二级分类id',
-  `cate_3rd` int(11) DEFAULT NULL COMMENT '三级分类id',
+  `cate_3rd` int(11) NULL DEFAULT NULL COMMENT '三级分类id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品名称',
-  `hotPoint` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '商品热点描述',
+  `hotPoint` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品热点描述',
   `price` decimal(10, 2) NOT NULL COMMENT '商品价格',
   `marketPrice` decimal(10, 2) NOT NULL COMMENT '市场价',
   `cost` decimal(10, 2) NOT NULL COMMENT '成本价',
-  `discount` decimal(10, 0) DEFAULT NULL COMMENT '折扣',
+  `discount` decimal(10, 0) NULL DEFAULT NULL COMMENT '折扣',
   `inventory` int(11) NOT NULL COMMENT '库存',
   `articleNo` int(20) NOT NULL COMMENT '货号',
   `img_lg` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品主图-720',
   `img_md` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品主图-360',
   `slider` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品轮播图片',
-  `brand` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '商品品牌',
+  `brand` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '商品品牌',
   `detail` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品详情',
-  `freight` decimal(10, 0) DEFAULT 0 COMMENT '商品运费',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `freight` decimal(10, 0) NULL DEFAULT 0 COMMENT '商品运费',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -167,6 +182,74 @@ INSERT INTO `goods` VALUES (27, 23, 72, 0, '永久（FOREVER）自行车24速山
 INSERT INTO `goods` VALUES (28, 23, 72, 0, '凤凰 高碳钢破风设计21速钳型刹越野学生车弯把公路车自行车', '用户需知：新疆西藏地区暂不支持配送，自行车属大件商品，如人为原因拒收商品，由用户自行承担退回所产生的运费！！！', 768.00, 900.00, 350.00, 0, 2454, 10, '/images/goods/b63efc60-e7b8-11e8-8eb5-2933d116d7fc_720.jpg', '/images/goods/b63efc60-e7b8-11e8-8eb5-2933d116d7fc_360.jpg', '/images/goods/b8042c00-e7b8-11e8-8eb5-2933d116d7fc_720.jpg,/images/goods/b95d5360-e7b8-11e8-8eb5-2933d116d7fc_720.jpg,/images/goods/ba73a560-e7b8-11e8-8eb5-2933d116d7fc_720.jpg', '凤凰', '<p><img src=\"/images/details/c11f8ff0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width:100%;\"><img src=\"/images/details/c2d667b0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/c47857e0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/c5d1cd60-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/c7597ed0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/ca644dd0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/cbf9e1f0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/cd84c7b0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/cef4d270-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/d1a684f0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/d3d090e0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/d5f93d40-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/d8684170-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/db0867c0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/defc1020-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/e18b6d90-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/e47c24e0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><img src=\"/images/details/f472c0c0-e7b8-11e8-8eb5-2933d116d7fc.jpg\" style=\"max-width: 100%;\"><br></p>', 0, '2018-11-14 10:57:06', NULL);
 
 -- ----------------------------
+-- Table structure for order_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `order_goods`;
+CREATE TABLE `order_goods`  (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `order_id` int(10) NOT NULL COMMENT '订单id',
+  `goods_id` int(10) NULL DEFAULT NULL COMMENT '商品id',
+  `goods_num` int(10) NULL DEFAULT NULL COMMENT '商品数量',
+  `goods_price` double(20, 2) NULL DEFAULT NULL COMMENT '商品价格',
+  `status` tinyint(4) NULL DEFAULT 1 COMMENT '0-禁用，1-正常，-1-删除',
+  `create_time` int(10) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(10) NULL DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+
+-- ----------------------------
+-- Table structure for order_status
+-- ----------------------------
+DROP TABLE IF EXISTS `order_status`;
+CREATE TABLE `order_status`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` tinyint(10) NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of order_status
+-- ----------------------------
+INSERT INTO `order_status` VALUES (1, -1, 'CREAT_FAILED', '创建订单失败');
+INSERT INTO `order_status` VALUES (2, 0, 'WAIT_BUYER_PAY', '等待买家付款');
+INSERT INTO `order_status` VALUES (3, 1, 'PAYMENT_CONFIRMING', '付款确认中');
+INSERT INTO `order_status` VALUES (4, 2, 'BUYER_PAYMENT_FAILED', '买家付款失败');
+INSERT INTO `order_status` VALUES (5, 3, 'BUYER_PAYMENT_SUCCESS', '买家付款成功');
+INSERT INTO `order_status` VALUES (6, 4, 'SELLER_DELIVERED', '卖家已发货');
+INSERT INTO `order_status` VALUES (7, 5, 'BUYER_RECEIVED', '买家已收货/交易完成');
+INSERT INTO `order_status` VALUES (8, 6, 'GOODS_RETURNING', '退货中');
+INSERT INTO `order_status` VALUES (9, 7, 'GOODS_RETURNED_SUCCESS', '退货成功');
+INSERT INTO `order_status` VALUES (10, 8, 'ORDER_CLOSED', '订单关闭');
+
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`  (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL COMMENT '用户id',
+  `payment` double(20, 2) NULL DEFAULT NULL COMMENT '支付金额',
+  `payment_type` tinyint(2) NULL DEFAULT NULL COMMENT '1-在线支付，1-货到付款',
+  `pay_time` datetime NULL DEFAULT NULL COMMENT '支付时间',
+  `ship_fee` double(20, 2) NULL DEFAULT NULL COMMENT '邮费',
+  `ship_time` datetime NULL DEFAULT NULL COMMENT '发货时间',
+  `ship_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '快递公司',
+  `ship_number` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '快递单号',
+  `received_time` datetime NULL DEFAULT NULL COMMENT '收货时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `finish_time` datetime NULL DEFAULT NULL COMMENT '交易完成时间',
+  `close_time` datetime NULL DEFAULT NULL COMMENT '交易关闭时间',
+  `order_state` int(10) NULL DEFAULT NULL COMMENT '状态字典',
+  `status` tinyint(4) NULL DEFAULT 1 COMMENT '1-正常，0-禁用，-1-删除',
+  `refund_state` tinyint(4) NULL DEFAULT NULL COMMENT '退款状态',
+  `comment_state` tinyint(4) NULL DEFAULT NULL COMMENT '评论状态',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for users
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
@@ -174,10 +257,10 @@ CREATE TABLE `users`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '昵称',
-  `sex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '男' COMMENT '性别',
-  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT './images/avatar/default.jpg' COMMENT '头像',
-  `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '手机号码',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
+  `sex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '男' COMMENT '性别',
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT './images/avatar/default.jpg' COMMENT '头像',
+  `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号码',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
