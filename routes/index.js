@@ -5,9 +5,9 @@ let db = require('../config/mysql');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    title: 'Express'
-  });
+	res.render('index', {
+		title: 'Express'
+	});
 });
 /**
  * @api {get} /api/goods/ 获取商品列表
@@ -24,38 +24,45 @@ router.get('/', function(req, res, next) {
  * @apiSampleRequest /api/goods/
  */
 router.get("/goods/", function(req, res) {
-  let query = req.query;
-  //取出空键值对
-  for (let key in query) {
-    if (!query[key]) {
-      delete query[key]
-    }
-  }
-  //拼接SQL
-  function produceSQL({pageSize = 4, pageIndex = 1, sortByPrice = '', cate_1st = '', cate_2nd = '', cate_3rd = '', }) {
-    let size = parseInt(pageSize);
-    let count = size * (pageIndex - 1);
-    let sql = `SELECT * FROM GOODS `
-    if (cate_1st) {
-      sql += `WHERE cate_1st = ${cate_1st}`;
-    }
-    if (cate_2nd) {
-      sql += `WHERE cate_2nd = ${cate_2nd}`;
-    }
-    if (cate_3rd) {
-      sql += `WHERE cate_3rd = ${cate_3rd}`;
-    }
-    sql += ` ORDER BY create_time DESC , price ${sortByPrice} LIMIT ${count},${size}`
-    return sql;
-  }
-  db.query(produceSQL(req.query), [], function(results, fields) {
-    //成功
-    res.json({
-      status: true,
-      msg: "success!",
-      data: results
-    });
-  });
+	let query = req.query;
+	//取出空键值对
+	for (let key in query) {
+		if (!query[key]) {
+			delete query[key]
+		}
+	}
+	//拼接SQL
+	function produceSQL({
+		pageSize = 4,
+		pageIndex = 1,
+		sortByPrice = '',
+		cate_1st = '',
+		cate_2nd = '',
+		cate_3rd = '',
+	}) {
+		let size = parseInt(pageSize);
+		let count = size * (pageIndex - 1);
+		let sql = `SELECT * FROM GOODS `
+		if (cate_1st) {
+			sql += `WHERE cate_1st = ${cate_1st}`;
+		}
+		if (cate_2nd) {
+			sql += `WHERE cate_2nd = ${cate_2nd}`;
+		}
+		if (cate_3rd) {
+			sql += `WHERE cate_3rd = ${cate_3rd}`;
+		}
+		sql += ` ORDER BY create_time DESC , price ${sortByPrice} LIMIT ${count},${size}`
+		return sql;
+	}
+	db.query(produceSQL(req.query), [], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results
+		});
+	});
 });
 /**
  * @api {get} /api/goods/detail/ 获取商品详情
@@ -67,27 +74,107 @@ router.get("/goods/", function(req, res) {
  * @apiSampleRequest /api/goods/detail/
  */
 router.get("/goods/detail/", function(req, res) {
-  let sql = `SELECT * FROM GOODS WHERE id = ?`
-  db.query(sql, [req.query.id], function(results, fields) {
-    //成功
-    res.json({
-      status: true,
-      msg: "success!",
-      data: results[0]
-    });
-  });
+	let sql = `SELECT * FROM GOODS WHERE id = ?`
+	db.query(sql, [req.query.id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results[0]
+		});
+	});
 });
 /**
  * @api {post} /api/cart/add/ 添加商品至购物车
  * @apiName /cart/add/ 添加商品至购物车
  * @apiGroup Cart
  * 
- * @apiParam {Number} id 商品id;
- * @apiParam {Number} id 商品id;
- * @apiParam {Number} id 商品id;
- * @apiParam {Number} id 商品id;
+ * @apiParam {Number} uid 用户id;
+ * @apiParam {Number} gid 商品id;
+ * @apiParam {Number} num 商品数量,不能超过库存;
  * 
  * @apiSampleRequest /api/cart/add/
  */
-
+router.post('/cart/add/', function(req, res) {
+	// 检查购物车是否已经有此商品
+	let sql = `SELECT * FROM carts WHERE goods_id = ?`;
+	db.query(sql, [req.body.gid], function(results, fields) {
+		// 没有此商品,插入新纪录
+		sql =
+			`INSERT INTO carts ( uid , goods_id , num , create_time )
+			VALUES ( ${req.body.uid} , ${req.body.gid} , ${req.body.num} ,CURRENT_TIMESTAMP())`;
+		// 已有此商品，增加数量
+		if (results.length > 0) {
+			sql = `UPDATE carts SET num = num + ${req.body.num} WHERE goods_id = ${req.body.gid}`;
+		}
+		db.query(sql, function(results, fields) {
+			//成功
+			res.json({
+				status: true,
+				msg: "success!"
+			});
+		});
+	});
+});
+/**
+ * @api {get} /api/cart/ 获取购物车列表
+ * @apiName /cart/ 获取购物车列表
+ * @apiGroup Cart
+ * 
+ * @apiParam {Number} uid 用户id;
+ * 
+ * @apiSampleRequest /api/cart/
+ */
+router.get('/cart/', function(req, res) {
+	let sql =
+		`SELECT goods.id , goods.img_md AS img , goods.NAME , goods.price , carts.num 
+		FROM carts JOIN goods 
+		WHERE carts.uid = ? AND carts.goods_id = goods.id`;
+	db.query(sql, [req.query.uid], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results
+		});
+	});
+});
+// router.post('/cart/', function(req, res) {
+// 	let sql = `SELECT inventory FROM goods WHERE id = ?`;
+// 	db.query(sql, [req.body.gid], function(results, fields) {
+// 		// 检查库存
+// 		let isEmpty = results[0].inventory - req.body.num >= 0 ? false : true;
+// 		if (isEmpty) {
+// 			res.json({
+// 				status: false,
+// 				msg: "库存不足!"
+// 			});
+// 			return;
+// 		}
+// 		// 检查购物车是否已经有此商品
+// 		let sql = `SELECT * FROM carts WHERE goods_id = ?`;
+// 		db.query(sql, [req.body.gid], function(results, fields) {
+// 			let sql = `UPDATE goods SET  inventory = inventory - ${req.body.num} WHERE id = ${req.body.gid};`
+// 			// 没有此商品,插入新纪录
+// 			if (results.length == 0) {
+// 				sql = sql +
+// 					`INSERT INTO carts (uid,goods_id,num,create_time)
+// 				VALUES (${req.body.uid},${req.body.gid},${req.body.num},CURRENT_TIMESTAMP())`;
+// 			} else {
+// 				// 已有此商品，增加数量
+// 				sql = sql + `UPDATE carts SET num = num + ${req.body.num}`;
+// 			}
+// 			// 更新库存，修改购物车
+// 			db.query(sql, function(results, fields) {
+// 				//成功
+// 				res.json({
+// 					status: true,
+// 					msg: "success!"
+// 				});
+// 			});
+// 		});
+// 
+// 	});
+// 
+// });
 module.exports = router;

@@ -259,10 +259,10 @@ define({ "api": [
     "groupTitle": "Address"
   },
   {
-    "type": "post",
-    "url": "/api/cart/add/",
-    "title": "获取商品详情",
-    "name": "_cart_add________",
+    "type": "get",
+    "url": "/api/cart/",
+    "title": "获取购物车列表",
+    "name": "_cart_________",
     "group": "Cart",
     "parameter": {
       "fields": {
@@ -271,8 +271,50 @@ define({ "api": [
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "id",
+            "field": "uid",
+            "description": "<p>用户id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/cart/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
+    "url": "/api/cart/add/",
+    "title": "添加商品至购物车",
+    "name": "_cart_add__________",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "gid",
             "description": "<p>商品id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "num",
+            "description": "<p>商品数量,不能超过库存;</p>"
           }
         ]
       }
