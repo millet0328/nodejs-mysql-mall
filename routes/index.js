@@ -105,7 +105,8 @@ router.post('/cart/add/', function(req, res) {
 			VALUES ( ${req.body.uid} , ${req.body.gid} , ${req.body.num} ,CURRENT_TIMESTAMP())`;
 		// 已有此商品，增加数量
 		if (results.length > 0) {
-			sql = `UPDATE carts SET num = num + ${req.body.num} WHERE goods_id = ${req.body.gid}`;
+			sql =
+				`UPDATE carts SET num = num + ${req.body.num} , update_time = CURRENT_TIMESTAMP()  WHERE goods_id = ${req.body.gid}`;
 		}
 		db.query(sql, function(results, fields) {
 			//成功
@@ -127,7 +128,7 @@ router.post('/cart/add/', function(req, res) {
  */
 router.get('/cart/', function(req, res) {
 	let sql =
-		`SELECT goods.id , goods.img_md AS img , goods.NAME , goods.price , carts.num 
+		`SELECT goods.id , goods.img_md AS img , goods.name , goods.price , carts.num 
 		FROM carts JOIN goods 
 		WHERE carts.uid = ? AND carts.goods_id = goods.id`;
 	db.query(sql, [req.query.uid], function(results, fields) {
@@ -139,6 +140,82 @@ router.get('/cart/', function(req, res) {
 		});
 	});
 });
+/**
+ * @api {post} /api/cart/delete/ 购物车删除商品
+ * @apiName /cart/delete/ 购物车删除商品
+ * @apiGroup Cart
+ * 
+ * @apiParam {Number} id 购物车条目id;
+ * 
+ * @apiSampleRequest /api/cart/delete/
+ */
+router.post('/cart/delete/', function(req, res) {
+	let sql = `DELETE FROM carts WHERE id = ?`;
+	db.query(sql, [req.body.id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+		});
+	});
+})
+/**
+ * @api {post} /api/cart/increase/ 购物车增加商品数量
+ * @apiDescription 增加商品数量，后台查询库存，注意提示库存不足
+ * @apiName /cart/increase/ 购物车增加商品数量
+ * @apiGroup Cart
+ * 
+ * @apiParam {Number} id 购物车条目id;
+ * @apiParam {Number} gid 商品id;
+ * @apiParam {Number} num 商品数量;
+ * 
+ * @apiSampleRequest /api/cart/increase/
+ */
+router.post('/cart/increase/', function(req, res) {
+	// 检查库存
+	let sql = `SELECT num FROM carts WHERE id = ?;
+	SELECT inventory FROM goods WHERE id = ?`;
+	db.query(sql, [req.body.id, req.body.gid], function(results, fields) {
+		let isEmpty = results[1][0].inventory - results[0][0].num - req.body.num >= 0 ? false : true;
+		if (isEmpty) {
+			res.json({
+				status: false,
+				msg: "库存不足!"
+			});
+			return;
+		}
+		let sql = `UPDATE carts SET num = num + ? , update_time = CURRENT_TIMESTAMP()  WHERE id = ?`;
+		db.query(sql, [req.body.num, req.body.id], function(results, fields) {
+			//成功
+			res.json({
+				status: true,
+				msg: "success!",
+			});
+		});
+	});
+
+})
+/**
+ * @api {post} /api/cart/decrease/ 购物车减少商品数量
+ * @apiDescription 减少商品数量，前台注意约束num，商品数量>=1
+ * @apiName /cart/decrease/ 购物车减少商品数量
+ * @apiGroup Cart
+ * 
+ * @apiParam {Number} id 购物车条目id;
+ * @apiParam {Number} num 商品数量;
+ * 
+ * @apiSampleRequest /api/cart/decrease/
+ */
+router.post('/cart/decrease/', function(req, res) {
+	let sql = `UPDATE carts SET num = num - ? , update_time = CURRENT_TIMESTAMP()  WHERE id = ?`;
+	db.query(sql, [req.body.num, req.body.id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+		});
+	});
+})
 // router.post('/cart/', function(req, res) {
 // 	let sql = `SELECT inventory FROM goods WHERE id = ?`;
 // 	db.query(sql, [req.body.gid], function(results, fields) {

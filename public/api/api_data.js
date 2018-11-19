@@ -330,6 +330,113 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/cart/decrease/",
+    "title": "购物车减少商品数量",
+    "description": "<p>减少商品数量，前台注意约束num，商品数量&gt;=1</p>",
+    "name": "_cart_decrease___________",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>购物车条目id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "num",
+            "description": "<p>商品数量;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/cart/decrease/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
+    "url": "/api/cart/delete/",
+    "title": "购物车删除商品",
+    "name": "_cart_delete_________",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>购物车条目id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/cart/delete/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
+    "url": "/api/cart/increase/",
+    "title": "购物车增加商品数量",
+    "description": "<p>增加商品数量，后台查询库存，注意提示库存不足</p>",
+    "name": "_cart_increase___________",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>购物车条目id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "gid",
+            "description": "<p>商品id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "num",
+            "description": "<p>商品数量;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/cart/increase/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
     "url": "/api/category/add/",
     "title": "添加子分类",
     "name": "category_add______",
