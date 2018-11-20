@@ -1010,6 +1010,65 @@
   },
   {
     "type": "post",
+    "url": "/api/order/create/",
+    "title": "结算按钮-下订单",
+    "description": "<p>在购物车页面，结算按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作</p>",
+    "name": "CreateOrder",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object[]",
+            "optional": false,
+            "field": "goodsList",
+            "description": "<p>商品数组;</p>"
+          }
+        ],
+        "goodsList": [
+          {
+            "group": "goodsList",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          },
+          {
+            "group": "goodsList",
+            "type": "Number",
+            "optional": false,
+            "field": "num",
+            "description": "<p>商品数量;</p>"
+          },
+          {
+            "group": "goodsList",
+            "type": "Number",
+            "optional": false,
+            "field": "price",
+            "description": "<p>商品价格;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/order/create/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
     "url": "/api/upload/common/",
     "title": "通用图片上传API",
     "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，不限制尺寸，存储至details文件夹</p>",

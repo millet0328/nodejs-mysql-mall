@@ -216,42 +216,64 @@ router.post('/cart/decrease/', function(req, res) {
 		});
 	});
 })
-// router.post('/cart/', function(req, res) {
-// 	let sql = `SELECT inventory FROM goods WHERE id = ?`;
-// 	db.query(sql, [req.body.gid], function(results, fields) {
-// 		// 检查库存
-// 		let isEmpty = results[0].inventory - req.body.num >= 0 ? false : true;
-// 		if (isEmpty) {
-// 			res.json({
-// 				status: false,
-// 				msg: "库存不足!"
-// 			});
-// 			return;
-// 		}
-// 		// 检查购物车是否已经有此商品
-// 		let sql = `SELECT * FROM carts WHERE goods_id = ?`;
-// 		db.query(sql, [req.body.gid], function(results, fields) {
-// 			let sql = `UPDATE goods SET  inventory = inventory - ${req.body.num} WHERE id = ${req.body.gid};`
-// 			// 没有此商品,插入新纪录
-// 			if (results.length == 0) {
-// 				sql = sql +
-// 					`INSERT INTO carts (uid,goods_id,num,create_time)
-// 				VALUES (${req.body.uid},${req.body.gid},${req.body.num},CURRENT_TIMESTAMP())`;
-// 			} else {
-// 				// 已有此商品，增加数量
-// 				sql = sql + `UPDATE carts SET num = num + ${req.body.num}`;
-// 			}
-// 			// 更新库存，修改购物车
-// 			db.query(sql, function(results, fields) {
-// 				//成功
-// 				res.json({
-// 					status: true,
-// 					msg: "success!"
-// 				});
-// 			});
-// 		});
-// 
-// 	});
-// 
-// });
+/**
+ * @api {post} /api/order/create/ 结算按钮-下订单
+ * @apiDescription 在购物车页面，结算按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作
+ * @apiName CreateOrder
+ * @apiGroup Order
+ * 
+ * @apiParam {Number} uid 用户id;
+ * @apiParam {Object[]} goodsList 商品数组;
+ * @apiParam (goodsList) {Number} id 商品id;
+ * @apiParam (goodsList) {Number} num 商品数量;
+ * @apiParam (goodsList) {Number} price 商品价格;
+ * 
+ * @apiSampleRequest /api/order/create/
+ */
+router.post('/order/create/', function(req, res) {
+	let queryGid = [];
+	let list = req.body.goodsList;
+	list.forEach(function(item) {
+		queryGid.push(item.id);
+	});
+	let sql = `SELECT inventory FROM goods WHERE id IN (?)`;
+	db.query(sql, [queryGid], function(results, fields) {
+		console.log(results);
+	});
+	// 	db.query(sql, [req.body.gid], function(results, fields) {
+	// 		// 检查库存
+	// 		let isEmpty = results[0].inventory - req.body.num >= 0 ? false : true;
+	// 		if (isEmpty) {
+	// 			res.json({
+	// 				status: false,
+	// 				msg: "库存不足!"
+	// 			});
+	// 			return;
+	// 		}
+	// 		// 检查购物车是否已经有此商品
+	// 		let sql = `SELECT * FROM carts WHERE goods_id = ?`;
+	// 		db.query(sql, [req.body.gid], function(results, fields) {
+	// 			let sql = `UPDATE goods SET  inventory = inventory - ${req.body.num} WHERE id = ${req.body.gid};`
+	// 			// 没有此商品,插入新纪录
+	// 			if (results.length == 0) {
+	// 				sql = sql +
+	// 					`INSERT INTO carts (uid,goods_id,num,create_time)
+	// 				VALUES (${req.body.uid},${req.body.gid},${req.body.num},CURRENT_TIMESTAMP())`;
+	// 			} else {
+	// 				// 已有此商品，增加数量
+	// 				sql = sql + `UPDATE carts SET num = num + ${req.body.num}`;
+	// 			}
+	// 			// 更新库存，修改购物车
+	// 			db.query(sql, function(results, fields) {
+	// 				//成功
+	// 				res.json({
+	// 					status: true,
+	// 					msg: "success!"
+	// 				});
+	// 			});
+	// 		});
+	// 
+	// 	});
+
+});
 module.exports = router;
