@@ -237,9 +237,31 @@ router.post('/order/create/', function(req, res) {
 		queryGid.push(item.id);
 	});
 	let sql = `SELECT inventory FROM goods WHERE id IN (?)`;
+	// 检查库存
 	db.query(sql, [queryGid], function(results, fields) {
-		console.log(results);
+		// every碰到第一个为false的，即终止执行
+		let isAllPassed = results.every(function(item, index) {
+			let isPassed = item.inventory >= list[index].num;
+			if (isPassed == false) {
+				res.json({
+					status: false,
+					msg: `id为${list[index].id}的商品，库存不足!`,
+					data:{
+						id:list[index].id
+					}
+				});
+			}
+			return isPassed;
+		});
+		// 库存不足,终止执行
+		if(isAllPassed==false){
+			return;
+		}
+		// 库存充足
+		let sql=``
+		
 	});
+
 	// 	db.query(sql, [req.body.gid], function(results, fields) {
 	// 		// 检查库存
 	// 		let isEmpty = results[0].inventory - req.body.num >= 0 ? false : true;
