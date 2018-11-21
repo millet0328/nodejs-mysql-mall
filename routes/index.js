@@ -96,17 +96,18 @@ router.get("/goods/detail/", function(req, res) {
  * @apiSampleRequest /api/cart/add/
  */
 router.post('/cart/add/', function(req, res) {
+	let { uid, gid, num } = req.body;
 	// 检查购物车是否已经有此商品
 	let sql = `SELECT * FROM carts WHERE goods_id = ?`;
-	db.query(sql, [req.body.gid], function(results, fields) {
+	db.query(sql, [gid], function(results, fields) {
 		// 没有此商品,插入新纪录
 		sql =
-			`INSERT INTO carts ( uid , goods_id , num , create_time )
-			VALUES ( ${req.body.uid} , ${req.body.gid} , ${req.body.num} ,CURRENT_TIMESTAMP())`;
+			`INSERT INTO carts ( uid , goods_id , goods_num , create_time )
+			VALUES ( ${uid} , ${gid} , ${num} ,CURRENT_TIMESTAMP())`;
 		// 已有此商品，增加数量
 		if (results.length > 0) {
 			sql =
-				`UPDATE carts SET num = num + ${req.body.num} , update_time = CURRENT_TIMESTAMP()  WHERE goods_id = ${req.body.gid}`;
+				`UPDATE carts SET goods_num = goods_num + ${num} , update_time = CURRENT_TIMESTAMP()  WHERE goods_id = ${gid}`;
 		}
 		db.query(sql, function(results, fields) {
 			//成功
@@ -127,11 +128,12 @@ router.post('/cart/add/', function(req, res) {
  * @apiSampleRequest /api/cart/
  */
 router.get('/cart/', function(req, res) {
+	let { uid } = req.query;
 	let sql =
-		`SELECT goods.id , goods.img_md AS img , goods.name , goods.price , carts.num 
+		`SELECT goods.id , goods.img_md AS img , goods.name , goods.price , carts.goods_num 
 		FROM carts JOIN goods 
 		WHERE carts.uid = ? AND carts.goods_id = goods.id`;
-	db.query(sql, [req.query.uid], function(results, fields) {
+	db.query(sql, [uid], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -150,8 +152,9 @@ router.get('/cart/', function(req, res) {
  * @apiSampleRequest /api/cart/delete/
  */
 router.post('/cart/delete/', function(req, res) {
+	let { id } = req.body;
 	let sql = `DELETE FROM carts WHERE id = ?`;
-	db.query(sql, [req.body.id], function(results, fields) {
+	db.query(sql, [id], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -172,11 +175,12 @@ router.post('/cart/delete/', function(req, res) {
  * @apiSampleRequest /api/cart/increase/
  */
 router.post('/cart/increase/', function(req, res) {
+	let { id, gid, num } = req.body;
 	// 检查库存
-	let sql = `SELECT num FROM carts WHERE id = ?;
+	let sql = `SELECT goods_num FROM carts WHERE id = ?;
 	SELECT inventory FROM goods WHERE id = ?`;
-	db.query(sql, [req.body.id, req.body.gid], function(results, fields) {
-		let isEmpty = results[1][0].inventory - results[0][0].num - req.body.num >= 0 ? false : true;
+	db.query(sql, [id, gid], function(results, fields) {
+		let isEmpty = results[1][0].inventory - results[0][0].goods_num - num >= 0 ? false : true;
 		if (isEmpty) {
 			res.json({
 				status: false,
@@ -184,8 +188,8 @@ router.post('/cart/increase/', function(req, res) {
 			});
 			return;
 		}
-		let sql = `UPDATE carts SET num = num + ? , update_time = CURRENT_TIMESTAMP()  WHERE id = ?`;
-		db.query(sql, [req.body.num, req.body.id], function(results, fields) {
+		let sql = `UPDATE carts SET goods_num = goods_num + ? , update_time = CURRENT_TIMESTAMP()  WHERE id = ?`;
+		db.query(sql, [num, id], function(results, fields) {
 			//成功
 			res.json({
 				status: true,
@@ -207,8 +211,9 @@ router.post('/cart/increase/', function(req, res) {
  * @apiSampleRequest /api/cart/decrease/
  */
 router.post('/cart/decrease/', function(req, res) {
-	let sql = `UPDATE carts SET num = num - ? , update_time = CURRENT_TIMESTAMP()  WHERE id = ?`;
-	db.query(sql, [req.body.num, req.body.id], function(results, fields) {
+	let { id, num } = req.body;
+	let sql = `UPDATE carts SET goods_num = goods_num - ? , update_time = CURRENT_TIMESTAMP()  WHERE id = ?`;
+	db.query(sql, [num, id], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -223,6 +228,7 @@ router.post('/cart/decrease/', function(req, res) {
  * @apiGroup Order
  * 
  * @apiParam {Number} uid 用户id;
+ * @apiParam {Number} payment 支付金额,小数点至2位;
  * @apiParam {Object[]} goodsList 商品数组;
  * @apiParam (goodsList) {Number} id 商品id;
  * @apiParam (goodsList) {Number} num 商品数量;
@@ -231,71 +237,95 @@ router.post('/cart/decrease/', function(req, res) {
  * @apiSampleRequest /api/order/create/
  */
 router.post('/order/create/', function(req, res) {
+	// 准备查询的商品id,方便使用IN
 	let queryGid = [];
-	let list = req.body.goodsList;
-	list.forEach(function(item) {
+	let { uid, goodsList, payment } = req.body;
+	goodsList.forEach(function(item) {
 		queryGid.push(item.id);
 	});
+	// 检查库存是否充足
 	let sql = `SELECT inventory FROM goods WHERE id IN (?)`;
-	// 检查库存
 	db.query(sql, [queryGid], function(results, fields) {
 		// every碰到第一个为false的，即终止执行
 		let isAllPassed = results.every(function(item, index) {
-			let isPassed = item.inventory >= list[index].num;
+			let isPassed = item.inventory >= goodsList[index].num;
 			if (isPassed == false) {
 				res.json({
 					status: false,
-					msg: `id为${list[index].id}的商品，库存不足!`,
-					data:{
-						id:list[index].id
+					msg: `id为${goodsList[index].id}的商品，库存不足!`,
+					data: {
+						id: goodsList[index].id
 					}
 				});
 			}
 			return isPassed;
 		});
 		// 库存不足,终止执行
-		if(isAllPassed==false){
+		if (isAllPassed == false) {
 			return;
 		}
-		// 库存充足
-		let sql=``
-		
+		// 数据库事务
+		let { pool } = db;
+		pool.getConnection(function(err, connection) {
+			if (err) throw err; // not connected!
+			// 库存充足,对应商品减库存,拼接SQL
+			let sql = `UPDATE goods SET  inventory = CASE id `;
+			goodsList.forEach(function(item, index) {
+				sql += `WHEN ${item.id} THEN inventory - ${item.num} `;
+			});
+			sql += `END WHERE id IN (${queryGid});`;
+			connection.query(sql, function(error, results, fields) {
+				if (error) {
+					return connection.rollback(function() {
+						throw error;
+					});
+				}
+				// 订单表中生成新订单
+				let sql = `INSERT INTO orders (uid,payment,create_time) VALUES (?,?,CURRENT_TIMESTAMP())`;
+				connection.query(sql, [uid, payment], function(error, results, fields) {
+					if (error) {
+						return connection.rollback(function() {
+							throw error;
+						});
+					}
+					// 购物车对应商品复制到order_goods表中，carts表删除对应商品
+					let sql =
+						`INSERT INTO order_goods ( order_id, goods_id, goods_num, goods_price ) 
+						SELECT
+							( SELECT id FROM orders WHERE id = ? ),
+							carts.goods_id,
+							carts.goods_num,
+							goods.price
+						FROM
+							carts
+						JOIN goods ON goods.id = carts.goods_id 
+						WHERE
+							carts.uid = ? 
+						AND carts.goods_id IN (?);
+						DELETE FROM carts WHERE carts.uid = ? AND goods_id IN (?)`;
+					connection.query(sql, [results.insertId, uid, queryGid, uid, queryGid], function(error, results, fields) {
+						if (error) {
+							return connection.rollback(function() {
+								throw error;
+							});
+						}
+						connection.commit(function(err) {
+							if (err) {
+								return connection.rollback(function() {
+									throw err;
+								});
+							}
+							res.json({
+								status: true,
+								msg: "success!",
+							});
+						});
+					});
+				});
+
+
+			})
+		});
 	});
-
-	// 	db.query(sql, [req.body.gid], function(results, fields) {
-	// 		// 检查库存
-	// 		let isEmpty = results[0].inventory - req.body.num >= 0 ? false : true;
-	// 		if (isEmpty) {
-	// 			res.json({
-	// 				status: false,
-	// 				msg: "库存不足!"
-	// 			});
-	// 			return;
-	// 		}
-	// 		// 检查购物车是否已经有此商品
-	// 		let sql = `SELECT * FROM carts WHERE goods_id = ?`;
-	// 		db.query(sql, [req.body.gid], function(results, fields) {
-	// 			let sql = `UPDATE goods SET  inventory = inventory - ${req.body.num} WHERE id = ${req.body.gid};`
-	// 			// 没有此商品,插入新纪录
-	// 			if (results.length == 0) {
-	// 				sql = sql +
-	// 					`INSERT INTO carts (uid,goods_id,num,create_time)
-	// 				VALUES (${req.body.uid},${req.body.gid},${req.body.num},CURRENT_TIMESTAMP())`;
-	// 			} else {
-	// 				// 已有此商品，增加数量
-	// 				sql = sql + `UPDATE carts SET num = num + ${req.body.num}`;
-	// 			}
-	// 			// 更新库存，修改购物车
-	// 			db.query(sql, function(results, fields) {
-	// 				//成功
-	// 				res.json({
-	// 					status: true,
-	// 					msg: "success!"
-	// 				});
-	// 			});
-	// 		});
-	// 
-	// 	});
-
 });
 module.exports = router;

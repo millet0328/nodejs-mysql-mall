@@ -144,17 +144,15 @@
 		</script>
 		<script>
 			$.post('/api/order/create/', {
+				uid: 1,
+				payment: 3500,
 				goodsList: [{
 					id: 15,
 					num: 10,
 					price: 3565
 				}, {
 					id: 16,
-					num: 10000,
-					price: 3565
-				}, {
-					id: 17,
-					num: 10000,
+					num: 1,
 					price: 3565
 				}]
 			})
