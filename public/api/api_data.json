@@ -1011,8 +1011,8 @@
   {
     "type": "post",
     "url": "/api/order/create/",
-    "title": "结算按钮-下订单",
-    "description": "<p>在购物车页面，结算按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作</p>",
+    "title": "提交订单->生成订单",
+    "description": "<p>在确认订单页面，提交订单按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作</p>",
     "name": "CreateOrder",
     "group": "Order",
     "parameter": {
@@ -1031,6 +1031,13 @@
             "optional": false,
             "field": "payment",
             "description": "<p>支付金额,小数点至2位;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "addressId",
+            "description": "<p>收货地址id;</p>"
           },
           {
             "group": "Parameter",
@@ -1054,13 +1061,6 @@
             "optional": false,
             "field": "num",
             "description": "<p>商品数量;</p>"
-          },
-          {
-            "group": "goodsList",
-            "type": "Number",
-            "optional": false,
-            "field": "price",
-            "description": "<p>商品价格;</p>"
           }
         ]
       }
@@ -1068,6 +1068,42 @@
     "sampleRequest": [
       {
         "url": "/api/order/create/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
+    "url": "/api/order/settle/",
+    "title": "结算按钮->确认订单",
+    "description": "<p>此API返回确认订单页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改</p>",
+    "name": "SettleOrder",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number[]",
+            "optional": false,
+            "field": "goods",
+            "description": "<p>欲购买商品id，格式：[id1,id2,id3];</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/order/settle/"
       }
     ],
     "version": "0.0.0",

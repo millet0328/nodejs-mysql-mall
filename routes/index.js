@@ -32,17 +32,10 @@ router.get("/goods/", function(req, res) {
 		}
 	}
 	//拼接SQL
-	function produceSQL({
-		pageSize = 4,
-		pageIndex = 1,
-		sortByPrice = '',
-		cate_1st = '',
-		cate_2nd = '',
-		cate_3rd = '',
-	}) {
+	function produceSQL({ pageSize = 4, pageIndex = 1, sortByPrice = '', cate_1st = '', cate_2nd = '', cate_3rd = '', }) {
 		let size = parseInt(pageSize);
 		let count = size * (pageIndex - 1);
-		let sql = `SELECT * FROM GOODS `
+		let sql = `SELECT id,name,price,hotPoint,marketPrice,discount,img_md FROM GOODS `
 		if (cate_1st) {
 			sql += `WHERE cate_1st = ${cate_1st}`;
 		}
@@ -74,7 +67,7 @@ router.get("/goods/", function(req, res) {
  * @apiSampleRequest /api/goods/detail/
  */
 router.get("/goods/detail/", function(req, res) {
-	let sql = `SELECT * FROM GOODS WHERE id = ?`
+	let sql = `SELECT id,name,price,hotPoint,marketPrice,discount,slider,detail FROM GOODS WHERE id = ?`
 	db.query(sql, [req.query.id], function(results, fields) {
 		//成功
 		res.json({
@@ -220,19 +213,50 @@ router.post('/cart/decrease/', function(req, res) {
 			msg: "success!",
 		});
 	});
+});
+/**
+ * @api {post} /api/order/settle/ 结算按钮->确认订单
+ * @apiDescription 此API返回确认订单页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改
+ * @apiName SettleOrder
+ * @apiGroup Order
+ * 
+ * @apiParam {Number} uid 用户id;
+ * @apiParam {Number[]} goods 欲购买商品id，格式：[id1,id2,id3];
+ * 
+ * @apiSampleRequest /api/order/settle/
+ */
+router.post('/order/settle/', function(req, res) {
+	let { uid, goods } = req.body;
+	// 多表查询
+	let data = {};
+	let sql = `SELECT * FROM addresses WHERE uid =? AND isDefault =1 LIMIT 1`;
+	db.query(sql, [uid], function(results, fields) {
+		data.address = results[0];
+		let sql =
+			`SELECT goods.id,goods.name,goods.price,goods.img_md,carts.goods_num FROM goods JOIN carts ON goods.id = carts.goods_id  WHERE carts.uid = ? AND carts.goods_id IN (?)`;
+		db.query(sql, [uid, goods], function(results, fields) {
+			data.goods = results;
+			//成功
+			res.json({
+				status: true,
+				msg: "success!",
+				data
+			});
+		});
+	});
 })
 /**
- * @api {post} /api/order/create/ 结算按钮-下订单
- * @apiDescription 在购物车页面，结算按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作
+ * @api {post} /api/order/create/ 提交订单->生成订单
+ * @apiDescription 在确认订单页面，提交订单按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作
  * @apiName CreateOrder
  * @apiGroup Order
  * 
  * @apiParam {Number} uid 用户id;
  * @apiParam {Number} payment 支付金额,小数点至2位;
+ * @apiParam {Number} addressId 收货地址id;
  * @apiParam {Object[]} goodsList 商品数组;
  * @apiParam (goodsList) {Number} id 商品id;
  * @apiParam (goodsList) {Number} num 商品数量;
- * @apiParam (goodsList) {Number} price 商品价格;
  * 
  * @apiSampleRequest /api/order/create/
  */
@@ -267,65 +291,76 @@ router.post('/order/create/', function(req, res) {
 		// 数据库事务
 		let { pool } = db;
 		pool.getConnection(function(err, connection) {
-			if (err) throw err; // not connected!
-			// 库存充足,对应商品减库存,拼接SQL
-			let sql = `UPDATE goods SET  inventory = CASE id `;
-			goodsList.forEach(function(item, index) {
-				sql += `WHEN ${item.id} THEN inventory - ${item.num} `;
-			});
-			sql += `END WHERE id IN (${queryGid});`;
-			connection.query(sql, function(error, results, fields) {
-				if (error) {
-					return connection.rollback(function() {
-						throw error;
-					});
-				}
-				// 订单表中生成新订单
-				let sql = `INSERT INTO orders (uid,payment,create_time) VALUES (?,?,CURRENT_TIMESTAMP())`;
-				connection.query(sql, [uid, payment], function(error, results, fields) {
-					if (error) {
+			if (err) { throw err; }
+			connection.beginTransaction(function(error) {
+				// 库存充足,对应商品减库存,拼接SQL
+				let sql = `UPDATE goods SET  inventory = CASE id `;
+				goodsList.forEach(function(item, index) {
+					sql += `WHEN ${item.id} THEN inventory - ${item.num} `;
+				});
+				sql += `END WHERE id IN (${queryGid});`;
+				connection.query(sql, function(error, results, fields) {
+					if (error || results.changedRows <= 0) {
 						return connection.rollback(function() {
-							throw error;
+							throw error || `${results.changedRows} rows changed!`;
 						});
 					}
-					// 购物车对应商品复制到order_goods表中，carts表删除对应商品
-					let sql =
-						`INSERT INTO order_goods ( order_id, goods_id, goods_num, goods_price ) 
-						SELECT
-							( SELECT id FROM orders WHERE id = ? ),
-							carts.goods_id,
-							carts.goods_num,
-							goods.price
-						FROM
-							carts
-						JOIN goods ON goods.id = carts.goods_id 
-						WHERE
-							carts.uid = ? 
-						AND carts.goods_id IN (?);
-						DELETE FROM carts WHERE carts.uid = ? AND goods_id IN (?)`;
-					connection.query(sql, [results.insertId, uid, queryGid, uid, queryGid], function(error, results, fields) {
-						if (error) {
+					// 订单表中生成新订单
+					let sql = `INSERT INTO orders (uid,payment,create_time) VALUES (?,?,CURRENT_TIMESTAMP())`;
+					connection.query(sql, [uid, payment], function(error, results, fields) {
+						let { insertId } = results;
+						if (error || insertId <= 0) {
 							return connection.rollback(function() {
-								throw error;
+								throw error || `${insertId} rows affected!`;
 							});
 						}
-						connection.commit(function(err) {
-							if (err) {
+
+						// 购物车对应商品复制到order_goods表中，carts表删除对应商品
+						let sql =
+							`INSERT INTO order_goods ( order_id, goods_id, goods_num, goods_price ) 
+							SELECT
+								( ? ),
+								carts.goods_id,
+								carts.goods_num,
+								goods.price
+							FROM
+								carts
+							JOIN goods ON goods.id = carts.goods_id 
+							WHERE
+								carts.uid = ? 
+							AND carts.goods_id IN (?);
+							DELETE FROM carts WHERE carts.uid = ? AND goods_id IN (?)`;
+						connection.query(sql, [insertId, uid, queryGid, uid, queryGid], function(error, results,
+							fields) {
+							if (error) {
 								return connection.rollback(function() {
-									throw err;
+									throw error;
 								});
 							}
-							res.json({
-								status: true,
-								msg: "success!",
+							connection.commit(function(err) {
+								if (err) {
+									return connection.rollback(function() {
+										throw err;
+									});
+								}
+								res.json({
+									status: true,
+									msg: "success!",
+									data: {
+										order_id: insertId
+									}
+								});
 							});
 						});
 					});
 				});
+			});
 
-
-			})
 		});
 	});
 });
+
+
+
+
 module.exports = router;
