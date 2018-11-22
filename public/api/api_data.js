@@ -259,38 +259,10 @@ define({ "api": [
     "groupTitle": "Address"
   },
   {
-    "type": "get",
-    "url": "/api/cart/",
-    "title": "获取购物车列表",
-    "name": "_cart_________",
-    "group": "Cart",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id;</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/cart/"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/index.js",
-    "groupTitle": "Cart"
-  },
-  {
     "type": "post",
     "url": "/api/cart/add/",
     "title": "添加商品至购物车",
-    "name": "_cart_add__________",
+    "name": "AddCart",
     "group": "Cart",
     "parameter": {
       "fields": {
@@ -329,11 +301,39 @@ define({ "api": [
     "groupTitle": "Cart"
   },
   {
+    "type": "get",
+    "url": "/api/cart/",
+    "title": "获取购物车列表",
+    "name": "CartList",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/cart/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Cart"
+  },
+  {
     "type": "post",
     "url": "/api/cart/decrease/",
     "title": "购物车减少商品数量",
     "description": "<p>减少商品数量，前台注意约束num，商品数量&gt;=1</p>",
-    "name": "_cart_decrease___________",
+    "name": "DecreaseCart",
     "group": "Cart",
     "parameter": {
       "fields": {
@@ -348,6 +348,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "Number",
+            "size": "1-库存MAX",
             "optional": false,
             "field": "num",
             "description": "<p>商品数量;</p>"
@@ -368,7 +369,7 @@ define({ "api": [
     "type": "post",
     "url": "/api/cart/delete/",
     "title": "购物车删除商品",
-    "name": "_cart_delete_________",
+    "name": "DeleteCart",
     "group": "Cart",
     "parameter": {
       "fields": {
@@ -397,7 +398,7 @@ define({ "api": [
     "url": "/api/cart/increase/",
     "title": "购物车增加商品数量",
     "description": "<p>增加商品数量，后台查询库存，注意提示库存不足</p>",
-    "name": "_cart_increase___________",
+    "name": "IncreaseCart",
     "group": "Cart",
     "parameter": {
       "fields": {
@@ -419,6 +420,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "Number",
+            "size": "1-库存MAX",
             "optional": false,
             "field": "num",
             "description": "<p>商品数量;</p>"
@@ -599,10 +601,38 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/goods/detail/",
+    "title": "获取商品详情",
+    "name": "GoodsDetail",
+    "group": "Goods",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/goods/detail/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Goods"
+  },
+  {
+    "type": "get",
     "url": "/api/goods/",
     "title": "获取商品列表",
     "description": "<p>具备商品分页功能，3个分类参数至多能传1个</p>",
-    "name": "_goods________",
+    "name": "GoodsList_______",
     "group": "Goods",
     "parameter": {
       "fields": {
@@ -659,34 +689,6 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "/api/goods/"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/index.js",
-    "groupTitle": "Goods"
-  },
-  {
-    "type": "get",
-    "url": "/api/goods/detail/",
-    "title": "获取商品详情",
-    "name": "_goods_detail________",
-    "group": "Goods",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>商品id;</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/goods/detail/"
       }
     ],
     "version": "0.0.0",
@@ -1074,9 +1076,51 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/order/list/",
+    "title": "获取订单列表",
+    "description": "<p>本账户uid中的订单列表，根据订单状态获取列表，具备分页功能</p>",
+    "name": "OrderList",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "allowedValues": [
+              "0",
+              "3",
+              "4",
+              "5"
+            ],
+            "optional": false,
+            "field": "status",
+            "description": "<p>订单状态:0-待付款，3-待发货，4-待收货，5-待评价;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/order/list/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/index.js",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "post",
     "url": "/api/order/settle/",
-    "title": "结算按钮->确认订单",
-    "description": "<p>此API返回确认订单页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改</p>",
+    "title": "确认订单页面",
+    "description": "<p>点击结算按钮之后传参至&quot;确认订单&quot;，此API返回&quot;确认订单&quot;页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改</p>",
     "name": "SettleOrder",
     "group": "Order",
     "parameter": {

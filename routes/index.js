@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 /**
  * @api {get} /api/goods/ 获取商品列表
  * @apiDescription 具备商品分页功能，3个分类参数至多能传1个
- * @apiName /goods/ 获取商品列表
+ * @apiName GoodsList 获取商品列表
  * @apiGroup Goods
  * 
  * @apiParam {Number} [pageSize] 一个页有多少个商品,默认4个;
@@ -59,7 +59,7 @@ router.get("/goods/", function(req, res) {
 });
 /**
  * @api {get} /api/goods/detail/ 获取商品详情
- * @apiName /goods/detail/ 获取商品详情
+ * @apiName GoodsDetail
  * @apiGroup Goods
  * 
  * @apiParam {Number} id 商品id;
@@ -79,7 +79,7 @@ router.get("/goods/detail/", function(req, res) {
 });
 /**
  * @api {post} /api/cart/add/ 添加商品至购物车
- * @apiName /cart/add/ 添加商品至购物车
+ * @apiName AddCart
  * @apiGroup Cart
  * 
  * @apiParam {Number} uid 用户id;
@@ -113,7 +113,7 @@ router.post('/cart/add/', function(req, res) {
 });
 /**
  * @api {get} /api/cart/ 获取购物车列表
- * @apiName /cart/ 获取购物车列表
+ * @apiName CartList
  * @apiGroup Cart
  * 
  * @apiParam {Number} uid 用户id;
@@ -123,7 +123,7 @@ router.post('/cart/add/', function(req, res) {
 router.get('/cart/', function(req, res) {
 	let { uid } = req.query;
 	let sql =
-		`SELECT goods.id , goods.img_md AS img , goods.name , goods.price , carts.goods_num 
+		`SELECT carts.id, carts.goods_id, goods.img_md AS img, goods.name, goods.price, carts.goods_num 
 		FROM carts JOIN goods 
 		WHERE carts.uid = ? AND carts.goods_id = goods.id`;
 	db.query(sql, [uid], function(results, fields) {
@@ -137,7 +137,7 @@ router.get('/cart/', function(req, res) {
 });
 /**
  * @api {post} /api/cart/delete/ 购物车删除商品
- * @apiName /cart/delete/ 购物车删除商品
+ * @apiName DeleteCart
  * @apiGroup Cart
  * 
  * @apiParam {Number} id 购物车条目id;
@@ -158,12 +158,12 @@ router.post('/cart/delete/', function(req, res) {
 /**
  * @api {post} /api/cart/increase/ 购物车增加商品数量
  * @apiDescription 增加商品数量，后台查询库存，注意提示库存不足
- * @apiName /cart/increase/ 购物车增加商品数量
+ * @apiName IncreaseCart
  * @apiGroup Cart
  * 
  * @apiParam {Number} id 购物车条目id;
  * @apiParam {Number} gid 商品id;
- * @apiParam {Number} num 商品数量;
+ * @apiParam {Number{1-库存MAX}} num 商品数量;
  * 
  * @apiSampleRequest /api/cart/increase/
  */
@@ -195,11 +195,11 @@ router.post('/cart/increase/', function(req, res) {
 /**
  * @api {post} /api/cart/decrease/ 购物车减少商品数量
  * @apiDescription 减少商品数量，前台注意约束num，商品数量>=1
- * @apiName /cart/decrease/ 购物车减少商品数量
+ * @apiName DecreaseCart
  * @apiGroup Cart
  * 
  * @apiParam {Number} id 购物车条目id;
- * @apiParam {Number} num 商品数量;
+ * @apiParam {Number{1-库存MAX}} num 商品数量;
  * 
  * @apiSampleRequest /api/cart/decrease/
  */
@@ -215,8 +215,8 @@ router.post('/cart/decrease/', function(req, res) {
 	});
 });
 /**
- * @api {post} /api/order/settle/ 结算按钮->确认订单
- * @apiDescription 此API返回确认订单页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改
+ * @api {post} /api/order/settle/ 确认订单页面
+ * @apiDescription 点击结算按钮之后传参至"确认订单"，此API返回"确认订单"页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改
  * @apiName SettleOrder
  * @apiGroup Order
  * 
@@ -361,6 +361,31 @@ router.post('/order/create/', function(req, res) {
 					});
 				});
 			});
+		});
+	});
+});
+/**
+ * @api {post} /api/order/list/ 获取订单列表
+ * @apiDescription 本账户uid中的订单列表，根据订单状态获取列表，具备分页功能
+ * @apiName OrderList
+ * @apiGroup Order
+ * 
+ * @apiParam {Number} uid 用户id;
+ * @apiParam {Number=0,3,4,5} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价;
+ * 
+ * @apiSampleRequest /api/order/list/
+ */
+router.post('/order/list/', function(req, res) {
+	let { uid, status } = req.body;
+	let data = [];
+	// 查询订单
+	let sql =
+		`SELECT o.id, o.create_time, o.payment, os.text AS status
+		FROM orders o JOIN order_status os ON o.order_state = os.CODE
+		WHERE o.uid = ? AND o.order_state = ?`;
+	db.query(sql, [uid, status], function(results, fields) {
+		results.forEach(function(item) {
+			let sql
 		});
 	});
 });
