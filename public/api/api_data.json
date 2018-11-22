@@ -1045,21 +1045,19 @@
             "optional": false,
             "field": "goodsList",
             "description": "<p>商品数组;</p>"
-          }
-        ],
-        "goodsList": [
+          },
           {
-            "group": "goodsList",
+            "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "id",
+            "field": "goodsList.id",
             "description": "<p>商品id;</p>"
           },
           {
-            "group": "goodsList",
+            "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "num",
+            "field": "goodsList.num",
             "description": "<p>商品数量;</p>"
           }
         ]

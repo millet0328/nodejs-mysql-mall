@@ -145,9 +145,20 @@
 		<script>
 			$.post('/api/order/settle/', {
 				uid: 1,
-				// goods: [15,16],
-				goods: '15,16',
-			})
+				goods: [15, 16],
+			});
+			$.post('/api/order/create/', {
+				uid: 1,
+				payment: 2000,
+				addressId: 20,
+				goodsList: [{
+					id: 15,
+					num: 1
+				}, {
+					id: 16,
+					num: 1
+				}],
+			});
 		</script>
 	</body>
 
