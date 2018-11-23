@@ -1046,7 +1046,7 @@
             "type": "Object[]",
             "optional": false,
             "field": "goodsList",
-            "description": "<p>商品数组;</p>"
+            "description": "<p>商品数组,包含每一个商品的id,数量，例：[{id:15,num:1},{id:16,num:2}];</p>"
           },
           {
             "group": "Parameter",
@@ -1078,6 +1078,9 @@
     "type": "post",
     "url": "/api/order/list/",
     "title": "获取订单列表",
+    "deprecated": {
+      "content": "未完成，不可用"
+    },
     "description": "<p>本账户uid中的订单列表，根据订单状态获取列表，具备分页功能</p>",
     "name": "OrderList",
     "group": "Order",

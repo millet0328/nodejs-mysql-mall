@@ -143,19 +143,15 @@
 			});
 		</script>
 		<script>
-			$.post('/api/order/settle/', {
-				uid: 1,
-				goods: [15, 16],
-			});
 			$.post('/api/order/create/', {
-				uid: 1,
-				payment: 2000,
-				addressId: 21,
+				uid: 2,
+				payment: 5000,
+				addressId: 20,
 				goodsList: [{
-					id: 15,
+					id: 25,
 					num: 1
 				}, {
-					id: 16,
+					id: 26,
 					num: 1
 				}],
 			});

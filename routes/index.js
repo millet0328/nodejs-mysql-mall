@@ -100,7 +100,7 @@ router.post('/cart/add/', function(req, res) {
 		// 已有此商品，增加数量
 		if (results.length > 0) {
 			sql =
-				`UPDATE carts SET goods_num = goods_num + ${num} , update_time = CURRENT_TIMESTAMP()  WHERE goods_id = ${gid}`;
+				`UPDATE carts SET goods_num = goods_num + ${num} , update_time = CURRENT_TIMESTAMP()  WHERE goods_id = ${gid} AND uid = ${uid}`;
 		}
 		db.query(sql, function(results, fields) {
 			//成功
@@ -254,7 +254,7 @@ router.post('/order/settle/', function(req, res) {
  * @apiParam {Number} uid 用户id;
  * @apiParam {Number} payment 支付金额,小数点至2位;
  * @apiParam {Number} addressId 收货地址id;
- * @apiParam {Object[]} goodsList 商品数组;
+ * @apiParam {Object[]} goodsList 商品数组,包含每一个商品的id,数量，例：[{id:15,num:1},{id:16,num:2}];
  * @apiParam {Number} goodsList.id 商品id;
  * @apiParam {Number} goodsList.num 商品数量;
  * 
@@ -323,9 +323,11 @@ router.post('/order/create/', function(req, res) {
 							 SELECT ( ? ), name, tel, province, city, area, street, code
 							 FROM addresses WHERE id = ?`;
 						connection.query(sql, [insertId, addressId], function(error, results, fields) {
-							if (error || results.affectedRows <= 0) {
+							let { affectedRows } = results;
+							console.log(affectedRows);
+							if (error || affectedRows <= 0) {
 								return connection.rollback(function() {
-									throw error || `${results.affectedRows} rows affected!`;
+									throw error || `${affectedRows} rows affected!`;
 								});
 							}
 							// 购物车对应商品复制到order_goods表中，carts表删除对应商品
@@ -366,6 +368,7 @@ router.post('/order/create/', function(req, res) {
 });
 /**
  * @api {post} /api/order/list/ 获取订单列表
+ * @apiDeprecated 未完成，不可用
  * @apiDescription 本账户uid中的订单列表，根据订单状态获取列表，具备分页功能
  * @apiName OrderList
  * @apiGroup Order
@@ -377,25 +380,37 @@ router.post('/order/create/', function(req, res) {
  */
 router.post('/order/list/', function(req, res) {
 	let { uid, status } = req.body;
-	let data = [];
-	// 查询订单
+	// 查询订单信息
 	let sql =
 		`SELECT o.id, o.create_time, o.payment, os.text AS status
 		FROM orders o JOIN order_status os ON o.order_state = os.CODE
 		WHERE o.uid = ? AND o.order_state = ?`;
 	db.query(sql, [uid, status], function(results, fields) {
-		data = results;
-		data.forEach((item, index) => {
-			let sql =
-				`SELECT g.id, g.name, g.img_md AS img, og.goods_price, og.goods_num 
-				 FROM goods g JOIN  order_goods og 
-				 ON og.goods_id = g.id WHERE og.order_id = ?`;
-			db.query(sql, [item.id], (results, fields) => {
-				data[index].goods = results;
-				console.log(data);
+		// 查询订单商品信息
+		let data = results;
+		let sql =
+			`SELECT g.id, o.id AS order_id, g.name, g.img_md, og.goods_num, og.goods_price
+			 FROM orders o JOIN order_goods og ON o.id = og.order_id
+			 JOIN goods g ON g.id = og.goods_id
+			 WHERE o.uid = ? AND o.order_state = ?`;
+		db.query(sql, [uid, status], (results, fields) => {
+			data.forEach((order) => {
+				if (!order.goodsList) {
+					order.goodsList = [];
+				}
+				results.forEach((goods) => {
+					if (order.id == goods.order_id) {
+						order.goodsList.push(goods);
+					}
+				});
+			});
+			//成功
+			res.json({
+				status: true,
+				msg: "success!",
+				data
 			});
 		});
-		
 	});
 });
 
