@@ -320,8 +320,8 @@ router.post('/order/create/', function(req, res) {
 						// 存储收货地址快照
 						let sql =
 							`INSERT INTO order_addresses ( order_id, name, tel, province, city, area, street, code )
-									 SELECT ( ? ), name, tel, province, city, area, street, code
-									 FROM addresses WHERE id = ?`;
+							 SELECT ( ? ), name, tel, province, city, area, street, code
+							 FROM addresses WHERE id = ?`;
 						connection.query(sql, [insertId, addressId], function(error, results, fields) {
 							if (error || results.affectedRows <= 0) {
 								return connection.rollback(function() {
@@ -384,9 +384,18 @@ router.post('/order/list/', function(req, res) {
 		FROM orders o JOIN order_status os ON o.order_state = os.CODE
 		WHERE o.uid = ? AND o.order_state = ?`;
 	db.query(sql, [uid, status], function(results, fields) {
-		results.forEach(function(item) {
-			let sql
+		data = results;
+		data.forEach((item, index) => {
+			let sql =
+				`SELECT g.id, g.name, g.img_md AS img, og.goods_price, og.goods_num 
+				 FROM goods g JOIN  order_goods og 
+				 ON og.goods_id = g.id WHERE og.order_id = ?`;
+			db.query(sql, [item.id], (results, fields) => {
+				data[index].goods = results;
+				console.log(data);
+			});
 		});
+		
 	});
 });
 
