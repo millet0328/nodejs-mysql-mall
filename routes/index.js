@@ -170,7 +170,8 @@ router.post('/cart/delete/', function(req, res) {
 router.post('/cart/increase/', function(req, res) {
 	let { id, gid, num } = req.body;
 	// 检查库存
-	let sql = `SELECT goods_num FROM carts WHERE id = ?;
+	let sql =
+		`SELECT goods_num FROM carts WHERE id = ?;
 	SELECT inventory FROM goods WHERE id = ?`;
 	db.query(sql, [id, gid], function(results, fields) {
 		let isEmpty = results[1][0].inventory - results[0][0].goods_num - num >= 0 ? false : true;
@@ -368,24 +369,27 @@ router.post('/order/create/', function(req, res) {
 });
 /**
  * @api {post} /api/order/list/ 获取订单列表
- * @apiDeprecated 未完成，不可用
  * @apiDescription 本账户uid中的订单列表，根据订单状态获取列表，具备分页功能
  * @apiName OrderList
  * @apiGroup Order
  * 
  * @apiParam {Number} uid 用户id;
+ * @apiParam {Number} [pageSize] 一个页有多少个商品,默认4个;
+ * @apiParam {Number} [pageIndex] 第几页,默认1;
  * @apiParam {Number=0,3,4,5} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价;
  * 
  * @apiSampleRequest /api/order/list/
  */
 router.post('/order/list/', function(req, res) {
-	let { uid, status } = req.body;
+	let { uid, pageSize = 4, pageIndex = 1, status } = req.body;
+	let size = parseInt(pageSize);
+	let count = size * (pageIndex - 1);
 	// 查询订单信息
 	let sql =
 		`SELECT o.id, o.create_time, o.payment, os.text AS status
-		FROM orders o JOIN order_status os ON o.order_state = os.CODE
-		WHERE o.uid = ? AND o.order_state = ?`;
-	db.query(sql, [uid, status], function(results, fields) {
+		 FROM orders o JOIN order_status os ON o.order_state = os.CODE
+		 WHERE o.uid = ? AND o.order_state = ? LIMIT ?, ?`;
+	db.query(sql, [uid, status, count, size], function(results, fields) {
 		// 查询订单商品信息
 		let data = results;
 		let sql =

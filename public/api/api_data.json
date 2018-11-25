@@ -1078,9 +1078,6 @@
     "type": "post",
     "url": "/api/order/list/",
     "title": "获取订单列表",
-    "deprecated": {
-      "content": "未完成，不可用"
-    },
     "description": "<p>本账户uid中的订单列表，根据订单状态获取列表，具备分页功能</p>",
     "name": "OrderList",
     "group": "Order",
@@ -1093,6 +1090,20 @@
             "optional": false,
             "field": "uid",
             "description": "<p>用户id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "pageSize",
+            "description": "<p>一个页有多少个商品,默认4个;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "pageIndex",
+            "description": "<p>第几页,默认1;</p>"
           },
           {
             "group": "Parameter",
