@@ -16,6 +16,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "mysql": "^2.16.0",
+    "request": "^2.88.0",
     "serve-favicon": "~2.4.5",
     "uuid": "^3.3.2"
   },

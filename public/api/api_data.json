@@ -1,7 +1,7 @@
 [
   {
     "type": "post",
-    "url": "/users/address/add/",
+    "url": "/api/address/add/",
     "title": "添加收货地址",
     "name": "_address_add_",
     "group": "Address",
@@ -76,7 +76,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/address/add/"
+        "url": "/api/address/add/"
       }
     ],
     "version": "0.0.0",
@@ -85,7 +85,7 @@
   },
   {
     "type": "post",
-    "url": "/users/address/delete/",
+    "url": "/api/address/delete/",
     "title": "删除收货地址",
     "name": "_address_delete_",
     "group": "Address",
@@ -104,7 +104,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/address/delete/"
+        "url": "/api/address/delete/"
       }
     ],
     "version": "0.0.0",
@@ -113,7 +113,7 @@
   },
   {
     "type": "get",
-    "url": "/users/address/detail/",
+    "url": "/api/address/detail/",
     "title": "根据id获取收货地址详情",
     "name": "_address_detail_",
     "group": "Address",
@@ -132,7 +132,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/address/detail/"
+        "url": "/api/address/detail/"
       }
     ],
     "version": "0.0.0",
@@ -141,7 +141,7 @@
   },
   {
     "type": "get",
-    "url": "/users/address/list/",
+    "url": "/api/address/list/",
     "title": "获取收货地址列表",
     "name": "_address_list_",
     "group": "Address",
@@ -160,7 +160,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/address/list/"
+        "url": "/api/address/list/"
       }
     ],
     "version": "0.0.0",
@@ -169,7 +169,7 @@
   },
   {
     "type": "post",
-    "url": "/users/address/update/",
+    "url": "/api/address/update/",
     "title": "修改收货地址",
     "name": "_address_update_",
     "group": "Address",
@@ -251,7 +251,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/address/update/"
+        "url": "/api/address/update/"
       }
     ],
     "version": "0.0.0",
@@ -1329,8 +1329,37 @@
     "groupTitle": "Upload_Image"
   },
   {
+    "type": "post",
+    "url": "/api/user/token/",
+    "title": "换取登录token",
+    "description": "<p>微信小程序login之后，获得临时登录凭证code，再使用code换取登录token</p>",
+    "name": "Token",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>微信临时登录凭证code.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/user/token"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "User"
+  },
+  {
     "type": "get",
-    "url": "/users/info/",
+    "url": "/api/user/info/",
     "title": "获取个人资料",
     "name": "_info_______",
     "group": "User",
@@ -1349,7 +1378,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/info"
+        "url": "/api/user/info"
       }
     ],
     "version": "0.0.0",
@@ -1358,7 +1387,7 @@
   },
   {
     "type": "post",
-    "url": "/users/updateInfo/",
+    "url": "/api/user/updateInfo/",
     "title": "更新个人资料",
     "name": "_updateInfo_______",
     "group": "User",
@@ -1398,7 +1427,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/updateInfo"
+        "url": "/api/user/updateInfo"
       }
     ],
     "version": "0.0.0",
@@ -1407,7 +1436,7 @@
   },
   {
     "type": "post",
-    "url": "/users/login/",
+    "url": "/api/user/login/",
     "title": "登录",
     "name": "login___",
     "group": "User",
@@ -1433,7 +1462,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/login"
+        "url": "/api/user/login"
       }
     ],
     "version": "0.0.0",
@@ -1442,7 +1471,7 @@
   },
   {
     "type": "post",
-    "url": "/users/register/",
+    "url": "/api/user/register/",
     "title": "注册",
     "name": "register___",
     "group": "User",
@@ -1468,7 +1497,7 @@
     },
     "sampleRequest": [
       {
-        "url": "/users/register"
+        "url": "/api/user/register"
       }
     ],
     "version": "0.0.0",
