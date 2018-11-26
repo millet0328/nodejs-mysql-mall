@@ -3,6 +3,16 @@ var router = express.Router();
 // 数据库
 let db = require('../config/mysql');
 /**
+ * @api {post} /users/token/ 换取登录token
+ * @apiName Token
+ * @apiGroup User
+ * 
+ * @apiParam {String} code 微信临时登录凭证code.
+ * 
+ * @apiSampleRequest /users/token
+ */
+
+/**
  * @api {post} /users/register/ 注册
  * @apiName register 注册
  * @apiGroup User
