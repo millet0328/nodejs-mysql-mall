@@ -17,7 +17,6 @@ router.post('/user/token/', function(req, res) {
 	let { code } = req.body;
 	// 请求微信API
 	let url=`https:/\/\api.weixin.qq.com/\sns/\jscode2session?appid=wxfa4fa674bd4514e4&secret=d0df843cb4715008f6152b5e0d1206d0&js_code=${code}&grant_type=authorization_code`;
-	console.log(url);
 	request(url, function(error, response, body) {
 		console.log('body:', body); // Print the HTML for the Google homepage.
 	});
