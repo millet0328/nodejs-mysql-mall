@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+// JSON Web Token
+var jwt = require("jsonwebtoken");
 // 数据库
 let db = require('../config/mysql');
 // 微信小程序
@@ -24,12 +26,56 @@ router.post('/user/token/', function(req, res) {
             console.log(error);
             return;
         }
-        if (response && response.statusCode) {
+        if (response.statusCode != 200) {
             res.json({
-                status: true,
-                data: JSON.parse(body)
-            })
+                status: false,
+                msg: response.statusMessage
+            });
+            return;
         }
+        let data = JSON.parse(body);
+        // 微信api返回错误
+        if (data.errcode) {
+            res.json({
+                status: false,
+                msg: data.errmsg
+            });
+            return;
+        }
+        // 生成token
+        let token = jwt.sign(data, 'secret', { expiresIn: '1h' });
+        // 查询数据库中是否有此openid
+        let sql = 'SELECT * FROM users WHERE openid = ?';
+        db.query(sql, [data.openid], function(results) {
+            // 如果没有此openid，插入新的数据
+            if (results.length == 0) {
+                let sql = 'INSERT INTO users (openid,session_key) VALUES (?,?)';
+                db.query(sql, [data.openid, data.session_key], function(results) {
+                    if (results.affectedRows > 0) {
+                        res.json({
+                            status: true,
+                            token: token
+                        });
+                        return;
+                    }
+                });
+            }
+            // 如果有此openid，更新session_key的数据
+            let sql = 'UPDATE users SET session_key = ? WHERE openid = ?';
+            db.query(sql, [data.session_key, data.openid], function(results) {
+                console.log(results);
+                if (results.affectedRows > 0) {
+                    res.json({
+                        status: true,
+                        token: token
+                    });
+                    return;
+                }
+            });
+        });
+        // 解码token
+        var decoded = jwt.verify(token, 'secret');
+
     });
 });
 /**
