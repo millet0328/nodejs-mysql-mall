@@ -79,6 +79,20 @@ router.post('/user/token/', function(req, res) {
     });
 });
 /**
+ * @api {post} /api/user/info/upload 上传微信用户信息
+ * @apiName /info/upload 上传微信用户信息
+ * @apiGroup User
+ * 
+ * @apiParam {String} username 用户账户名.
+ * @apiParam {String} password 用户密码.
+ * 
+ * @apiSampleRequest /api/user/info/upload
+ */
+router.post("/user/info/upload", function(req, res) {
+    console.log(req.body);
+    console.log(req.header("Authorization"))
+});
+/**
  * @api {post} /api/user/register/ 注册
  * @apiName register 注册
  * @apiGroup User
@@ -173,8 +187,8 @@ router.get("/user/info/", function(req, res) {
     })
 });
 /**
- * @api {post} /api/user/updateInfo/ 更新个人资料
- * @apiName /updateInfo 更新个人资料
+ * @api { post } /api/user/info/update/更新个人资料
+ * @apiName /info/update 更新个人资料
  * @apiGroup User
  * 
  * @apiParam {Number} uid 用户id.
@@ -184,7 +198,7 @@ router.get("/user/info/", function(req, res) {
  * 
  * @apiSampleRequest /api/user/updateInfo
  */
-router.post("/user/updateInfo/", function(req, res) {
+router.post("/user/info/update/", function(req, res) {
     let sql = `UPDATE users SET nickname = ?,sex = ?,avatar = ? WHERE id = ?`
     db.query(sql, [req.body.nickname, req.body.sex, req.body.avatar, req.body.uid], function(results, fields) {
         res.json({
