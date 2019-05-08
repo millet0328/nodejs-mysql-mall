@@ -5,14 +5,33 @@ var request = require('request');
 var jwt = require("jsonwebtoken");
 // 数据库
 let db = require('../config/mysql');
+/**
+ * @apiDefine SuccessResponse
+ * @apiSuccess { Boolean } status 请求状态.
+ * @apiSuccess { String } msg 请求结果信息.
+ * @apiSuccess { Object } data 请求结果信息.
+ * @apiSuccess { String } data.token 注册成功之后返回的token.
+ * @apiSuccessExample { json } 200返回的JSON:
+ *  HTTP / 1.1 200 OK
+ *  {
+ *      "status": true,
+ *      "msg": "成功",
+ *      "data":{
+ *          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE"
+ *      }
+ *  }
+ */
 
 /**
  * @api {post} /api/user/register/ 注册
- * @apiName register 注册
+ * @apiDescription 注册成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}",所有请求都必须携带token;
+ * @apiName register
  * @apiGroup User
  * 
  * @apiParam {String} username 用户账户名.
  * @apiParam {String} password 用户密码.
+ * 
+ * @apiUse SuccessResponse
  * 
  * @apiSampleRequest /api/user/register
  */
@@ -29,12 +48,18 @@ router.post('/user/register/', function(req, res) {
         }
         let sql = `INSERT INTO USERS (username,password) VALUES (?,?)`
         db.query(sql, [req.body.username, req.body.password], function(results, fields) {
+            let payload = {
+                id: results.insertId,
+                username: req.body.username
+            }
+            // 生成token
+            let token = jwt.sign(payload, 'secret', { expiresIn: '2h' });
             // 存储成功
             res.json({
                 status: true,
                 msg: "注册成功！",
                 data: {
-                    id: results.insertId
+                    token
                 }
             });
         })
@@ -42,11 +67,14 @@ router.post('/user/register/', function(req, res) {
 });
 /**
  * @api {post} /api/user/login/ 登录
- * @apiName login 登录
+ * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}", 所有请求都必须携带token;
+ * @apiName login
  * @apiGroup User
  * 
  * @apiParam {String} username 用户账户名.
  * @apiParam {String} password 用户密码.
+ * 
+ * @apiUse SuccessResponse
  * 
  * @apiSampleRequest /api/user/login
  */
@@ -63,18 +91,24 @@ router.post('/user/login/', function(req, res) {
             return false;
         }
         // 登录成功
+        let payload = {
+            id: results[0].id,
+            username: results[0].username
+        }
+        // 生成token
+        let token = jwt.sign(payload, 'secret', { expiresIn: '2h' });
         res.json({
             status: true,
             msg: "登录成功！",
             data: {
-                id: results[0].id
+                token
             }
         });
     });
 });
 /**
  * @api {get} /api/user/info/ 获取个人资料
- * @apiName /info 获取个人资料
+ * @apiName /user/info
  * @apiGroup User
  * 
  * @apiParam {Number} uid 用户id.
@@ -101,8 +135,8 @@ router.get("/user/info/", function(req, res) {
     })
 });
 /**
- * @api { post } /api/user/info/update/更新个人资料
- * @apiName /info/update 更新个人资料
+ * @api { post } /api/user/info/update/ 更新个人资料
+ * @apiName /info/update
  * @apiGroup User
  * 
  * @apiParam {Number} uid 用户id.
@@ -110,7 +144,7 @@ router.get("/user/info/", function(req, res) {
  * @apiParam {String} sex 性别.
  * @apiParam {String} avatar 头像.
  * 
- * @apiSampleRequest /api/user/updateInfo
+ * @apiSampleRequest /api/user/info/update/
  */
 router.post("/user/info/update/", function(req, res) {
     let sql = `UPDATE users SET nickname = ?,sex = ?,avatar = ? WHERE id = ?`

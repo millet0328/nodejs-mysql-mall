@@ -441,7 +441,7 @@
     "type": "post",
     "url": "/api/category/add/",
     "title": "添加子分类",
-    "name": "category_add______",
+    "name": "category_add",
     "group": "Category",
     "parameter": {
       "fields": {
@@ -490,7 +490,7 @@
     "type": "get",
     "url": "/api/category/all/",
     "title": "获取所有树形分类",
-    "name": "category_all_________",
+    "name": "category_all",
     "group": "Category",
     "sampleRequest": [
       {
@@ -505,7 +505,7 @@
     "type": "post",
     "url": "/api/category/delete/",
     "title": "删除分类",
-    "name": "category_delete_____",
+    "name": "category_delete",
     "group": "Category",
     "parameter": {
       "fields": {
@@ -561,7 +561,7 @@
     "type": "post",
     "url": "/api/category/update/",
     "title": "更新分类",
-    "name": "category_update_____",
+    "name": "category_update",
     "group": "Category",
     "parameter": {
       "fields": {
@@ -1063,7 +1063,14 @@
             "description": "<p>商品数量;</p>"
           }
         ]
-      }
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n  \"uid\":1,\n  \"payment\":12.36\n  \"addressId\":12,\n  \"goodsList\":[{\n    \"id\":15,\n    \"num\":1\n  },{\n    \"id\": 16,\n    \"num\": 2\n  }]\n}",
+          "type": "Object"
+        }
+      ]
     },
     "sampleRequest": [
       {
@@ -1329,67 +1336,10 @@
     "groupTitle": "Upload_Image"
   },
   {
-    "type": "post",
-    "url": "/api/user/token/",
-    "title": "换取登录token",
-    "description": "<p>微信小程序login之后，获得临时登录凭证code，再使用code换取登录token</p>",
-    "name": "Token",
-    "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "code",
-            "description": "<p>微信临时登录凭证code.</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/user/token"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "get",
-    "url": "/api/user/info/",
-    "title": "获取个人资料",
-    "name": "_info_______",
-    "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/user/info"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "post",
-    "url": "/api/user/updateInfo/",
+    "type": " post ",
+    "url": "/api/user/info/update/",
     "title": "更新个人资料",
-    "name": "_updateInfo_______",
+    "name": "_info_update",
     "group": "User",
     "parameter": {
       "fields": {
@@ -1427,7 +1377,35 @@
     },
     "sampleRequest": [
       {
-        "url": "/api/user/updateInfo"
+        "url": "/api/user/info/update/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/api/user/info/",
+    "title": "获取个人资料",
+    "name": "_user_info",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/user/info"
       }
     ],
     "version": "0.0.0",
@@ -1438,7 +1416,8 @@
     "type": "post",
     "url": "/api/user/login/",
     "title": "登录",
-    "name": "login___",
+    "description": "<p>登录成功， 返回token, 请在头部headers中设置Authorization: &quot;Bearer ${token}&quot;, 所有请求都必须携带token;</p>",
+    "name": "login",
     "group": "User",
     "parameter": {
       "fields": {
@@ -1467,13 +1446,55 @@
     ],
     "version": "0.0.0",
     "filename": "routes/users.js",
-    "groupTitle": "User"
+    "groupTitle": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>请求状态.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.token",
+            "description": "<p>注册成功之后返回的token.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200返回的JSON:",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "type": "json"
+        }
+      ]
+    }
   },
   {
     "type": "post",
     "url": "/api/user/register/",
     "title": "注册",
-    "name": "register___",
+    "description": "<p>注册成功， 返回token, 请在头部headers中设置Authorization: &quot;Bearer ${token}&quot;,所有请求都必须携带token;</p>",
+    "name": "register",
     "group": "User",
     "parameter": {
       "fields": {
@@ -1502,6 +1523,47 @@
     ],
     "version": "0.0.0",
     "filename": "routes/users.js",
-    "groupTitle": "User"
+    "groupTitle": "User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>请求状态.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.token",
+            "description": "<p>注册成功之后返回的token.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200返回的JSON:",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "type": "json"
+        }
+      ]
+    }
   }
 ]
