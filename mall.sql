@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 09/05/2019 01:49:37
+ Date: 10/05/2019 00:47:39
 */
 
 SET NAMES utf8mb4;
@@ -39,6 +39,22 @@ CREATE TABLE `addresses`  (
 -- Records of addresses
 -- ----------------------------
 INSERT INTO `addresses` VALUES (20, 1, '黄小米', '15863008280', '山东', '青岛', '崂山', '滨海大道', '2006601', 1);
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES (1, 'admin', '123');
 
 -- ----------------------------
 -- Table structure for carts
@@ -317,6 +333,6 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (2, '15863008280', '1', NULL, '女', NULL, NULL);
+INSERT INTO `users` VALUES (2, '15863008280', '123', NULL, '女', './images/avatar/default.jpg', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

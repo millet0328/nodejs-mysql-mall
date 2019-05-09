@@ -260,6 +260,95 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/admin/login/",
+    "title": "管理员登录",
+    "description": "<p>登录成功， 返回token, 请在头部headers中设置Authorization: &quot;Bearer ${token}&quot;, 所有请求都必须携带token;</p>",
+    "name": "AdminLogin",
+    "group": "Admin",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>用户账户名.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>用户密码.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/login"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "Admin",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>请求状态.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.token",
+            "description": "<p>注册成功之后返回的token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>用户uid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200返回的JSON:",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"id\":5,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
     "url": "/api/cart/add/",
     "title": "添加商品至购物车",
     "name": "AddCart",
@@ -443,6 +532,11 @@ define({ "api": [
     "title": "添加子分类",
     "name": "category_add",
     "group": "Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -492,6 +586,11 @@ define({ "api": [
     "title": "获取所有树形分类",
     "name": "category_all",
     "group": "Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "sampleRequest": [
       {
         "url": "/api/category/all/"
@@ -507,6 +606,11 @@ define({ "api": [
     "title": "删除分类",
     "name": "category_delete",
     "group": "Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -535,6 +639,11 @@ define({ "api": [
     "title": "获取子级分类",
     "name": "category_sub",
     "group": "Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -563,6 +672,11 @@ define({ "api": [
     "title": "更新分类",
     "name": "category_update",
     "group": "Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -701,6 +815,11 @@ define({ "api": [
     "title": "删除商品",
     "name": "goods_delete_",
     "group": "Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -729,6 +848,11 @@ define({ "api": [
     "title": "编辑商品",
     "name": "goods_edit_",
     "group": "Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -876,6 +1000,11 @@ define({ "api": [
     "title": "发布新商品",
     "name": "goods_release_",
     "group": "Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1094,9 +1223,9 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "Number",
-            "optional": false,
+            "optional": true,
             "field": "uid",
-            "description": "<p>用户id;</p>"
+            "description": "<p>用户id，如果不传值，将获取所有用户的订单;</p>"
           },
           {
             "group": "Parameter",
@@ -1121,9 +1250,9 @@ define({ "api": [
               "4",
               "5"
             ],
-            "optional": false,
+            "optional": true,
             "field": "status",
-            "description": "<p>订单状态:0-待付款，3-待发货，4-待收货，5-待评价;</p>"
+            "description": "<p>订单状态:0-待付款，3-待发货，4-待收货，5-待评价；如果不传值，将获取所有状态的订单</p>"
           }
         ]
       }
@@ -1222,6 +1351,11 @@ define({ "api": [
     "description": "<p>如果上传错误的图片，通过此API删除错误的图片</p>",
     "name": "upload_delete_",
     "group": "Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1251,6 +1385,11 @@ define({ "api": [
     "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，尺寸（300~1500），存储至goods文件夹</p>",
     "name": "upload_goods_",
     "group": "Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1300,6 +1439,11 @@ define({ "api": [
     "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，尺寸（300~1500）必须是正方形，存储至goods文件夹</p>",
     "name": "upload_slider_",
     "group": "Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -1334,6 +1478,54 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "routes/admin.js",
     "groupTitle": "Upload_Image"
+  },
+  {
+    "type": "get",
+    "url": "/api/user/info/",
+    "title": "获取个人资料",
+    "name": "UserInfo",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>用户id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/user/info"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/api/user/list/",
+    "title": "获取用户列表",
+    "name": "UserList",
+    "group": "User",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "/api/user/list"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/users.js",
+    "groupTitle": "User"
   },
   {
     "type": " post ",
@@ -1378,34 +1570,6 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "/api/user/info/update/"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "get",
-    "url": "/api/user/info/",
-    "title": "获取个人资料",
-    "name": "_user_info",
-    "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/user/info"
       }
     ],
     "version": "0.0.0",
@@ -1477,13 +1641,20 @@ define({ "api": [
             "optional": false,
             "field": "data.token",
             "description": "<p>注册成功之后返回的token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>用户uid.</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "200返回的JSON:",
-          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"id\":5,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
           "type": "json"
         }
       ]
@@ -1554,13 +1725,20 @@ define({ "api": [
             "optional": false,
             "field": "data.token",
             "description": "<p>注册成功之后返回的token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>用户uid.</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "200返回的JSON:",
-          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"id\":5,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
           "type": "json"
         }
       ]

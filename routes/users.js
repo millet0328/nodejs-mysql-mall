@@ -11,12 +11,14 @@ let db = require('../config/mysql');
  * @apiSuccess { String } msg 请求结果信息.
  * @apiSuccess { Object } data 请求结果信息.
  * @apiSuccess { String } data.token 注册成功之后返回的token.
+ * @apiSuccess { String } data.id 用户uid.
  * @apiSuccessExample { json } 200返回的JSON:
  *  HTTP / 1.1 200 OK
  *  {
  *      "status": true,
  *      "msg": "成功",
  *      "data":{
+ *          "id":5,
  *          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE"
  *      }
  *  }
@@ -59,10 +61,54 @@ router.post('/user/register/', function(req, res) {
                 status: true,
                 msg: "注册成功！",
                 data: {
-                    token
+                    token,
+                    id: results.insertId,
                 }
             });
         })
+    });
+});
+/**
+ * @api {post} /api/admin/login/ 管理员登录
+ * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}", 所有请求都必须携带token;
+ * @apiName AdminLogin
+ * @apiGroup Admin
+ * @apiPermission admin
+ * 
+ * @apiParam {String} username 用户账户名.
+ * @apiParam {String} password 用户密码.
+ * 
+ * @apiUse SuccessResponse
+ * 
+ * @apiSampleRequest /api/admin/login
+ */
+
+router.post('/admin/login/', function(req, res) {
+    let sql = `SELECT * FROM admin WHERE username = ? AND password = ? `;
+    db.query(sql, [req.body.username, req.body.password], function(results, fields) {
+        // 账号密码错误
+        if (!results.length) {
+            res.json({
+                status: false,
+                msg: "账号或者密码错误！"
+            });
+            return false;
+        }
+        // 登录成功
+        let payload = {
+            id: results[0].id,
+            username: results[0].username
+        }
+        // 生成token
+        let token = jwt.sign(payload, 'secret', { expiresIn: '2h' });
+        res.json({
+            status: true,
+            msg: "登录成功！",
+            data: {
+                token,
+                id: results[0].id,
+            }
+        });
     });
 });
 /**
@@ -101,14 +147,42 @@ router.post('/user/login/', function(req, res) {
             status: true,
             msg: "登录成功！",
             data: {
-                token
+                token,
+                id: results[0].id,
             }
         });
     });
 });
 /**
+ * @api {get} /api/user/list/ 获取用户列表
+ * @apiName UserList
+ * @apiGroup User
+ * @apiPermission admin
+ * 
+ * @apiSampleRequest /api/user/list
+ */
+router.get("/user/list/", function(req, res) {
+    //查询账户数据
+    let sql = `SELECT username,nickname,sex,avatar FROM USERS`;
+    db.query(sql, [], function(results, fields) {
+        if (!results.length) {
+            res.json({
+                status: false,
+                msg: "获取失败！"
+            });
+            return false;
+        }
+        // 获取成功
+        res.json({
+            status: true,
+            msg: "获取成功！",
+            data: results
+        });
+    })
+});
+/**
  * @api {get} /api/user/info/ 获取个人资料
- * @apiName /user/info
+ * @apiName UserInfo
  * @apiGroup User
  * 
  * @apiParam {Number} uid 用户id.

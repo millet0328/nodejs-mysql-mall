@@ -387,10 +387,10 @@ router.post('/order/create/', function(req, res) {
  * @apiName OrderList
  * @apiGroup Order
  * 
- * @apiParam {Number} uid 用户id;
+ * @apiParam {Number} [uid] 用户id，如果不传值，将获取所有用户的订单;
  * @apiParam {Number} [pageSize] 一个页有多少个商品,默认4个;
  * @apiParam {Number} [pageIndex] 第几页,默认1;
- * @apiParam {Number=0,3,4,5} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价;
+ * @apiParam {Number=0,3,4,5} [status] 订单状态:0-待付款，3-待发货，4-待收货，5-待评价；如果不传值，将获取所有状态的订单
  * 
  * @apiSampleRequest /api/order/list/
  */
@@ -398,12 +398,23 @@ router.post('/order/list/', function(req, res) {
     let { uid, pageSize = 4, pageIndex = 1, status } = req.body;
     let size = parseInt(pageSize);
     let count = size * (pageIndex - 1);
-    // 查询订单信息
     let sql =
         `SELECT o.id, o.create_time, o.payment, os.text AS status
-		 FROM orders o JOIN order_status os ON o.order_state = os.CODE
-		 WHERE o.uid = ? AND o.order_state = ? LIMIT ?, ?`;
-    db.query(sql, [uid, status, count, size], function(results, fields) {
+		 FROM orders o JOIN order_status os ON o.order_state = os.CODE`;
+    if (uid || status) {
+        sql += ` WHERE `;
+        if (uid) {
+            sql += `o.uid = ${uid}`;
+            if (status) {
+                sql += ` AND o.order_state = ${status}`;
+            }
+        } else {
+            sql += `o.order_state = ${status}`;
+        }
+    }
+    sql += ` LIMIT ${size} OFFSET ${count}`;
+    // 查询订单信息
+    db.query(sql, [], function(results, fields) {
         // 查询订单商品信息
         let data = results;
         let sql =

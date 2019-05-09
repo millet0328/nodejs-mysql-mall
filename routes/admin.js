@@ -15,6 +15,7 @@ var uuidv1 = require('uuid/v1');
  * @api {get} /api/category/all/ 获取所有树形分类
  * @apiName category/all
  * @apiGroup Category
+ * @apiPermission admin
  * 
  * @apiSampleRequest /api/category/all/
  */
@@ -34,6 +35,7 @@ router.get("/category/all", function(req, res) {
  * @api {post} /api/category/add/ 添加子分类
  * @apiName category/add
  * @apiGroup Category
+ * @apiPermission admin
  * 
  * @apiParam {String} name 分类名称.
  * @apiParam {Number} pId 父级id.
@@ -59,6 +61,7 @@ router.post("/category/add", function(req, res) {
  * @api {post} /api/category/delete/ 删除分类
  * @apiName category/delete
  * @apiGroup Category
+ * @apiPermission admin
  * 
  * @apiParam {Number} id 分类id.
  * 
@@ -87,6 +90,7 @@ router.post("/category/delete", function(req, res) {
  * @api {post} /api/category/update/ 更新分类
  * @apiName category/update
  * @apiGroup Category
+ * @apiPermission admin
  * 
  * @apiParam {Number} id 分类id.
  * @apiParam {String} name 分类名称.
@@ -108,6 +112,7 @@ router.post("/category/update", function(req, res) {
  * @api {get} /api/category/sub/ 获取子级分类
  * @apiName category/sub
  * @apiGroup Category
+ * @apiPermission admin
  * 
  * @apiParam {Number} pId 父级分类id。注：获取一级分类pId=1;
  * 
@@ -129,6 +134,7 @@ router.get("/category/sub/", function(req, res) {
  * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，尺寸（300~1500），存储至goods文件夹
  * @apiName upload/goods/
  * @apiGroup Upload Image
+ * @apiPermission admin
  * 
  * @apiParam {File} file File文件对象;
  * 
@@ -201,6 +207,7 @@ router.post("/upload/goods/", upload.single('file'), function(req, res) {
  * @apiDescription如果上传错误的图片，通过此API删除错误的图片
  * @apiName upload/delete/
  * @apiGroup Upload Image
+ * @apiPermission admin
  * 
  * @apiParam {String} src 图片文件路径,注：src='./images/goods/file.jpg'，必须严格按照规范路径，'./images'不可省略;
  * 
@@ -224,6 +231,7 @@ router.post('/upload/delete/', function(req, res) {
  * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，尺寸（300~1500）必须是正方形，存储至goods文件夹
  * @apiName upload/slider/
  * @apiGroup Upload Image
+ * @apiPermission admin
  * 
  * @apiParam {File} file File文件对象;
  * 
@@ -342,7 +350,7 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
     res.json({
         errno: 0,
         msg: "图片上传处理成功!",
-        data: [fileFolder + filename + extName]
+        data: ['http://127.0.0.1:3000' + fileFolder + filename + extName]
     });
 });
 
@@ -350,6 +358,7 @@ router.post("/upload/common", upload.single('file'), function(req, res) {
  * @api {post} /api/goods/release/ 发布新商品
  * @apiName goods/release/
  * @apiGroup Goods
+ * @apiPermission admin
  * 
  * @apiParam {Number} cate_1st 一级分类id;
  * @apiParam {Number} cate_2nd 二级分类id;
@@ -388,6 +397,7 @@ router.post("/goods/release", function(req, res) {
  * @api {post} /api/goods/edit/ 编辑商品
  * @apiName goods/edit/
  * @apiGroup Goods
+ * @apiPermission admin
  * 
  * @apiParam {Number} id 商品id;
  * @apiParam {Number} cate_1st 一级分类id;
@@ -425,6 +435,7 @@ router.post("/goods/edit", function(req, res) {
  * @api {post} /api/goods/delete/ 删除商品
  * @apiName goods/delete/
  * @apiGroup Goods
+ * @apiPermission admin
  * 
  * @apiParam {Number} id 商品id;
  * 
