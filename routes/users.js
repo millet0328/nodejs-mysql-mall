@@ -32,6 +32,9 @@ let db = require('../config/mysql');
  * 
  * @apiParam {String} username 用户账户名.
  * @apiParam {String} password 用户密码.
+ * @apiParam {String} nickname 用户昵称.
+ * @apiParam { String } sex 性别.
+ * @apiParam { String } tel 手机号码.
  * 
  * @apiUse SuccessResponse
  * 
@@ -48,8 +51,8 @@ router.post('/user/register/', function(req, res) {
             });
             return false;
         }
-        let sql = `INSERT INTO USERS (username,password) VALUES (?,?)`
-        db.query(sql, [req.body.username, req.body.password], function(results, fields) {
+        let sql = `INSERT INTO USERS (username,password,nickname,sex,tel,create_time) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP())`
+        db.query(sql, [req.body.username, req.body.password, req.body.nickname, req.body.sex, req.body.tel], function(results, fields) {
             let payload = {
                 id: results.insertId,
                 username: req.body.username
@@ -68,49 +71,7 @@ router.post('/user/register/', function(req, res) {
         })
     });
 });
-/**
- * @api {post} /api/admin/login/ 管理员登录
- * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}", 所有请求都必须携带token;
- * @apiName AdminLogin
- * @apiGroup Admin
- * @apiPermission admin
- * 
- * @apiParam {String} username 用户账户名.
- * @apiParam {String} password 用户密码.
- * 
- * @apiUse SuccessResponse
- * 
- * @apiSampleRequest /api/admin/login
- */
 
-router.post('/admin/login/', function(req, res) {
-    let sql = `SELECT * FROM admin WHERE username = ? AND password = ? `;
-    db.query(sql, [req.body.username, req.body.password], function(results, fields) {
-        // 账号密码错误
-        if (!results.length) {
-            res.json({
-                status: false,
-                msg: "账号或者密码错误！"
-            });
-            return false;
-        }
-        // 登录成功
-        let payload = {
-            id: results[0].id,
-            username: results[0].username
-        }
-        // 生成token
-        let token = jwt.sign(payload, 'secret', { expiresIn: '2h' });
-        res.json({
-            status: true,
-            msg: "登录成功！",
-            data: {
-                token,
-                id: results[0].id,
-            }
-        });
-    });
-});
 /**
  * @api {post} /api/user/login/ 登录
  * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}", 所有请求都必须携带token;
