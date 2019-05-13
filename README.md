@@ -8,8 +8,8 @@
 1. 在mysql中创建mall数据库
 2. 将mall.sql文件还原至mall数据库 
 ## 启动
-`$ npm start`
-## 重新生成API文档
 `$ npm run api`
 ## 后台API文档地址
+`$ npm start`
+## 重新生成API文档
 `http://localhost:3000/api/`
