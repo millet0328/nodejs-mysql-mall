@@ -88,7 +88,7 @@ router.post('/user/register/', function(req, res) {
 
 router.post('/user/login/', function(req, res) {
     let sql = `SELECT * FROM USERS WHERE username = ? AND password = ? `;
-    db.query(sql, [req.body.username, req.body.password], function(results, fields) {
+    db.query(sql, [req.body.username, req.body.password], function(results) {
         // 账号密码错误
         if (!results.length) {
             res.json({
@@ -99,12 +99,12 @@ router.post('/user/login/', function(req, res) {
         }
         // 更新登陆时间，登陆次数
         let sql = `UPDATE users SET login_count = login_count + 1 WHERE id = ?;`
-        db.query(sql, [results[0].id], function(res) {
-            if (res.affectedRows > 0) {
+        db.query(sql, [results[0].id], function(response) {
+            if (response.affectedRows > 0) {
                 // 登录成功
                 let payload = {
                     id: results[0].id,
-                    username: results[0].username
+                    username: req.body.username
                 }
                 // 生成token
                 let token = jwt.sign(payload, 'secret', { expiresIn: '2h' });
