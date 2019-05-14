@@ -68,9 +68,7 @@ router.post("/category/add", function(req, res) {
  * @apiSampleRequest /api/category/delete/
  */
 router.post("/category/delete", function(req, res) {
-    let sql = `
-	SELECT img FROM categories WHERE id = ?;
-	DELETE FROM CATEGORIES WHERE id = ?`;
+    let sql = `SELECT img FROM categories WHERE id = ?;DELETE FROM CATEGORIES WHERE id = ?`;
     db.query(sql, [req.body.id, req.body.id], function(results, fields) {
         let src = '.' + results[0][0].img;
         let realPath = path.resolve(__dirname, '../public/', src);
