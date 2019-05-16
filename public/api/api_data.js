@@ -1397,8 +1397,8 @@ define({ "api": [
     "type": "post",
     "url": "/api/upload/common/",
     "title": "通用图片上传API",
-    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，不限制尺寸，存储至details文件夹</p>",
-    "name": "upload_common_",
+    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，不限制尺寸，存储至common文件夹</p>",
+    "name": "UploadCommon",
     "group": "Upload_Image",
     "parameter": {
       "fields": {
@@ -1416,6 +1416,48 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "/api/upload/common/"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "src",
+            "description": "<p>返回图片地址.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/admin.js",
+    "groupTitle": "Upload_Image"
+  },
+  {
+    "type": "post",
+    "url": "/api/upload/editor/",
+    "title": "富文本编辑器图片上传",
+    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，不限制尺寸，存储至details文件夹</p>",
+    "name": "UploadEditor",
+    "group": "Upload_Image",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>File文件对象;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload/editor/"
       }
     ],
     "success": {
