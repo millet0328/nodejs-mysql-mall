@@ -35,7 +35,7 @@ router.get("/goods/", function(req, res) {
     function produceSQL({ pageSize = 4, pageIndex = 1, sortByPrice = '', cate_1st = '', cate_2nd = '', cate_3rd = '', }) {
         let size = parseInt(pageSize);
         let count = size * (pageIndex - 1);
-        let sql = `SELECT id,name,price,hotPoint,marketPrice,discount,img_md FROM GOODS `
+        let sql = `SELECT id,name,price,hotPoint,marketPrice,discount,img_md,inventory,create_time FROM GOODS `
         if (cate_1st) {
             sql += `WHERE cate_1st = ${cate_1st}`;
         }
