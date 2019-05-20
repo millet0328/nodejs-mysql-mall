@@ -370,7 +370,7 @@ router.post("/upload/editor", upload.single('file'), function(req, res) {
 	res.json({
 		errno: 0,
 		msg: "图片上传处理成功!",
-		data: [`${server.host}:${server.host}`+ fileFolder + filename + extName]
+		data: [`${server.host}:3000`+ fileFolder + filename + extName]
 	});
 });
 /**
