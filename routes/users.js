@@ -29,7 +29,7 @@ let db = require('../config/mysql');
 
 /**
  * @api {post} /api/user/register/ 注册
- * @apiDescription 注册成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}",所有请求都必须携带token;
+ * @apiDescription 注册成功， 返回token, 请在头部headers中设置Authorization: `Bearer ${token}`,所有请求都必须携带token;
  * @apiName register
  * @apiGroup User
  * 
@@ -109,14 +109,12 @@ router.post('/user/register', function(req, res) {
         });
       });
     });
-
-
   });
 });
 
 /**
  * @api {post} /api/user/login/ 登录
- * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: "Bearer ${token}", 所有请求都必须携带token;
+ * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: `Bearer ${token}`, 所有请求都必须携带token;
  * @apiName login
  * @apiGroup User
  * 
