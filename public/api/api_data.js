@@ -630,6 +630,11 @@ define({ "api": [
     "title": "获取商品详情",
     "name": "GoodsDetail",
     "group": "Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
