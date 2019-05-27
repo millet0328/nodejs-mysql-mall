@@ -22,7 +22,6 @@ var uuidv1 = require('uuid/v1');
  * @apiSampleRequest /api/category/all/
  */
 router.get("/category/all", function(req, res) {
-	console.log(req.user);
 	let sql = `SELECT * FROM CATEGORIES `;
 	db.query(sql, [], function(results, fields) {
 		//成功
@@ -57,7 +56,7 @@ router.post("/category/add", function(req, res) {
 		return;
 	}
 	let sql = `INSERT INTO CATEGORIES (name,pId,level,img) VALUES (?,?,?,?) `;
-	db.query(sql, [req.body.name, req.body.pId, req.body.level, req.body.img], function(results, fields) {
+	db.query(sql, [name, pId, level, img], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
