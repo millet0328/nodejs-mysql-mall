@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/mall/user');
+var address = require('./routes/mall/address');
 var admin = require('./routes/admin');
 
 var app = express();
@@ -30,7 +31,8 @@ app.use(expressJwt({ secret: 'secret' }).unless({
 }));
 
 app.use('/api', index);
-app.use('/api', users);
+app.use('/api/user', user);
+app.use('/api/address', address);
 app.use('/api', admin);
 
 // 处理401错误

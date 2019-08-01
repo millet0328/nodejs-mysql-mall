@@ -1,20 +1,13 @@
 [
   {
     "type": "post",
-    "url": "/api/address/add/",
+    "url": "/api/address",
     "title": "添加收货地址",
     "name": "_address_add_",
     "group": "Address",
     "parameter": {
       "fields": {
         "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
-          },
           {
             "group": "Parameter",
             "type": "String",
@@ -76,44 +69,16 @@
     },
     "sampleRequest": [
       {
-        "url": "/api/address/add/"
+        "url": "/api/address"
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
-    "groupTitle": "Address"
-  },
-  {
-    "type": "post",
-    "url": "/api/address/delete/",
-    "title": "删除收货地址",
-    "name": "_address_delete_",
-    "group": "Address",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>收货地址id.</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/address/delete/"
-      }
-    ],
-    "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/address.js",
     "groupTitle": "Address"
   },
   {
     "type": "get",
-    "url": "/api/address/detail/",
+    "url": "/api/address/detail",
     "title": "根据id获取收货地址详情",
     "name": "_address_detail_",
     "group": "Address",
@@ -132,46 +97,33 @@
     },
     "sampleRequest": [
       {
-        "url": "/api/address/detail/"
+        "url": "/api/address/detail"
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/address.js",
     "groupTitle": "Address"
   },
   {
     "type": "get",
-    "url": "/api/address/list/",
+    "url": "/api/address/list",
     "title": "获取收货地址列表",
     "name": "_address_list_",
     "group": "Address",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
-          }
-        ]
-      }
-    },
     "sampleRequest": [
       {
-        "url": "/api/address/list/"
+        "url": "/api/address/list"
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/address.js",
     "groupTitle": "Address"
   },
   {
-    "type": "post",
-    "url": "/api/address/update/",
-    "title": "修改收货地址",
-    "name": "_address_update_",
+    "type": "delete",
+    "url": "/api/address",
+    "title": "删除收货地址",
+    "name": "addressDelete",
     "group": "Address",
     "parameter": {
       "fields": {
@@ -182,13 +134,34 @@
             "optional": false,
             "field": "id",
             "description": "<p>收货地址id.</p>"
-          },
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/address"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/mall/address.js",
+    "groupTitle": "Address"
+  },
+  {
+    "type": "put",
+    "url": "/api/address",
+    "title": "修改收货地址",
+    "name": "addressUpdate",
+    "group": "Address",
+    "parameter": {
+      "fields": {
+        "Parameter": [
           {
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
+            "field": "id",
+            "description": "<p>收货地址id.</p>"
           },
           {
             "group": "Parameter",
@@ -251,11 +224,11 @@
     },
     "sampleRequest": [
       {
-        "url": "/api/address/update/"
+        "url": "/api/address"
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/address.js",
     "groupTitle": "Address"
   },
   {
@@ -1619,30 +1592,17 @@
   },
   {
     "type": "get",
-    "url": "/api/user/info/",
+    "url": "/api/user/info",
     "title": "获取个人资料",
     "name": "UserInfo",
     "group": "User",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
-          }
-        ]
-      }
-    },
     "sampleRequest": [
       {
         "url": "/api/user/info"
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/user.js",
     "groupTitle": "User"
   },
   {
@@ -1662,25 +1622,18 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/user.js",
     "groupTitle": "User"
   },
   {
-    "type": " post ",
-    "url": "/api/user/info/update/",
+    "type": " put ",
+    "url": "/api/user/info",
     "title": "更新个人资料",
-    "name": "_info_update",
+    "name": "infoUpdate",
     "group": "User",
     "parameter": {
       "fields": {
         "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "uid",
-            "description": "<p>用户id.</p>"
-          },
           {
             "group": "Parameter",
             "type": "String",
@@ -1721,18 +1674,18 @@
     },
     "sampleRequest": [
       {
-        "url": "/api/user/info/update/"
+        "url": "/api/user/info"
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/user.js",
     "groupTitle": "User"
   },
   {
     "type": "post",
     "url": "/api/user/login/",
     "title": "登录",
-    "description": "<p>登录成功， 返回token, 请在头部headers中设置Authorization: &quot;Bearer ${token}&quot;, 所有请求都必须携带token;</p>",
+    "description": "<p>登录成功， 返回token, 请在头部headers中设置Authorization: <code>Bearer ${token}</code>, 所有请求都必须携带token;</p>",
     "name": "login",
     "group": "User",
     "parameter": {
@@ -1761,7 +1714,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/user.js",
     "groupTitle": "User",
     "success": {
       "fields": {
@@ -1823,7 +1776,7 @@
     "type": "post",
     "url": "/api/user/register/",
     "title": "注册",
-    "description": "<p>注册成功， 返回token, 请在头部headers中设置Authorization: &quot;Bearer ${token}&quot;,所有请求都必须携带token;</p>",
+    "description": "<p>注册成功， 返回token, 请在头部headers中设置Authorization: <code>Bearer ${token}</code>,所有请求都必须携带token;</p>",
     "name": "register",
     "group": "User",
     "parameter": {
@@ -1873,7 +1826,7 @@
       }
     ],
     "version": "0.0.0",
-    "filename": "routes/users.js",
+    "filename": "routes/mall/user.js",
     "groupTitle": "User",
     "success": {
       "fields": {
