@@ -5,9 +5,7 @@ let db = require('../config/mysql');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index', {
-		title: 'Express'
-	});
+	req.redirect("/api")
 });
 /**
  * @api {get} /api/goods/ 获取商品列表
