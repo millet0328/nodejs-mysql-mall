@@ -551,6 +551,34 @@ define({ "api": [
     "groupTitle": "Category"
   },
   {
+    "type": "get",
+    "url": "/api/category/sub",
+    "title": "获取子级分类",
+    "name": "category_sub",
+    "group": "Category",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "pId",
+            "description": "<p>父级分类id。注：获取一级分类pId=1;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/category/sub"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/category.js",
+    "groupTitle": "Category"
+  },
+  {
     "type": "post",
     "url": "/api/category/update/",
     "title": "更新分类",
@@ -1883,5 +1911,1647 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "type": "get",
+    "url": "/api/category/all",
+    "title": "获取所有树形分类",
+    "name": "allCategory",
+    "group": "admin_Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "/api/category/all"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/category.js",
+    "groupTitle": "admin_Category"
+  },
+  {
+    "type": "post",
+    "url": "/api/category",
+    "title": "添加子分类",
+    "name": "category_add______",
+    "group": "admin_Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>分类名称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "pId",
+            "description": "<p>父级id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img",
+            "description": "<p>分类图片src地址.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "level",
+            "description": "<p>分类所在层级.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/category"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/category.js",
+    "groupTitle": "admin_Category"
+  },
+  {
+    "type": "delete",
+    "url": "/api/category",
+    "title": "删除分类",
+    "name": "category_delete_____",
+    "group": "admin_Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>分类id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/category"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/category.js",
+    "groupTitle": "admin_Category"
+  },
+  {
+    "type": "put",
+    "url": "/api/category",
+    "title": "更新分类",
+    "name": "updateCategory",
+    "group": "admin_Category",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>分类id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>分类名称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img",
+            "description": "<p>分类图片src地址.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/category"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/category.js",
+    "groupTitle": "admin_Category"
+  },
+  {
+    "type": "get",
+    "url": "/api/admin/goods/list",
+    "title": "获取商品列表",
+    "description": "<p>具备商品分页功能，3个分类参数至多能传1个</p>",
+    "name": "AdminGoodsList",
+    "group": "admin_Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "pageSize",
+            "description": "<p>一个页有多少个商品,默认4个;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "pageIndex",
+            "description": "<p>第几页,默认1;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "cate_1st",
+            "description": "<p>一级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "cate_2nd",
+            "description": "<p>二级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "cate_3rd",
+            "description": "<p>三级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"ASC\"",
+              "\"DESC\""
+            ],
+            "optional": true,
+            "field": "sortByPrice",
+            "description": "<p>按照价格排序，从小到大-ASC,从大到小-DESC;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/goods/list"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/goods.js",
+    "groupTitle": "admin_Goods"
+  },
+  {
+    "type": "delete",
+    "url": "/api/admin/goods",
+    "title": "删除商品",
+    "name": "GoodsDelete",
+    "group": "admin_Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/goods"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/goods.js",
+    "groupTitle": "admin_Goods"
+  },
+  {
+    "type": "get",
+    "url": "/api/admin/goods",
+    "title": "获取商品详情",
+    "name": "GoodsDetail",
+    "group": "admin_Goods",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/goods"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/goods.js",
+    "groupTitle": "admin_Goods"
+  },
+  {
+    "type": "put",
+    "url": "/api/admin/goods",
+    "title": "编辑商品",
+    "name": "goodsEdit",
+    "group": "admin_Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cate_1st",
+            "description": "<p>一级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cate_2nd",
+            "description": "<p>二级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "cate_3rd",
+            "description": "<p>三级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>商品名称;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "hotPoint",
+            "description": "<p>商品热点描述;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "price",
+            "description": "<p>商品价格;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "marketPrice",
+            "description": "<p>市场价;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cost",
+            "description": "<p>成本价;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "discount",
+            "description": "<p>折扣如：75%;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "inventory",
+            "description": "<p>商品库存;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "articleNo",
+            "description": "<p>商品货号;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img_lg",
+            "description": "<p>商品主图-720;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img_md",
+            "description": "<p>商品主图-360;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "slider",
+            "description": "<p>商品轮播图片，例：slider:'src1,src2,src3';</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "brand",
+            "description": "<p>商品品牌;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "detail",
+            "description": "<p>商品详情,一般存储为HTML代码;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "freight",
+            "description": "<p>商品运费;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/goods"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/goods.js",
+    "groupTitle": "admin_Goods"
+  },
+  {
+    "type": "post",
+    "url": "/api/admin/goods",
+    "title": "发布新商品",
+    "name": "goods_release_",
+    "group": "admin_Goods",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cate_1st",
+            "description": "<p>一级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cate_2nd",
+            "description": "<p>二级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "cate_3rd",
+            "description": "<p>三级分类id;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>商品名称;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "hotPoint",
+            "description": "<p>商品热点描述;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "price",
+            "description": "<p>商品价格;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "marketPrice",
+            "description": "<p>市场价;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "cost",
+            "description": "<p>成本价;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "discount",
+            "description": "<p>折扣如：75%;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "inventory",
+            "description": "<p>商品库存;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "articleNo",
+            "description": "<p>商品货号;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img_lg",
+            "description": "<p>商品主图-720;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "img_md",
+            "description": "<p>商品主图-360;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "slider",
+            "description": "<p>商品轮播图片，例：slider:'src1,src2,src3';</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "brand",
+            "description": "<p>商品品牌;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "detail",
+            "description": "<p>商品详情,一般存储为HTML代码;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "freight",
+            "description": "<p>商品运费;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/goods/release"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/goods.js",
+    "groupTitle": "admin_Goods"
+  },
+  {
+    "type": "post",
+    "url": "/api/menu/add/",
+    "title": "添加子菜单",
+    "name": "MenuAdd",
+    "group": "admin_Menu",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>分类名称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "pId",
+            "description": "<p>父级id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "path",
+            "description": "<p>菜单url地址.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "order",
+            "description": "<p>菜单显示顺序，按照数字从小到大排序，如2001.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/menu/add/"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/menu.js",
+    "groupTitle": "admin_Menu"
+  },
+  {
+    "type": "delete",
+    "url": "/api/menu",
+    "title": "删除子菜单",
+    "name": "MenuDelete",
+    "group": "admin_Menu",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>子菜单id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/menu"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/menu.js",
+    "groupTitle": "admin_Menu"
+  },
+  {
+    "type": "get",
+    "url": "/api/menu/sub",
+    "title": "获取子菜单",
+    "name": "MenuSub",
+    "group": "admin_Menu",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "pId",
+            "description": "<p>父级菜单id。 注： 获取一级菜单pId = 1;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/menu/sub"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/menu.js",
+    "groupTitle": "admin_Menu"
+  },
+  {
+    "type": "put",
+    "url": "/api/menu",
+    "title": "更新子菜单",
+    "name": "MenuUpdate",
+    "group": "admin_Menu",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>子菜单id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>子菜单名称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "path",
+            "description": "<p>子菜单url地址.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/menu"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/menu.js",
+    "groupTitle": "admin_Menu"
+  },
+  {
+    "type": "get",
+    "url": "/api/menu/tree",
+    "title": "根据角色id获取侧边栏树形菜单",
+    "name": "TreeMenu",
+    "group": "admin_Menu",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>角色id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/menu/tree"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/menu.js",
+    "groupTitle": "admin_Menu"
+  },
+  {
+    "type": "get",
+    "url": "/api/admin/order/list",
+    "title": "获取所有账户订单列表",
+    "description": "<p>获取系统中的订单列表，根据订单状态获取列表，具备分页功能</p>",
+    "name": "AdminOrderList",
+    "group": "admin_Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "pageSize",
+            "description": "<p>一个页有多少个商品,默认4个;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": true,
+            "field": "pageIndex",
+            "description": "<p>第几页,默认1;</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "allowedValues": [
+              "0",
+              "3",
+              "4",
+              "5",
+              "all"
+            ],
+            "optional": false,
+            "field": "status",
+            "description": "<p>订单状态:0-待付款，3-待发货，4-待收货，5-待评价，all-所有状态;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/order/list"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/order.js",
+    "groupTitle": "admin_Order"
+  },
+  {
+    "type": "delete",
+    "url": "/api/role/menu",
+    "title": "为指定角色删除菜单",
+    "name": "DeleteRoleMenu",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "role_id",
+            "description": "<p>角色id。</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "menu_id",
+            "description": "<p>菜单id。</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/role/menu"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "get",
+    "url": "/api/role/config",
+    "title": "根据角色id获取菜单配置",
+    "name": "LoadRoleMenu",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>角色id。</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/role/config"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "post",
+    "url": "/api/role/menu",
+    "title": "为指定角色添加菜单",
+    "name": "PutRoleMenu",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "role_id",
+            "description": "<p>角色id。</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "menu_id",
+            "description": "<p>菜单id。</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/role/menu"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "post",
+    "url": "/api/role/add",
+    "title": "添加角色",
+    "name": "RoleAdd",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>角色名称.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/role/add"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "delete",
+    "url": "/api/role",
+    "title": "删除角色",
+    "name": "RoleDelete",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>角色id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/role"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "get",
+    "url": "/api/role/list",
+    "title": "获取角色列表",
+    "name": "RoleList",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "/api/role/list"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "put",
+    "url": "/api/role",
+    "title": "更新角色",
+    "name": "RoleUpdate",
+    "group": "admin_Role",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>角色id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>角色名称.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/role"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/role.js",
+    "groupTitle": "admin_Role"
+  },
+  {
+    "type": "post",
+    "url": "/api/upload/avatar",
+    "title": "用户头像上传API",
+    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，尺寸（120~300）必须是正方形，存储至avatar文件夹</p>",
+    "name": "UploadAvatar",
+    "group": "admin_Upload_Image",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>File文件对象;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload/avatar"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "src",
+            "description": "<p>返回图片地址.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/admin/upload.js",
+    "groupTitle": "admin_Upload_Image"
+  },
+  {
+    "type": "post",
+    "url": "/api/upload/editor",
+    "title": "富文本编辑器图片上传",
+    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，不限制尺寸，存储至details文件夹</p>",
+    "name": "UploadEditor",
+    "group": "admin_Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>File文件对象;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload/editor"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>返回图片地址.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/admin/upload.js",
+    "groupTitle": "admin_Upload_Image"
+  },
+  {
+    "type": "delete",
+    "url": "/api/upload",
+    "title": "删除图片API",
+    "description": "<p>如果上传错误的图片，通过此API删除错误的图片</p>",
+    "name": "uploadDelete",
+    "group": "admin_Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "src",
+            "description": "<p>图片文件路径,注：src='./images/goods/file.jpg'，必须严格按照规范路径，'./images'不可省略;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/upload.js",
+    "groupTitle": "admin_Upload_Image"
+  },
+  {
+    "type": "post",
+    "url": "/api/upload/goods",
+    "title": "上传商品主图",
+    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，尺寸（300~1500），存储至goods文件夹</p>",
+    "name": "uploadGoods",
+    "group": "admin_Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>File文件对象;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload/goods"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "lgImg",
+            "description": "<p>返回720宽度图片地址.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "mdImg",
+            "description": "<p>返回360宽度图片地址.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/admin/upload.js",
+    "groupTitle": "admin_Upload_Image"
+  },
+  {
+    "type": "post",
+    "url": "/api/upload/slider",
+    "title": "轮播图上传API",
+    "description": "<p>上传图片会自动检测图片质量，压缩图片，体积&lt;2M，尺寸（300~1500）必须是正方形，存储至goods文件夹</p>",
+    "name": "uploadSlider",
+    "group": "admin_Upload_Image",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "file",
+            "description": "<p>File文件对象;</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/upload/slider"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "src",
+            "description": "<p>返回720宽度图片地址.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/admin/upload.js",
+    "groupTitle": "admin_Upload_Image"
+  },
+  {
+    "type": "get",
+    "url": "/api/admin",
+    "title": "获取admin个人资料",
+    "name": "AdminInfo",
+    "group": "admin_User",
+    "sampleRequest": [
+      {
+        "url": "/api/admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/admin.js",
+    "groupTitle": "admin_User"
+  },
+  {
+    "type": "get",
+    "url": "/api/admin/list/",
+    "title": "获取admin用户列表",
+    "name": "AdminList",
+    "group": "admin_User",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "/api/admin/list"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/admin.js",
+    "groupTitle": "admin_User"
+  },
+  {
+    "type": "post",
+    "url": "/api/admin/login",
+    "title": "管理员登录",
+    "description": "<p>登录成功， 返回token, 请在头部headers中设置Authorization: <code>Bearer ${token}</code>, 所有请求都必须携带token;</p>",
+    "name": "AdminLogin",
+    "group": "admin_User",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>用户账户名.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>用户密码.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/login"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/admin.js",
+    "groupTitle": "admin_User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>请求状态.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.token",
+            "description": "<p>注册成功之后返回的token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>用户uid.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.role",
+            "description": "<p>用户角色id.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200返回的JSON:",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"id\":5,\n        \"role\":3,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/api/admin/register",
+    "title": "管理员注册",
+    "description": "<p>注册成功， 返回token, 请在头部headers中设置Authorization: <code>Bearer ${token}</code>,所有请求都必须携带token;</p>",
+    "name": "AdminRegister",
+    "group": "admin_User",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>用户账户名.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>用户密码.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>用户昵称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sex",
+            "description": "<p>性别.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tel",
+            "description": "<p>手机号码.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin/register"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/admin.js",
+    "groupTitle": "admin_User",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>请求状态.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "msg",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>请求结果信息.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.token",
+            "description": "<p>注册成功之后返回的token.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.id",
+            "description": "<p>用户uid.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "data.role",
+            "description": "<p>用户角色id.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "200返回的JSON:",
+          "content": "HTTP / 1.1 200 OK\n{\n    \"status\": true,\n    \"msg\": \"成功\",\n    \"data\":{\n        \"id\":5,\n        \"role\":3,\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiIxIiwiaWF0IjoxNTU3MzM1Mzk3LCJleHAiOjE1NTczNDI1OTd9.vnauDCSHdDXaZyvTjNOz0ezpiO-UACbG-oHg_v76URE\"\n    }\n}",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "delete",
+    "url": "/api/admin",
+    "title": "删除admin用户",
+    "name": "DeleteAdmin",
+    "group": "admin_User",
+    "permission": [
+      {
+        "name": "admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>admin用户id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/admin.js",
+    "groupTitle": "admin_User"
+  },
+  {
+    "type": " put ",
+    "url": "/api/admin",
+    "title": "更新admin个人资料",
+    "name": "UpdateInfo",
+    "group": "admin_User",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>admin账户id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>昵称.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sex",
+            "description": "<p>性别.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>头像.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "tel",
+            "description": "<p>手机号码.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "role",
+            "description": "<p>用户角色id.</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/admin"
+      }
+    ],
+    "version": "0.0.0",
+    "filename": "routes/admin/admin.js",
+    "groupTitle": "admin_User"
   }
 ] });

@@ -7,9 +7,18 @@ var bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
 
 var index = require('./routes/index');
+
 var user = require('./routes/mall/user');
 var address = require('./routes/mall/address');
-var admin = require('./routes/admin');
+
+let role = require('./routes/admin/role');
+let menu = require('./routes/admin/menu');
+let admin = require('./routes/admin/admin');
+let category = require('./routes/admin/category');
+let adminGoods = require('./routes/admin/goods');
+let adminUpload = require('./routes/admin/upload');
+let adminOrder = require('./routes/admin/order');
+
 
 var app = express();
 
@@ -27,13 +36,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //使用中间件验证token合法性
 app.use(expressJwt({ secret: 'secret' }).unless({
-    path: ['/api/user/login', '/api/user/register'] //除了这些地址，其他的URL都需要验证
+    path: ['/','/api/user/token', '/api/admin/register', '/api/admin/login'] //除了这些地址，其他的URL都需要验证
 }));
 
 app.use('/api', index);
+
 app.use('/api/user', user);
 app.use('/api/address', address);
-app.use('/api', admin);
+
+app.use('/api/role', role);
+app.use('/api/menu', menu);
+app.use('/api/admin', admin);
+app.use('/api/category', category);
+app.use('/api/admin/goods', adminGoods);
+app.use('/api/upload', adminUpload);
+app.use('/api/admin/order', adminOrder);
 
 // 处理401错误
 app.use(function(err, req, res, next) {
