@@ -8,8 +8,12 @@ const expressJwt = require('express-jwt');
 
 var index = require('./routes/index');
 
-var user = require('./routes/mall/user');
-var address = require('./routes/mall/address');
+let order = require('./routes/mall/order');
+let user = require('./routes/mall/user');
+let address = require('./routes/mall/address');
+let goods = require('./routes/mall/goods');
+let cart = require('./routes/mall/cart');
+let userUpload = require('./routes/mall/upload');
 
 let role = require('./routes/admin/role');
 let menu = require('./routes/admin/menu');
@@ -41,8 +45,12 @@ app.use(expressJwt({ secret: 'secret' }).unless({
 
 app.use('/api', index);
 
-app.use('/api/user', user);
 app.use('/api/address', address);
+app.use('/api/user', user);
+app.use('/api/goods', goods);
+app.use('/api/cart', cart);
+app.use('/api/order', order);
+app.use('/api/upload', userUpload);
 
 app.use('/api/role', role);
 app.use('/api/menu', menu);
