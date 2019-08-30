@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 15/05/2019 01:27:34
+ Date: 30/08/2019 08:20:56
 */
 
 SET NAMES utf8mb4;
@@ -39,6 +39,47 @@ CREATE TABLE `addresses`  (
 -- Records of addresses
 -- ----------------------------
 INSERT INTO `addresses` VALUES (20, 2, '黄小米', '15863008280', '山东', '青岛', '崂山', '滨海大道', '2006601', 1);
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
+  `sex` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '男' COMMENT '性别',
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/images/avatar/default.jpg' COMMENT '头像',
+  `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号码',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '登录时间',
+  `login_count` bigint(255) NOT NULL DEFAULT 1 COMMENT '登录次数',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES (1, 'admin', '123456', 'admin', '男', '/images/avatar/default.jpg', '13475829262', '2019-05-14 20:39:31', '2019-08-28 22:32:53', 80);
+INSERT INTO `admin` VALUES (2, '15863008280', '123456', '黄小米', '女', '/images/avatar/default.jpg', '15863008280', '2019-05-11 18:21:37', '2019-08-04 23:35:34', 6);
+
+-- ----------------------------
+-- Table structure for admin_role
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_role`;
+CREATE TABLE `admin_role`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
+  `role_id` int(11) NULL DEFAULT NULL COMMENT '角色id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+
+-- ----------------------------
+-- Records of admin_role
+-- ----------------------------
+INSERT INTO `admin_role` VALUES (2, 2, 2);
+INSERT INTO `admin_role` VALUES (1, 1, 1);
 
 -- ----------------------------
 -- Table structure for carts
@@ -71,7 +112,7 @@ CREATE TABLE `categories`  (
   `level` int(11) NULL DEFAULT NULL COMMENT '层级',
   `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 85 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品分类' ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 86 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品分类' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of categories
@@ -200,13 +241,27 @@ CREATE TABLE `menu`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单名称',
   `pId` int(11) NULL DEFAULT NULL COMMENT '父级id',
   `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '链接url',
+  `menu_order` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '显示顺序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES (1, '全部菜单', 0, NULL);
+INSERT INTO `menu` VALUES (1, '全部菜单', 0, NULL, '0');
+INSERT INTO `menu` VALUES (2, '商品管理', 1, '', '2000');
+INSERT INTO `menu` VALUES (3, '用户管理', 1, '', '3000');
+INSERT INTO `menu` VALUES (4, '订单管理', 1, '', '4000');
+INSERT INTO `menu` VALUES (5, '账户设置', 1, '', '5000');
+INSERT INTO `menu` VALUES (6, '权限设置', 1, '', '6000');
+INSERT INTO `menu` VALUES (7, '商品分类', 2, '/goods/category/', '2001');
+INSERT INTO `menu` VALUES (8, '发布商品', 2, '/goods/release', '2002');
+INSERT INTO `menu` VALUES (9, '商品列表', 2, '/goods/list', '2003');
+INSERT INTO `menu` VALUES (10, '用户列表', 3, '/user/list', '3001');
+INSERT INTO `menu` VALUES (11, '订单列表', 4, '/order/list', '4001');
+INSERT INTO `menu` VALUES (12, '账户信息', 5, '/user/info', '5001');
+INSERT INTO `menu` VALUES (13, '用户角色', 6, '/auth/role', '6001');
+INSERT INTO `menu` VALUES (14, '菜单权限', 6, '/auth/menu', '6002');
 
 -- ----------------------------
 -- Table structure for order_addresses
@@ -324,7 +379,7 @@ CREATE TABLE `role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色id',
   `role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -332,6 +387,9 @@ CREATE TABLE `role`  (
 INSERT INTO `role` VALUES (1, '超级管理员');
 INSERT INTO `role` VALUES (2, '管理员');
 INSERT INTO `role` VALUES (3, '运营人员');
+INSERT INTO `role` VALUES (4, '设计人员');
+INSERT INTO `role` VALUES (5, '财务人员');
+INSERT INTO `role` VALUES (6, '仓库人员');
 
 -- ----------------------------
 -- Table structure for role_menu
@@ -342,7 +400,34 @@ CREATE TABLE `role_menu`  (
   `role_id` int(11) NULL DEFAULT NULL COMMENT '角色id',
   `menu_id` int(11) NULL DEFAULT NULL COMMENT '权限id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+
+-- ----------------------------
+-- Records of role_menu
+-- ----------------------------
+INSERT INTO `role_menu` VALUES (1, 1, 2);
+INSERT INTO `role_menu` VALUES (2, 1, 7);
+INSERT INTO `role_menu` VALUES (3, 1, 8);
+INSERT INTO `role_menu` VALUES (4, 1, 9);
+INSERT INTO `role_menu` VALUES (5, 1, 3);
+INSERT INTO `role_menu` VALUES (6, 1, 10);
+INSERT INTO `role_menu` VALUES (7, 1, 4);
+INSERT INTO `role_menu` VALUES (8, 1, 11);
+INSERT INTO `role_menu` VALUES (9, 1, 5);
+INSERT INTO `role_menu` VALUES (10, 1, 12);
+INSERT INTO `role_menu` VALUES (16, 1, 14);
+INSERT INTO `role_menu` VALUES (15, 1, 13);
+INSERT INTO `role_menu` VALUES (14, 1, 6);
+INSERT INTO `role_menu` VALUES (17, 2, 2);
+INSERT INTO `role_menu` VALUES (18, 2, 7);
+INSERT INTO `role_menu` VALUES (19, 2, 8);
+INSERT INTO `role_menu` VALUES (20, 2, 9);
+INSERT INTO `role_menu` VALUES (21, 2, 3);
+INSERT INTO `role_menu` VALUES (22, 2, 10);
+INSERT INTO `role_menu` VALUES (23, 2, 4);
+INSERT INTO `role_menu` VALUES (24, 2, 11);
+INSERT INTO `role_menu` VALUES (25, 2, 5);
+INSERT INTO `role_menu` VALUES (26, 2, 12);
 
 -- ----------------------------
 -- Table structure for user_role
@@ -382,7 +467,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (2, '15863008280', '123', '黄晓明', '女', './images/avatar/default.jpg', '15863008280', '2019-05-11 18:21:37', '2019-05-14 23:51:28', 1);
-INSERT INTO `users` VALUES (1, 'admin', '123456', 'admin', '男', './images/avatar/default.jpg', NULL, '2019-05-14 20:39:31', '2019-05-15 00:33:10', 2);
+INSERT INTO `users` VALUES (2, '15863008280', '123456', '黄晓明', '女', './images/avatar/default.jpg', '15863008280', '2019-05-11 18:21:37', '2019-05-19 23:39:50', 4);
+INSERT INTO `users` VALUES (1, 'admin', '123456', 'admin', '男', './images/avatar/default.jpg', NULL, '2019-05-14 20:39:31', '2019-05-19 23:12:23', 12);
 
 SET FOREIGN_KEY_CHECKS = 1;
