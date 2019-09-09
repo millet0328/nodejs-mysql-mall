@@ -1,4 +1,4 @@
-# Logs
+﻿# Logs
 logs
 *.log
 
@@ -27,4 +27,4 @@ build/Release
 node_modules
 
 # 忽略的文件夹
-public/api
+/public/api
