@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const expressJwt = require('express-jwt');
+var cors = require('cors');
 
 var index = require('./routes/index');
 
@@ -40,8 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //使用中间件验证token合法性
 app.use(expressJwt({ secret: 'secret' }).unless({
-    path: ['/','/api/user/token', '/api/admin/register', '/api/admin/login'] //除了这些地址，其他的URL都需要验证
+    path: ['/', '/api/user/login', '/api/user/register', '/api/goods/list', '/api/goods/detail', '/api/admin/register', '/api/admin/login'] //除了这些地址，其他的URL都需要验证
 }));
+
+// 设置跨域资源分享CORS
+app.use(cors());
 
 app.use('/api', index);
 
@@ -62,23 +66,23 @@ app.use('/api/admin/order', adminOrder);
 app.use('/api/admin/icon', icon);
 
 // 处理401错误
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
         res.status(401).json({
             status: false,
-            msg: err,
+            ...err,
         });
     }
 });
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

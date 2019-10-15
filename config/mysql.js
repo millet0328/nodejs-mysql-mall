@@ -5,7 +5,8 @@ let pool = mysql.createPool({
 	user: 'root',
 	password: 'root',
 	database: 'mall',
-	multipleStatements: true
+	multipleStatements: true,
+	// debug: true,
 });
 //常规SQL
 let query = function(sql, arr = [], callback) {
