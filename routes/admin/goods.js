@@ -35,7 +35,7 @@ router.post("/", function (req, res) {
         `INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
     db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
         articleNo, img_lg, img_md, slider, brand, detail, freight
-    ], function (results, fields) {
+    ], function (results) {
         //成功
         res.json({
             status: true,
@@ -79,7 +79,7 @@ router.put("/", function (req, res) {
         `UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
     db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
         articleNo, img_lg, img_md, slider, brand, detail, freight, id
-    ], function (results, fields) {
+    ], function (results) {
         //成功
         res.json({
             status: true,
@@ -130,7 +130,7 @@ router.get("/list", function (req, res) {
     }
     sql += ` LIMIT ${count},${size};SELECT FOUND_ROWS() as total;`
 
-    db.query(sql, [], function (results, fields) {
+    db.query(sql, [], function (results) {
         //成功
         res.json({
             status: true,
@@ -152,7 +152,7 @@ router.get("/list", function (req, res) {
 router.get("/", function (req, res) {
     let { id } = req.query;
     let sql = `SELECT * FROM GOODS WHERE id = ?`;
-    db.query(sql, [id], function (results, fields) {
+    db.query(sql, [id], function (results) {
         //成功
         res.json({
             status: true,
@@ -174,7 +174,7 @@ router.get("/", function (req, res) {
 router.delete("/", function (req, res) {
     let { id } = req.query;
     let sql = `DELETE FROM GOODS WHERE id=?`;
-    db.query(sql, [id], function (results, fields) {
+    db.query(sql, [id], function (results) {
         //成功
         res.json({
             status: true,
