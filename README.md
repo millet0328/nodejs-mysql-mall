@@ -16,3 +16,5 @@
 `$ npm start`
 ## 后台API文档地址
 `http://localhost:3000/api/`
+## 商城管理后台地址
+`http://localhost:3000/admin/`
