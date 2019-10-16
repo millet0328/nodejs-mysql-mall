@@ -80,7 +80,6 @@ router.put("/", function(req, res) {
     let { id, name, tel, province, city, area, street, code, isDefault } = req.body;
     let { id: uid } = req.user;
     let sql;
-    let isDefault = req.body.isDefault;
     if (isDefault == '1') {
         sql = `
         UPDATE addresses SET isDefault = 0 WHERE uid = ${uid};
