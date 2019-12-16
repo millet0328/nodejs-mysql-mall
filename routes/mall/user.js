@@ -5,7 +5,7 @@ var jwt = require("jsonwebtoken");
 // 数据库
 let db = require('../../config/mysql');
 /**
- * @apiDefine SuccessResponse
+ * @apiDefine UserLoginResponse
  * @apiSuccess { Boolean } status 请求状态.
  * @apiSuccess { String } msg 请求结果信息.
  * @apiSuccess { Object } data 请求结果信息.
@@ -36,7 +36,7 @@ let db = require('../../config/mysql');
  * @apiParam { String } sex 性别.
  * @apiParam { String } tel 手机号码.
  * 
- * @apiUse SuccessResponse
+ * @apiUse UserLoginResponse
  * 
  * @apiSampleRequest /api/user/register
  */
@@ -81,7 +81,7 @@ router.post('/register', function (req, res) {
  * @apiParam {String} username 用户账户名.
  * @apiParam {String} password 用户密码.
  * 
- * @apiUse SuccessResponse
+ * @apiUse UserLoginResponse
  * 
  * @apiSampleRequest /api/user/login
  */

@@ -13,13 +13,14 @@ let db = require('../../config/mysql');
  * @apiParam {Number} pId 父级id.
  * @apiParam {String} path 菜单url地址.
  * @apiParam {String} order 菜单显示顺序，按照数字从小到大排序，如2001.
+ * @apiParam {String} component 组件名称.
  *
  * @apiSampleRequest /api/menu
  */
-router.post("/", function (req, res) {
-	let { name, pId, path, order } = req.body;
-	let sql = `INSERT INTO MENU (name,pId,path,menu_order) VALUES (?,?,?,?) `;
-	db.query(sql, [name, pId, path, order], function (results, fields) {
+router.post("/", function(req, res) {
+	let { name, pId, path, order, component } = req.body;
+	let sql = `INSERT INTO MENU (name,pId,path,menu_order,component) VALUES (?,?,?,?,?) `;
+	db.query(sql, [name, pId, path, order, component], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -40,10 +41,10 @@ router.post("/", function (req, res) {
  *
  * @apiSampleRequest /api/menu
  */
-router.delete("/", function (req, res) {
+router.delete("/", function(req, res) {
 	let { id } = req.query;
 	let sql = `DELETE FROM MENU WHERE id = ?`;
-	db.query(sql, [id], function (results, fields) {
+	db.query(sql, [id], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -60,13 +61,14 @@ router.delete("/", function (req, res) {
  * @apiParam { Number } id 子菜单id.
  * @apiParam { String } name 子菜单名称.
  * @apiParam { String } path 子菜单url地址.
+ * @apiParam {String} component 组件名称.
  *
  * @apiSampleRequest /api/menu
  */
-router.put("/", function (req, res) {
-	let { name, path, id, order } = req.body;
-	let sql = `UPDATE MENU SET name = ? , path = ?, menu_order = ? WHERE id = ? `;
-	db.query(sql, [name, path, order, id], function (results, fields) {
+router.put("/", function(req, res) {
+	let { name, path, id, order, component } = req.body;
+	let sql = `UPDATE MENU SET name = ? , path = ?, menu_order = ?, component = ? WHERE id = ? `;
+	db.query(sql, [name, path, order, component, id], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -85,10 +87,10 @@ router.put("/", function (req, res) {
  *
  * @apiSampleRequest /api/menu/icon
  */
-router.put("/icon", function (req, res) {
+router.put("/icon", function(req, res) {
 	let { id, icon } = req.body;
 	let sql = `UPDATE MENU SET icon_id = ? WHERE id = ? `;
-	db.query(sql, [icon, id], function (results, fields) {
+	db.query(sql, [icon, id], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -106,10 +108,10 @@ router.put("/icon", function (req, res) {
  *
  * @apiSampleRequest /api/menu/sub
  */
-router.get("/sub", function (req, res) {
+router.get("/sub", function(req, res) {
 	let sql =
-		`SELECT m.id,m.name,m.pId,m.path, m.menu_order AS 'order', i.name AS 'icon' FROM MENU m LEFT JOIN ICONS i ON m.icon_id = i.id WHERE m.pId = ? ORDER BY m.menu_order`;
-	db.query(sql, [req.query.pId], function (results, fields) {
+		`SELECT m.id,m.name,m.pId,m.path,m.component, m.menu_order AS 'order', i.name AS 'icon' FROM MENU m LEFT JOIN ICONS i ON m.icon_id = i.id WHERE m.pId = ? ORDER BY m.menu_order`;
+	db.query(sql, [req.query.pId], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -128,20 +130,20 @@ router.get("/sub", function (req, res) {
  *
  * @apiSampleRequest /api/menu/tree
  */
-router.get('/tree', function (req, res) {
+router.get('/tree', function(req, res) {
 	let { id } = req.query;
 	let sql =
 		`SELECT m.*,i.name AS 'icon' FROM MENU m JOIN role_menu rm ON rm.menu_id = m.id LEFT JOIN ICONS i ON m.icon_id = i.id WHERE rm.role_id = ? ORDER BY menu_order;`;
-	db.query(sql, [id], function (results) {
+	db.query(sql, [id], function(results) {
 		//筛选出一级菜单
 		let menu_1st = results.filter((item) => item.pId === 1 ? item : null);
 		//递归循环数据
 		parseToTree(menu_1st);
 		//递归函数
 		function parseToTree(array) {
-			array.forEach(function (parent) {
+			array.forEach(function(parent) {
 				parent.children = [];
-				results.forEach(function (child) {
+				results.forEach(function(child) {
 					if (child.pId === parent.id) {
 						parent.children.push(child);
 					}
