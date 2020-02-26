@@ -47,7 +47,7 @@ app.use(expressJwt({ secret: 'secret' }).unless({
 // 设置跨域资源分享CORS
 app.use(cors());
 
-app.use('/api', index);
+app.use('/', index);
 
 app.use('/api/address', address);
 app.use('/api/user', user);
