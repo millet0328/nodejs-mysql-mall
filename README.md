@@ -11,7 +11,7 @@ npm i apidoc -g
 cd {项目目录}
 ```
 
-## 安装依赖包
+## 安装依赖包，必须cnpm
 ```
 $ cnpm i
 ```
@@ -19,6 +19,7 @@ $ cnpm i
 ## 还原数据库
 1. 在mysql中创建mall数据库
 2. 将mall.sql文件还原至mall数据库
+3. 在config文件夹mysql.js文件，配置数据库、账户、密码；
 
 ## 重新生成API文档
 ```
@@ -32,7 +33,7 @@ $ npm start
 
 ## 后台API文档地址
 ```
-http://localhost:3000/api/
+http://localhost:3002/api/
 ```
 
 ## 商城管理后台地址
