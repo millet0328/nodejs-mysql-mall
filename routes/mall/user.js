@@ -43,7 +43,7 @@ let db = require('../../config/mysql');
 router.post('/register', function (req, res) {
     let { username, password, nickname, sex, tel } = req.body;
     // 查询账户是否存在
-    let sql = `SELECT * FROM USERS WHERE username = ?`
+    let sql = `SELECT * FROM user WHERE username = ?`
     db.query(sql, [username], function (results) {
         if (results.length) {
             res.json({
@@ -52,7 +52,7 @@ router.post('/register', function (req, res) {
             });
             return false;
         }
-        let sql = `INSERT INTO USERS (username,password,nickname,sex,tel,create_time) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP())`;
+        let sql = `INSERT INTO user (username,password,nickname,sex,tel,create_time) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP())`;
         db.query(sql, [username, password, nickname, sex, tel], function (results) {
             let { insertId } = results;
             // 生成token
@@ -88,7 +88,7 @@ router.post('/register', function (req, res) {
 
 router.post('/login', function (req, res) {
     let { username, password } = req.body;
-    let sql = `SELECT * FROM USERS WHERE username = ? AND password = ?`;
+    let sql = `SELECT * FROM user WHERE username = ? AND password = ?`;
     db.query(sql, [username, password], function (results) {
         // 账号密码错误
         if (!results.length) {
@@ -124,7 +124,7 @@ router.post('/login', function (req, res) {
 router.get("/info", function (req, res) {
     let { id } = req.user;
     //查询账户数据
-    let sql = `SELECT id,username,nickname,sex,avatar,tel FROM USERS WHERE user_id = ?`;
+    let sql = `SELECT id,username,nickname,sex,avatar,tel FROM user WHERE user_id = ?`;
     db.query(sql, [id], function (results) {
         // 获取成功
         res.json({
@@ -150,7 +150,7 @@ router.get("/info", function (req, res) {
 router.put("/info", function (req, res) {
     let { nickname, sex, avatar, tel } = req.body;
     let { id } = req.user;
-    let sql = `UPDATE users SET nickname = ?,sex = ?,avatar = ? ,tel = ? WHERE id = ?`;
+    let sql = `UPDATE user SET nickname = ?,sex = ?,avatar = ? ,tel = ? WHERE id = ?`;
     db.query(sql, [nickname, sex, avatar, tel, id], function (results) {
         res.json({
             status: true,

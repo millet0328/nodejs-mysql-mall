@@ -17,16 +17,16 @@ router.post('/', function(req, res) {
     let { gid, num } = req.body;
     let { id } = req.user;
     // 检查购物车是否已经有此商品
-    let sql = `SELECT * FROM carts WHERE goods_id = ?`;
+    let sql = `SELECT * FROM cart WHERE goods_id = ?`;
     db.query(sql, [gid], function(results, fields) {
         // 没有此商品,插入新纪录
         sql =
-            `INSERT INTO carts ( uid , goods_id , goods_num , create_time )
+            `INSERT INTO cart ( uid , goods_id , goods_num , create_time )
 			VALUES ( '${id}' , ${gid} , ${num} ,CURRENT_TIMESTAMP())`;
         // 已有此商品，增加数量
         if (results.length > 0) {
             sql =
-                `UPDATE carts SET goods_num = goods_num + ${num} WHERE goods_id = ${gid} AND uid = '${id}'`;
+                `UPDATE cart SET goods_num = goods_num + ${num} WHERE goods_id = ${gid} AND uid = '${id}'`;
         }
         db.query(sql, function(results, fields) {
             //成功
@@ -46,10 +46,7 @@ router.post('/', function(req, res) {
  */
 router.get('/list', function(req, res) {
     let { id } = req.user;
-    let sql =
-        `SELECT carts.id, carts.goods_id, goods.img_md AS img, goods.name, goods.price, carts.goods_num 
-		FROM carts JOIN goods 
-		WHERE carts.uid = ? AND carts.goods_id = goods.id`;
+    let sql =`SELECT c.id, c.goods_id, g.img_md AS img, g.name, g.price, c.goods_num FROM cart c JOIN goods g WHERE c.uid = ? AND c.goods_id = g.id`;
     db.query(sql, [id], function(results, fields) {
         //成功
         res.json({
@@ -69,8 +66,8 @@ router.get('/list', function(req, res) {
  * @apiSampleRequest /api/cart
  */
 router.delete('/', function(req, res) {
-    let { id } = req.body;
-    let sql = `DELETE FROM carts WHERE id = ?`;
+    let { id } = req.query;
+    let sql = `DELETE FROM cart WHERE id = ?`;
     db.query(sql, [id], function(results, fields) {
         //成功
         res.json({
@@ -94,7 +91,7 @@ router.delete('/', function(req, res) {
 router.put('/increase', function(req, res) {
     let { id, gid, num } = req.body;
     // 检查库存
-    let sql = `SELECT goods_num FROM carts WHERE id = ?;
+    let sql = `SELECT goods_num FROM cart WHERE id = ?;
 	SELECT inventory FROM goods WHERE id = ?`;
     db.query(sql, [id, gid], function(results, fields) {
         let isEmpty = results[1][0].inventory - results[0][0].goods_num - num >= 0 ? false : true;
@@ -105,7 +102,7 @@ router.put('/increase', function(req, res) {
             });
             return;
         }
-        let sql = `UPDATE carts SET goods_num = goods_num + ? WHERE id = ?`;
+        let sql = `UPDATE cart SET goods_num = goods_num + ? WHERE id = ?`;
         db.query(sql, [num, id], function(results, fields) {
             //成功
             res.json({
@@ -129,7 +126,7 @@ router.put('/increase', function(req, res) {
  */
 router.put('/decrease', function(req, res) {
     let { id, num } = req.body;
-    let sql = `UPDATE carts SET goods_num = goods_num - ? WHERE id = ?`;
+    let sql = `UPDATE cart SET goods_num = goods_num - ? WHERE id = ?`;
     db.query(sql, [num, id], function(results, fields) {
         //成功
         res.json({

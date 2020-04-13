@@ -4,6 +4,8 @@ const router = express.Router();
 let db = require('../../config/mysql');
 // JSON Web Token
 const jwt = require("jsonwebtoken");
+// express-jwt
+let expressJwt = require('express-jwt');
 /**
  * @apiDefine AdminLoginResponse
  * @apiSuccess { Boolean } status 请求状态.
@@ -43,11 +45,11 @@ const jwt = require("jsonwebtoken");
  *
  * @apiSampleRequest /api/admin/register
  */
-router.post('/register', function(req, res) {
+router.post('/register', function (req, res) {
 	let { username, password, fullname, sex, tel } = req.body;
 	// 查询账户是否存在
 	let sql = `SELECT * FROM ADMIN WHERE username = ?`
-	db.query(sql, [username], function(results, fields) {
+	db.query(sql, [username], function (results, fields) {
 		if (results.length) {
 			res.json({
 				status: false,
@@ -56,29 +58,29 @@ router.post('/register', function(req, res) {
 			return false;
 		}
 		let { pool } = db;
-		pool.getConnection(function(err, connection) {
+		pool.getConnection(function (err, connection) {
 			if (err) throw err; // not connected!
-			connection.beginTransaction(function(err) {
+			connection.beginTransaction(function (err) {
 				if (err) throw err;
 				let sql =
 					`INSERT INTO ADMIN (username,password,fullname,sex,tel,create_time) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP())`;
-				connection.query(sql, [username, password, fullname, sex, tel], function(error, results, fields) {
+				connection.query(sql, [username, password, fullname, sex, tel], function (error, results, fields) {
 					let { insertId, affectedRows } = results;
 					if (error || affectedRows <= 0) {
-						return connection.rollback(function() {
+						return connection.rollback(function () {
 							throw error || `${affectedRows} rows changed!`;
 						});
 					}
 					let sql = `INSERT INTO admin_role (admin_id,role_id) VALUES (?,3)`;
-					connection.query(sql, [insertId], function(error, results, fields) {
+					connection.query(sql, [insertId], function (error, results, fields) {
 						if (error) {
-							return connection.rollback(function() {
+							return connection.rollback(function () {
 								throw error;
 							});
 						}
-						connection.commit(function(err) {
+						connection.commit(function (err) {
 							if (err) {
-								return connection.rollback(function() {
+								return connection.rollback(function () {
 									throw err;
 								});
 							}
@@ -123,11 +125,11 @@ router.post('/register', function(req, res) {
  * @apiSampleRequest /api/admin/login
  */
 
-router.post('/login', function(req, res) {
+router.post('/login', function (req, res) {
 	let { username, password } = req.body;
 	let sql =
 		`SELECT a.*,r.id AS role FROM ADMIN a LEFT JOIN admin_role ar ON a.id = ar.admin_id LEFT JOIN role r ON r.id = ar.role_id  WHERE username = ? AND password = ?`;
-	db.query(sql, [username, password], function(results) {
+	db.query(sql, [username, password], function (results) {
 		// 账号密码错误
 		if (!results.length) {
 			res.json({
@@ -139,7 +141,7 @@ router.post('/login', function(req, res) {
 		let { id, role } = results[0];
 		// 更新登陆时间，登陆次数
 		let sql = `UPDATE ADMIN SET login_count = login_count + 1 WHERE id = ?;`
-		db.query(sql, [results[0].id], function(response) {
+		db.query(sql, [results[0].id], function (response) {
 			if (response.affectedRows > 0) {
 				// 登录成功
 				let payload = {
@@ -171,11 +173,11 @@ router.post('/login', function(req, res) {
  *
  * @apiSampleRequest /api/admin/list
  */
-router.get("/list", function(req, res) {
+router.get("/list", function (req, res) {
 	//查询账户数据
 	let sql =
 		`SELECT a.id,a.username,a.fullname,a.email,a.sex,a.avatar,a.tel,DATE_FORMAT(a.login_time,'%Y-%m-%d %H:%i:%s') AS login_time,a.login_count,r.role_name,r.id AS role FROM ADMIN AS a LEFT JOIN admin_role AS ar ON a.id = ar.admin_id LEFT JOIN role AS r ON r.id = ar.role_id ORDER BY a.id`;
-	db.query(sql, [], function(results, fields) {
+	db.query(sql, [], function (results, fields) {
 		if (!results.length) {
 			res.json({
 				status: false,
@@ -201,10 +203,10 @@ router.get("/list", function(req, res) {
  *
  * @apiSampleRequest /api/admin
  */
-router.delete('/', function(req, res) {
+router.delete('/', function (req, res) {
 	let { id } = req.query;
 	let sql = `DELETE FROM admin WHERE id = ?;DELETE FROM admin_role WHERE admin_id = ?;`
-	db.query(sql, [id, id], function(results) {
+	db.query(sql, [id, id], function (results) {
 		// 获取成功
 		res.json({
 			status: true,
@@ -221,12 +223,12 @@ router.delete('/', function(req, res) {
  * 
  * @apiSampleRequest /api/admin
  */
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
 	let { id } = req.query;
 	//查询账户数据
 	let sql =
 		`SELECT a.id,a.username,a.fullname,a.email,a.sex,a.avatar,a.tel,r.role_name,r.id AS role FROM ADMIN AS a LEFT JOIN admin_role AS ar ON a.id = ar.admin_id LEFT JOIN role AS r ON r.id = ar.role_id WHERE a.id = ?`;
-	db.query(sql, [id], function(results, fields) {
+	db.query(sql, [id], function (results, fields) {
 		if (!results.length) {
 			res.json({
 				status: false,
@@ -257,14 +259,12 @@ router.get("/", function(req, res) {
  *
  * @apiSampleRequest /api/admin
  */
-router.put("/", function(req, res) {
+router.put("/", function (req, res) {
 	let { id, fullname, sex, avatar, tel, email, role } = req.body;
-	let sql =
-		`
+	let sql = `
     UPDATE admin SET fullname = ?,sex = ?,avatar = ?,tel = ?,email = ? WHERE id = ?;
-    UPDATE admin_role SET role_id = ? WHERE admin_id = ?;
-    `;
-	db.query(sql, [fullname, sex, avatar, tel, email, id, role, id], function(results, fields) {
+    UPDATE admin_role SET role_id = ? WHERE admin_id = ?`;
+	db.query(sql, [fullname, sex, avatar, tel, email, id, role, id], function (results, fields) {
 		res.json({
 			status: true,
 			msg: "修改成功！"
