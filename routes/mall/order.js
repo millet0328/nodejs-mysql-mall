@@ -16,6 +16,8 @@ let db = require('../../config/mysql');
 router.get('/settle', function (req, res) {
 	let { goods } = req.query;
 	let { id } = req.user;
+		// 序列化数组
+	goods = JSON.parse(goods);
 	// 多表查询
 	let data = {};
 	let sql = `SELECT * FROM address WHERE uid =? AND isDefault =1 LIMIT 1`;
@@ -96,7 +98,7 @@ router.post('/create', function (req, res) {
 						});
 					}
 					// 订单表中生成新订单
-					let sql = `INSERT INTO orders (uid,payment,create_time) VALUES (?,?,CURRENT_TIMESTAMP())`;
+					let sql = `INSERT INTO orders (uid, payment, create_time) VALUES (?,?,CURRENT_TIMESTAMP())`;
 					connection.query(sql, [id, payment], function (error, results, fields) {
 						// 提取新订单id
 						let { insertId, affectedRows } = results;
@@ -107,8 +109,8 @@ router.post('/create', function (req, res) {
 						}
 						// 存储收货地址快照
 						let sql =
-							`INSERT INTO order_address ( order_id, name, tel, province, city, area, street, code )
-							 SELECT ( ? ), name, tel, province, city, area, street, code
+							`INSERT INTO order_address ( order_id, name, tel, province_id, city_id, county_id, town_id, street, code )
+							 SELECT ( ? ), name, tel, province_id, city_id, county_id, town_id, street, code
 							 FROM address WHERE id = ?`;
 						connection.query(sql, [insertId, addressId], function (error, results, fields) {
 							let { affectedRows } = results;
