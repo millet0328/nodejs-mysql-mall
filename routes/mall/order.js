@@ -16,7 +16,7 @@ let db = require('../../config/mysql');
 router.get('/settle', function (req, res) {
 	let { goods } = req.query;
 	let { id } = req.user;
-		// 序列化数组
+	// 序列化数组
 	goods = JSON.parse(goods);
 	// 多表查询
 	let data = {};
@@ -110,8 +110,7 @@ router.post('/create', function (req, res) {
 						// 存储收货地址快照
 						let sql =
 							`INSERT INTO order_address ( order_id, name, tel, province_id, city_id, county_id, town_id, street, code )
-							 SELECT ( ? ), name, tel, province_id, city_id, county_id, town_id, street, code
-							 FROM address WHERE id = ?`;
+							 SELECT ( ? ), name, tel, province_id, city_id, county_id, town_id, street, code FROM address WHERE id = ?`;
 						connection.query(sql, [insertId, addressId], function (error, results, fields) {
 							let { affectedRows } = results;
 							if (error || affectedRows <= 0) {
@@ -120,12 +119,9 @@ router.post('/create', function (req, res) {
 								});
 							}
 							// 购物车对应商品复制到order_goods表中，cart表删除对应商品
-							let sql =
-								`INSERT INTO order_goods ( order_id, goods_id, goods_num, goods_price ) 
-									SELECT ( ? ), c.goods_id, c.goods_num, g.price
-									FROM cart c JOIN goods g ON g.id = c.goods_id 
-									WHERE c.uid = ? AND c.goods_id IN (?);
-									DELETE FROM cart WHERE uid = ? AND goods_id IN (?)`;
+							let sql = `INSERT INTO order_goods ( order_id, goods_id, goods_num, goods_price ) 
+								SELECT ( ? ), c.goods_id, c.goods_num, g.price FROM cart c JOIN goods g ON g.id = c.goods_id WHERE c.uid = ? AND c.goods_id IN (?);
+								DELETE FROM cart WHERE uid = ? AND goods_id IN (?)`;
 							connection.query(sql, [insertId, id, queryGid, id, queryGid], function (error, results,
 								fields) {
 								if (error) {

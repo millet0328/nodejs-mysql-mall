@@ -26,9 +26,9 @@ router.post('/', function (req, res) {
     let { id } = req.user;
     if (isDefault == '1') {
         sql = `UPDATE address SET isDefault = 0 WHERE uid = '${id}';
-		INSERT INTO address(uid, name, tel, province_id, city_id, county_id, town_id, street, code, isDefault) VALUES(?,?,?,?,?,?,?,?,?);`
+		INSERT INTO address(uid, name, tel, province_id, city_id, county_id, town_id, street, code, isDefault) VALUES(?,?,?,?,?,?,?,?,?,?);`
     } else {
-        sql = `INSERT INTO address(uid, name, tel, province_id, city_id, county_id, town_id, street, code, isDefault) VALUES(?,?,?,?,?,?,?,?,?)`
+        sql = `INSERT INTO address(uid, name, tel, province_id, city_id, county_id, town_id, street, code, isDefault) VALUES(?,?,?,?,?,?,?,?,?,?)`
     }
     db.query(sql, [id, name, tel, province_id, city_id, county_id, town_id, street, code, isDefault], function (results) {
         res.json({
