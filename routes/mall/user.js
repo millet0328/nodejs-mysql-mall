@@ -124,7 +124,7 @@ router.post('/login', function (req, res) {
 router.get("/info", function (req, res) {
     let { id } = req.user;
     //查询账户数据
-    let sql = `SELECT id,username,nickname,sex,avatar,tel FROM user WHERE user_id = ?`;
+    let sql = `SELECT id,username,nickname,sex,avatar,tel FROM user WHERE id = ?`;
     db.query(sql, [id], function (results) {
         // 获取成功
         res.json({
