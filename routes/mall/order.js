@@ -16,8 +16,6 @@ let db = require('../../config/mysql');
 router.get('/settle', function (req, res) {
 	let { goods } = req.query;
 	let { id } = req.user;
-	// 序列化数组
-	goods = JSON.parse(goods);
 	// 多表查询
 	let data = {};
 	let sql = `SELECT * FROM address WHERE uid =? AND isDefault =1 LIMIT 1`;
