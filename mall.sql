@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 10/10/2020 11:04:08
+ Date: 14/10/2020 14:43:37
 */
 
 SET NAMES utf8mb4;
@@ -39,7 +39,7 @@ CREATE TABLE `address`  (
 -- ----------------------------
 -- Records of address
 -- ----------------------------
-INSERT INTO `address` VALUES (20, 2, '黄小米', '15863008280', '370000000000', '370200000000', '370213000000', '', '滨海大道', '2006601', 1);
+INSERT INTO `address` VALUES (20, 2, '黄小米', '15863008280', '370000000000', '370200000000', '370213000000', '370213010000', '滨海大道', '2006601', 1);
 
 -- ----------------------------
 -- Table structure for admin
@@ -63,7 +63,7 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'admin', '123456', '超级管理员', '男', '/images/avatar/default.jpg', '13475829262', NULL, '2019-05-14 20:39:31', '2020-10-09 15:28:37', 117);
+INSERT INTO `admin` VALUES (1, 'admin', '123456', '超级管理员', '男', '/images/avatar/default.jpg', '13475829262', NULL, '2019-05-14 20:39:31', '2020-10-14 13:55:59', 118);
 INSERT INTO `admin` VALUES (2, '15863008280', '123456', '黄小米', '女', '/images/avatar/default.jpg', '15863008280', NULL, '2019-05-11 18:21:37', '2020-10-09 15:33:33', 7);
 INSERT INTO `admin` VALUES (3, 'moz', '123', '黄渤', '男', '/images/avatar/default.jpg', '13475829262', NULL, '2019-10-11 12:03:12', '2020-10-09 15:33:11', 2);
 
@@ -103,7 +103,6 @@ CREATE TABLE `cart`  (
 -- ----------------------------
 -- Records of cart
 -- ----------------------------
-INSERT INTO `cart` VALUES (22, 2, 15, 1, 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for category
@@ -562,7 +561,7 @@ CREATE TABLE `collection`  (
   `uid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户id',
   `goods_id` int(0) NULL DEFAULT NULL COMMENT '商品id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户收藏商品' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户收藏商品' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of collection
@@ -4287,12 +4286,6 @@ CREATE TABLE `order_goods`  (
 -- ----------------------------
 -- Records of order_goods
 -- ----------------------------
-INSERT INTO `order_goods` VALUES (12, 7, 15, 1, 6999.00, 1, '2018-11-22 09:59:58');
-INSERT INTO `order_goods` VALUES (11, 7, 16, 1, 1249.00, 1, '2018-11-22 09:59:58');
-INSERT INTO `order_goods` VALUES (10, 6, 15, 1, 6999.00, 1, '2018-11-21 20:34:28');
-INSERT INTO `order_goods` VALUES (9, 6, 16, 2, 1249.00, 1, '2018-11-21 20:34:28');
-INSERT INTO `order_goods` VALUES (13, 16, 25, 1, 65.00, 1, '2018-11-23 15:52:56');
-INSERT INTO `order_goods` VALUES (14, 16, 26, 1, 259.00, 1, '2018-11-23 15:52:56');
 
 -- ----------------------------
 -- Table structure for order_status
@@ -4304,7 +4297,7 @@ CREATE TABLE `order_status`  (
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单状态-字典表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 92 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单状态-字典表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order_status
@@ -4315,10 +4308,11 @@ INSERT INTO `order_status` VALUES (3, 1, 'PAYMENT_CONFIRMING', '付款确认中'
 INSERT INTO `order_status` VALUES (4, 2, 'BUYER_PAYMENT_FAILED', '买家付款失败');
 INSERT INTO `order_status` VALUES (5, 3, 'BUYER_PAYMENT_SUCCESS', '买家付款成功');
 INSERT INTO `order_status` VALUES (6, 4, 'SELLER_DELIVERED', '卖家已发货');
-INSERT INTO `order_status` VALUES (7, 5, 'BUYER_RECEIVED', '买家已收货/交易完成');
-INSERT INTO `order_status` VALUES (8, 6, 'GOODS_RETURNING', '退货中');
-INSERT INTO `order_status` VALUES (9, 7, 'GOODS_RETURNED_SUCCESS', '退货成功');
-INSERT INTO `order_status` VALUES (10, 8, 'ORDER_CLOSED', '订单关闭');
+INSERT INTO `order_status` VALUES (7, 5, 'BUYER_RECEIVED/TO BE COMMENTED', '买家已收货/待评价');
+INSERT INTO `order_status` VALUES (9, 7, 'GOODS_RETURNING', '退货中');
+INSERT INTO `order_status` VALUES (10, 8, 'GOODS_RETURNED_SUCCESS', '退货成功');
+INSERT INTO `order_status` VALUES (11, 9, 'ORDER_CLOSED', '订单关闭');
+INSERT INTO `order_status` VALUES (8, 6, 'ORDER_SUCCESS', '交易成功');
 
 -- ----------------------------
 -- Table structure for orders
@@ -4349,9 +4343,6 @@ CREATE TABLE `orders`  (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES (7, 2, 2000.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-11-22 09:59:58', NULL, NULL, NULL, 0, 1, NULL, NULL);
-INSERT INTO `orders` VALUES (6, 2, 3500.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-11-21 20:34:28', NULL, NULL, NULL, 0, 1, NULL, NULL);
-INSERT INTO `orders` VALUES (16, 2, 5000.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-11-23 15:52:56', NULL, NULL, NULL, 0, 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for province
