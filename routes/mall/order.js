@@ -18,7 +18,7 @@ router.post('/settle', function (req, res) {
 	let { id } = req.user;
 	// 多表查询
 	let data = {};
-	let sql = `SELECT * FROM address WHERE uid =? AND isDefault =1 LIMIT 1`;
+	let sql = "SELECT a.*, p.`name` AS province_name, c.`name` AS city_name, ct.`name` AS county_name, t.`name` AS town_name FROM address a JOIN province p ON p.province_id = a.province_id JOIN city c ON c.city_id = a.city_id JOIN county ct ON ct.county_id = a.county_id JOIN town t ON t.town_id = a.town_id WHERE uid =? AND isDefault =1 LIMIT 1";
 	db.query(sql, [id], function (results) {
 		data.address = results[0];
 		let sql = `SELECT g.id, g.name, g.price, g.img_md, c.goods_num FROM goods g JOIN cart c ON g.id = c.goods_id  WHERE c.uid = ? AND c.goods_id IN (?)`;
