@@ -51,7 +51,7 @@ router.post("/common", upload.single('file'), async function (req, res) {
 	// 获取图片信息
 	var { width, height, format } = await sharp(req.file.buffer).metadata();
 	// 判读图片尺寸
-	if (width != height) {
+	if (type == "avatar" && width != height) {
 		res.status(400).json({
 			status: false,
 			msg: "图片必须为正方形，请重新上传!"
