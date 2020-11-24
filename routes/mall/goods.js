@@ -21,7 +21,7 @@ let db = require('../../config/mysql');
  * 
  * @apiSampleRequest /api/goods/list
  */
-router.get("/list", function(req, res) {
+router.get("/list", function (req, res) {
 	let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, sortByPrice } = req.query;
 	//拼接SQL
 	let size = parseInt(pageSize);
@@ -44,13 +44,13 @@ router.get("/list", function(req, res) {
 	}
 	sql += ` LIMIT ${count},${size};SELECT FOUND_ROWS() as total;`
 
-	db.query(sql, [], function(results, fields) {
+	db.query(sql, [], function (results, fields) {
 		//成功
 		res.json({
 			status: true,
 			msg: "success!",
 			goods: results[0],
-            ...results[1][0],
+			...results[1][0],
 		});
 	});
 });
@@ -63,15 +63,24 @@ router.get("/list", function(req, res) {
  *
  * @apiSampleRequest /api/goods/detail
  */
-router.get("/detail", function(req, res) {
+router.get("/detail", function (req, res) {
 	let { id } = req.query;
-	let sql = `SELECT id,name,price,hotPoint,marketPrice,discount,slider,detail FROM GOODS WHERE id = ?`
-	db.query(sql, [id], function(results, fields) {
+	let { openid } = req.user;
+	let sql = `
+	SELECT id, name, price, hotPoint, marketPrice, discount, img_md, slider, detail FROM GOODS WHERE id = ?;
+	SELECT * FROM collection WHERE goods_id = ? AND uid = ?;
+	`
+	db.query(sql, [id, id, openid], function (results) {
+		if (results[1].length) {
+			results[0][0].isCollected = true;
+		} else {
+			results[0][0].isCollected = false;
+		}
 		//成功
 		res.json({
 			status: true,
 			msg: "success!",
-			data: results[0]
+			data: results[0][0]
 		});
 	});
 });
