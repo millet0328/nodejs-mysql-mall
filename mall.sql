@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 14/10/2020 14:43:37
+ Date: 16/03/2021 17:12:51
 */
 
 SET NAMES utf8mb4;
@@ -63,7 +63,7 @@ CREATE TABLE `admin`  (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES (1, 'admin', '123456', '超级管理员', '男', '/images/avatar/default.jpg', '13475829262', NULL, '2019-05-14 20:39:31', '2020-10-14 13:55:59', 118);
+INSERT INTO `admin` VALUES (1, 'admin', '123456', '超级管理员', '男', '/images/avatar/default.jpg', '13475829262', NULL, '2019-05-14 20:39:31', '2021-03-16 16:24:22', 123);
 INSERT INTO `admin` VALUES (2, '15863008280', '123456', '黄小米', '女', '/images/avatar/default.jpg', '15863008280', NULL, '2019-05-11 18:21:37', '2020-10-09 15:33:33', 7);
 INSERT INTO `admin` VALUES (3, 'moz', '123', '黄渤', '男', '/images/avatar/default.jpg', '13475829262', NULL, '2019-10-11 12:03:12', '2020-10-09 15:33:11', 2);
 
@@ -115,83 +115,115 @@ CREATE TABLE `category`  (
   `level` int(0) NULL DEFAULT NULL COMMENT '层级',
   `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 85 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品分类' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 136 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '商品分类' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of category
 -- ----------------------------
 INSERT INTO `category` VALUES (1, '全部分类', 0, 1, '');
-INSERT INTO `category` VALUES (2, '家居家纺', 1, 2, '');
-INSERT INTO `category` VALUES (30, '灯具', 2, 3, '');
-INSERT INTO `category` VALUES (8, '家用电器', 1, 2, '');
-INSERT INTO `category` VALUES (12, '智能家庭', 1, 2, '');
-INSERT INTO `category` VALUES (13, '餐具厨房', 1, 2, '');
-INSERT INTO `category` VALUES (18, '服饰配饰', 1, 2, '');
-INSERT INTO `category` VALUES (29, '床垫', 2, 3, '');
-INSERT INTO `category` VALUES (19, '鞋靴箱包', 1, 2, '');
-INSERT INTO `category` VALUES (20, '手机电脑', 1, 2, '');
-INSERT INTO `category` VALUES (21, '电视影音', 1, 2, '');
-INSERT INTO `category` VALUES (22, '运动健康', 1, 2, '');
-INSERT INTO `category` VALUES (23, '出行户外', 1, 2, '');
-INSERT INTO `category` VALUES (24, '洗护美妆', 1, 2, '');
-INSERT INTO `category` VALUES (25, '日杂文创', 1, 2, '');
-INSERT INTO `category` VALUES (26, '母婴亲子', 1, 2, '');
-INSERT INTO `category` VALUES (27, '饮食酒水', 1, 2, '');
-INSERT INTO `category` VALUES (28, '数码配件', 1, 2, '');
-INSERT INTO `category` VALUES (31, '家具', 2, 3, '');
-INSERT INTO `category` VALUES (32, '被子', 2, 3, '');
-INSERT INTO `category` VALUES (33, '枕头', 2, 3, '');
-INSERT INTO `category` VALUES (34, '床品件套', 2, 3, '');
-INSERT INTO `category` VALUES (35, '家居收纳', 2, 3, '');
-INSERT INTO `category` VALUES (36, '厨房卫浴', 2, 3, '');
-INSERT INTO `category` VALUES (37, '家饰花卉', 2, 3, '');
-INSERT INTO `category` VALUES (38, '布艺软装', 2, 3, '');
-INSERT INTO `category` VALUES (39, '清洁电器', 8, 3, '');
-INSERT INTO `category` VALUES (40, '生活电器', 8, 3, '');
-INSERT INTO `category` VALUES (41, '洗衣机', 8, 3, '');
-INSERT INTO `category` VALUES (42, '冰箱', 8, 3, '');
-INSERT INTO `category` VALUES (43, '净水器', 8, 3, '');
-INSERT INTO `category` VALUES (44, '安防', 12, 3, '');
-INSERT INTO `category` VALUES (45, '路由器', 12, 3, '');
-INSERT INTO `category` VALUES (46, '开关插座', 12, 3, '');
-INSERT INTO `category` VALUES (47, '相机', 12, 3, '');
-INSERT INTO `category` VALUES (48, '羽绒服', 18, 3, '');
-INSERT INTO `category` VALUES (49, '外套', 18, 3, '');
-INSERT INTO `category` VALUES (50, '裤装', 18, 3, '');
-INSERT INTO `category` VALUES (51, '卫衣', 18, 3, '');
-INSERT INTO `category` VALUES (52, 'T恤', 18, 3, '');
-INSERT INTO `category` VALUES (53, '衬衫', 18, 3, '');
-INSERT INTO `category` VALUES (54, '针织毛衫', 18, 3, '');
-INSERT INTO `category` VALUES (55, '时尚女装', 18, 3, '');
-INSERT INTO `category` VALUES (56, '运动装', 18, 3, '');
-INSERT INTO `category` VALUES (57, '运动/户外鞋', 19, 3, '');
-INSERT INTO `category` VALUES (58, '凉鞋/拖鞋', 19, 3, '');
-INSERT INTO `category` VALUES (59, '男鞋', 19, 3, '');
-INSERT INTO `category` VALUES (60, '女鞋', 19, 3, '');
-INSERT INTO `category` VALUES (61, '小米系列', 20, 3, '');
-INSERT INTO `category` VALUES (62, '红米系列', 20, 3, '');
-INSERT INTO `category` VALUES (63, '游戏本15.6\"', 20, 3, '');
-INSERT INTO `category` VALUES (64, '笔记本12.5\"', 20, 3, '');
-INSERT INTO `category` VALUES (65, '笔记本15.6\"', 20, 3, '');
-INSERT INTO `category` VALUES (66, '鼠标键盘', 20, 3, '');
-INSERT INTO `category` VALUES (67, '保健器械', 22, 3, '');
-INSERT INTO `category` VALUES (68, '康体监护', 22, 3, '');
-INSERT INTO `category` VALUES (69, '运动健身', 22, 3, '');
-INSERT INTO `category` VALUES (70, '泳衣泳具', 22, 3, '');
-INSERT INTO `category` VALUES (71, '护理护具', 22, 3, '');
-INSERT INTO `category` VALUES (72, '骑行', 23, 3, '');
-INSERT INTO `category` VALUES (73, '平衡车/滑板车', 23, 3, '');
-INSERT INTO `category` VALUES (74, '汽车用品', 23, 3, '');
-INSERT INTO `category` VALUES (75, '户外装备', 23, 3, '');
-INSERT INTO `category` VALUES (76, '户外烧烤', 23, 3, '');
-INSERT INTO `category` VALUES (77, '口腔清洁', 24, 3, '');
-INSERT INTO `category` VALUES (78, '洗护用具', 24, 3, '');
-INSERT INTO `category` VALUES (79, '毛巾浴巾', 24, 3, '');
-INSERT INTO `category` VALUES (80, '基础护肤', 24, 3, '');
-INSERT INTO `category` VALUES (81, '身体护理', 24, 3, '');
-INSERT INTO `category` VALUES (82, '彩妆香氛', 24, 3, '');
-INSERT INTO `category` VALUES (83, '居家清洁', 24, 3, '');
-INSERT INTO `category` VALUES (84, '桌面办公', 20, 3, '');
+INSERT INTO `category` VALUES (2, '女装', 1, NULL, 'http://localhost:3002/images/common/707d6060-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (3, '男装', 1, NULL, 'http://localhost:3002/images/common/a1306ae0-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (4, '美妆', 1, NULL, 'http://localhost:3002/images/common/c8a7b830-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (5, '医药', 1, NULL, 'http://localhost:3002/images/common/e6a33210-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (6, '箱包', 1, NULL, 'http://localhost:3002/images/common/ef216ba0-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (7, '百货', 1, NULL, 'http://localhost:3002/images/common/f5d4a930-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (8, '鞋靴', 1, NULL, 'http://localhost:3002/images/common/fdc45e60-cbb7-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (9, '手机', 1, NULL, 'http://localhost:3002/images/common/03899270-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (10, '母婴', 1, NULL, 'http://localhost:3002/images/common/0909a730-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (11, '饰品', 1, NULL, 'http://localhost:3002/images/common/1049e280-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (12, '进口', 1, NULL, 'http://localhost:3002/images/common/16f81700-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (13, '食品', 1, NULL, 'http://localhost:3002/images/common/1c5f4c90-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (14, '内衣', 1, NULL, 'http://localhost:3002/images/common/22d3fa80-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (15, '运动', 1, NULL, 'http://localhost:3002/images/common/27d3bbb0-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (16, '家装', 1, NULL, 'http://localhost:3002/images/common/32157730-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (17, '洗护', 1, NULL, 'http://localhost:3002/images/common/3734ce50-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (18, '数码', 1, NULL, 'http://localhost:3002/images/common/3d4981f0-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (19, '电器', 1, NULL, 'http://localhost:3002/images/common/42cd6740-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (20, '车品', 1, NULL, 'http://localhost:3002/images/common/4a5f1df0-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (21, '企业', 1, NULL, 'http://localhost:3002/images/common/4fdebd80-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (22, '保健', 1, NULL, 'http://localhost:3002/images/common/56ba1c80-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (23, '生鲜', 1, NULL, 'http://localhost:3002/images/common/664bdc10-cbb8-11ea-8d4a-bf562cfb5ba9.jpeg');
+INSERT INTO `category` VALUES (30, '方领连衣裙', 2, NULL, 'http://localhost:3002/images/common/52f91a10-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (31, '泡泡袖', 2, NULL, 'http://localhost:3002/images/common/59e89d50-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (32, 'JK制服', 2, NULL, 'http://localhost:3002/images/common/64e914f0-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (33, '洛丽塔', 2, NULL, 'http://localhost:3002/images/common/6ad69180-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (34, '西装连衣裙', 2, NULL, 'http://localhost:3002/images/common/754f3b80-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (35, '束脚裤', 2, NULL, 'http://localhost:3002/images/common/7f4966b0-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (36, '连衣裙', 2, NULL, 'http://localhost:3002/images/common/8bfbfb20-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (37, '半身裙', 2, NULL, 'http://localhost:3002/images/common/94654d20-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (38, '旗袍', 2, NULL, 'http://localhost:3002/images/common/99251f20-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (39, 'T恤', 2, NULL, 'http://localhost:3002/images/common/a3d4deb0-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (40, '衬衫', 2, NULL, 'http://localhost:3002/images/common/a8d674a0-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (41, '雪纺衫', 2, NULL, 'http://localhost:3002/images/common/b0612670-cbfe-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (42, '卫衣', 2, NULL, 'http://localhost:3002/images/common/b5b10370-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (43, '毛衣', 2, NULL, 'http://localhost:3002/images/common/baeb0e80-cbfe-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (44, '马甲', 2, NULL, 'http://localhost:3002/images/common/bffea5d0-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (45, '休闲裤', 2, NULL, 'http://localhost:3002/images/common/c9b92ff0-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (46, '牛仔裤', 2, NULL, 'http://localhost:3002/images/common/cfb57990-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (47, '打底裤', 2, NULL, 'http://localhost:3002/images/common/d5c32850-cbfe-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (48, '西装裤', 2, NULL, 'http://localhost:3002/images/common/dba6e0e0-cbfe-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (49, '棉裤羽绒裤', 2, NULL, 'http://localhost:3002/images/common/01b8d1d0-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (50, '时尚套装', 2, NULL, 'http://localhost:3002/images/common/102a5450-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (51, '运动套装', 2, NULL, 'http://localhost:3002/images/common/15f3a710-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (52, '短外套', 2, NULL, 'http://localhost:3002/images/common/1fb64780-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (53, '风衣', 2, NULL, 'http://localhost:3002/images/common/247b97c0-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (54, '西装', 2, NULL, 'http://localhost:3002/images/common/29e0d180-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (55, '毛呢大衣', 2, NULL, 'http://localhost:3002/images/common/2ff29ef0-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (56, '羽绒服', 2, NULL, 'http://localhost:3002/images/common/35531dc0-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (57, '棉衣棉服', 2, NULL, 'http://localhost:3002/images/common/3bb79f10-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (58, '皮草', 2, NULL, 'http://localhost:3002/images/common/41e5a710-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (59, '皮衣', 2, NULL, 'http://localhost:3002/images/common/47453b80-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (64, '冰感T恤', 3, NULL, 'http://localhost:3002/images/common/88f9c230-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (65, '伞兵裤', 3, NULL, 'http://localhost:3002/images/common/8df84ae0-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (66, '无性别T恤', 3, NULL, 'http://localhost:3002/images/common/94f1e040-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (67, '夜跑裤', 3, NULL, 'http://localhost:3002/images/common/9a188a60-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (68, '工装裤', 3, NULL, 'http://localhost:3002/images/common/aa1a97f0-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (69, '牛仔短裤', 3, NULL, 'http://localhost:3002/images/common/b2dae390-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (70, '牛仔长裤', 3, NULL, 'http://localhost:3002/images/common/ba1b45f0-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (71, '皮裤', 3, NULL, 'http://localhost:3002/images/common/bef1ad30-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (72, '休闲长裤', 3, NULL, 'http://localhost:3002/images/common/c50883b0-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (73, 'Polo衫', 3, NULL, 'http://localhost:3002/images/common/da61c140-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (74, 'T恤', 3, NULL, 'http://localhost:3002/images/common/df45bd10-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (75, '背心马甲', 3, NULL, 'http://localhost:3002/images/common/e5bcb4f0-cbff-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (76, '衬衫', 3, NULL, 'http://localhost:3002/images/common/ec8ec520-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (77, '短外套', 3, NULL, 'http://localhost:3002/images/common/f415cd70-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (78, '风衣', 3, NULL, 'http://localhost:3002/images/common/fb043f40-cbff-11ea-9199-4f212e5ee595.png');
+INSERT INTO `category` VALUES (79, '毛呢大衣', 3, NULL, 'http://localhost:3002/images/common/0019f970-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (80, '毛衣', 3, NULL, 'http://localhost:3002/images/common/05d5deb0-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (81, '棉衣', 3, NULL, 'http://localhost:3002/images/common/0a560fa0-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (82, '皮衣', 3, NULL, 'http://localhost:3002/images/common/0fc8ddf0-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (83, '卫衣', 3, NULL, 'http://localhost:3002/images/common/14e4b2a0-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (84, '羊绒衫', 3, NULL, 'http://localhost:3002/images/common/19eefb20-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (85, '羽绒服', 3, NULL, 'http://localhost:3002/images/common/20ab8780-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (86, '西服', 3, NULL, 'http://localhost:3002/images/common/2eb631e0-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (87, '西服套装', 3, NULL, 'http://localhost:3002/images/common/33210610-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (88, '西裤', 3, NULL, 'http://localhost:3002/images/common/396ad370-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (89, '休闲套装', 3, NULL, 'http://localhost:3002/images/common/3e819f10-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (93, '彩妆套装', 4, NULL, 'http://localhost:3002/images/common/ed0fbf80-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (94, '粉底', 4, NULL, 'http://localhost:3002/images/common/f1ec6850-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (95, '隔离', 4, NULL, 'http://localhost:3002/images/common/fa2f1f80-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (96, '化妆工具', 4, NULL, 'http://localhost:3002/images/common/ff9320c0-cc00-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (97, '睫毛膏', 4, NULL, 'http://localhost:3002/images/common/06b76fa0-cc01-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (98, '口红', 4, NULL, 'http://localhost:3002/images/common/0ccebb50-cc01-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (99, '眉粉', 4, NULL, 'http://localhost:3002/images/common/13d87d50-cc01-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (100, '修容', 4, NULL, 'http://localhost:3002/images/common/1b83fd90-cc01-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (101, '眼影眼线', 4, NULL, 'http://localhost:3002/images/common/22b8ee40-cc01-11ea-9199-4f212e5ee595.jpeg');
+INSERT INTO `category` VALUES (102, '鼻贴', 4, NULL, 'http://localhost:3002/images/common/82ad92c0-cc1e-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (103, '防晒', 4, NULL, 'http://localhost:3002/images/common/8ef46d10-cc1e-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (104, '护肤套装', 4, NULL, 'http://localhost:3002/images/common/a9836ff0-cc1e-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (105, '化妆水', 4, NULL, 'http://localhost:3002/images/common/b64bd650-cc1e-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (106, '洁面', 4, NULL, 'http://localhost:3002/images/common/be47c080-cc1e-11ea-abbe-6755e5a10676.png');
+INSERT INTO `category` VALUES (107, '精华', 4, NULL, 'http://localhost:3002/images/common/eaf4fa30-cc1e-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (108, '面膜', 4, NULL, 'http://localhost:3002/images/common/f75aa720-cc1e-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (109, '男士洁面', 4, NULL, 'http://localhost:3002/images/common/00b3fe70-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (110, '乳霜面霜', 4, NULL, 'http://localhost:3002/images/common/0834ec40-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (111, '润唇膏', 4, NULL, 'http://localhost:3002/images/common/186c88c0-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (112, '卸妆', 4, NULL, 'http://localhost:3002/images/common/1f72c850-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (113, '眼霜', 4, NULL, 'http://localhost:3002/images/common/2ac00060-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (114, '美甲', 4, NULL, 'http://localhost:3002/images/common/5cc10eb0-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (115, '美容仪', 4, NULL, 'http://localhost:3002/images/common/62300c70-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (116, '手霜手膜', 4, NULL, 'http://localhost:3002/images/common/68826550-cc1f-11ea-abbe-6755e5a10676.jpeg');
+INSERT INTO `category` VALUES (117, '香水', 4, NULL, 'http://localhost:3002/images/common/6e310420-cc1f-11ea-abbe-6755e5a10676.jpeg');
 
 -- ----------------------------
 -- Table structure for city
@@ -4262,7 +4294,7 @@ CREATE TABLE `order_address`  (
   `street` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细地址',
   `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮编',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收货地址' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '收货地址' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of order_address
@@ -4281,7 +4313,7 @@ CREATE TABLE `order_goods`  (
   `status` tinyint(0) NULL DEFAULT 1 COMMENT '0-禁用，1-正常，-1-删除',
   `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单-商品表' ROW_FORMAT = FIXED;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单-商品表' ROW_FORMAT = FIXED;
 
 -- ----------------------------
 -- Records of order_goods
@@ -4338,7 +4370,7 @@ CREATE TABLE `orders`  (
   `refund_state` tinyint(0) NULL DEFAULT NULL COMMENT '退款状态',
   `comment_state` tinyint(0) NULL DEFAULT NULL COMMENT '评论状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
@@ -47858,13 +47890,13 @@ CREATE TABLE `user`  (
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   `login_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '登录时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (2, '15863008280', '123456', '黄晓明', '女', 'http://localhost:3002/images/avatar/default.jpg', '15863008280', '2019-05-11 18:21:37', '2020-10-10 10:46:30');
-INSERT INTO `user` VALUES (1, 'admin', '123456', 'admin', '男', 'http://localhost:3002/images/avatar/default.jpg', '13475829262', '2019-05-14 20:39:31', '2020-10-10 10:52:03');
+INSERT INTO `user` VALUES (2, 'user2', '123456', '黄晓明', '女', 'http://localhost:3002/images/avatar/default.jpg', '15863008280', '2019-05-11 18:21:37', '2020-10-14 14:44:43');
+INSERT INTO `user` VALUES (1, 'user1', '123456', 'admin', '男', 'http://localhost:3002/images/avatar/default.jpg', '13475829262', '2019-05-14 20:39:31', '2020-10-14 14:44:39');
 
 -- ----------------------------
 -- Table structure for village

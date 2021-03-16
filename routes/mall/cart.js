@@ -4,16 +4,17 @@ const router = express.Router();
 let db = require('../../config/mysql');
 
 /**
- * @api {post} /api/cart 添加商品至购物车
+ * @api {post} /api/cart/add 添加商品至购物车
  * @apiName AddCart
  * @apiGroup Cart
- *
+ * @apiPermission user
+ * 
  * @apiParam {Number} gid 商品id;
  * @apiParam {Number} num 商品数量,不能超过库存;
  *
- * @apiSampleRequest /api/cart
+ * @apiSampleRequest /api/cart/add
  */
-router.post('/', function(req, res) {
+router.post('/add', function(req, res) {
     let { gid, num } = req.body;
     let { id } = req.user;
     // 检查购物车是否已经有此商品
@@ -41,7 +42,8 @@ router.post('/', function(req, res) {
  * @api {get} /api/cart/list 获取购物车列表
  * @apiName CartList
  * @apiGroup Cart
- *
+ * @apiPermission user
+ * 
  * @apiSampleRequest /api/cart/list
  */
 router.get('/list', function(req, res) {
@@ -57,16 +59,17 @@ router.get('/list', function(req, res) {
     });
 });
 /**
- * @api {delete} /api/cart 购物车删除商品
+ * @api {post} /api/cart/remove 购物车删除商品
  * @apiName DeleteCart
  * @apiGroup Cart
- *
+ * @apiPermission user
+ * 
  * @apiParam {Number} id 购物车条目id;
  *
- * @apiSampleRequest /api/cart
+ * @apiSampleRequest /api/cart/remove
  */
-router.delete('/', function(req, res) {
-    let { id } = req.query;
+router.post('/remove', function(req, res) {
+    let { id } = req.body;
     let sql = `DELETE FROM cart WHERE id = ?`;
     db.query(sql, [id], function(results, fields) {
         //成功
@@ -77,18 +80,19 @@ router.delete('/', function(req, res) {
     });
 });
 /**
- * @api {put} /api/cart/increase 购物车增加商品数量
+ * @api {post} /api/cart/increase 购物车增加商品数量
  * @apiDescription 增加商品数量，后台查询库存，注意提示库存不足
  * @apiName IncreaseCart
  * @apiGroup Cart
- *
+ * @apiPermission user
+ * 
  * @apiParam {Number} id 购物车条目id;
  * @apiParam {Number} gid 商品id;
  * @apiParam {Number{1-库存MAX}} num 商品数量;
  *
  * @apiSampleRequest /api/cart/increase
  */
-router.put('/increase', function(req, res) {
+router.post('/increase', function(req, res) {
     let { id, gid, num } = req.body;
     // 检查库存
     let sql = `SELECT goods_num FROM cart WHERE id = ?;
@@ -114,17 +118,18 @@ router.put('/increase', function(req, res) {
 
 });
 /**
- * @api {put} /api/cart/decrease 购物车减少商品数量
+ * @api {post} /api/cart/decrease 购物车减少商品数量
  * @apiDescription 减少商品数量，前台注意约束num，商品数量>=1
  * @apiName DecreaseCart
  * @apiGroup Cart
- *
+ * @apiPermission user
+ * 
  * @apiParam {Number} id 购物车条目id;
  * @apiParam {Number{1-库存MAX}} num 商品数量;
  *
  * @apiSampleRequest /api/cart/decrease
  */
-router.put('/decrease', function(req, res) {
+router.post('/decrease', function(req, res) {
     let { id, num } = req.body;
     let sql = `UPDATE cart SET goods_num = goods_num - ? WHERE id = ?`;
     db.query(sql, [num, id], function(results, fields) {

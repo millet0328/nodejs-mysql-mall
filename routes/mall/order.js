@@ -8,6 +8,7 @@ let db = require('../../config/mysql');
  * @apiDescription 点击结算按钮之后传参至"确认订单"，此API返回"确认订单"页面需要的数据，此时订单需要用户确认商品价格、数量、支付金额，收货地址在此页面选择或者修改
  * @apiName SettleOrder
  * @apiGroup Order
+ * @apiPermission user
  * 
  * @apiParam {Number[]} goods 欲购买商品id，格式：[id1,id2,id3];
  * 
@@ -38,6 +39,7 @@ router.post('/settle', function (req, res) {
  * @apiDescription 在确认订单页面，提交订单按钮意味着将购物车中的商品转移到订单中，生成新的订单，称之为下单操作
  * @apiName CreateOrder
  * @apiGroup Order
+ * @apiPermission user
  * 
  * @apiParam {Number} payment 支付金额,小数点至2位;
  * @apiParam {Number} addressId 收货地址id;
@@ -154,6 +156,7 @@ router.post('/create', function (req, res) {
  * @apiDescription 本账户uid中的订单列表，根据订单状态获取列表，具备分页功能
  * @apiName OrderList
  * @apiGroup Order
+ * @apiPermission user
  * 
  * @apiParam {Number} [pageSize] 一个页有多少个商品,默认4个;
  * @apiParam {Number} [pageIndex] 第几页,默认1;

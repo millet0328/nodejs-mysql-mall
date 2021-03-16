@@ -124,6 +124,7 @@ router.put("/", function (req, res) {
  * @api {get} /api/category/sub 获取子级分类
  * @apiName subCategory
  * @apiGroup Category
+ * @apiPermission admin user
  *
  * @apiParam {Number} pId 父级分类id。注：获取一级分类pId = 1，获取根分类pId = 0;
  *

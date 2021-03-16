@@ -4,16 +4,16 @@ const router = express.Router();
 let db = require('../../config/mysql');
 
 /**
- * @api {post} /api/collection 添加商品至我的收藏
+ * @api {post} /api/collection/add 添加商品至我的收藏
  * @apiName CollectionAdd
  * @apiGroup Collection
  * @apiPermission user
  * 
  * @apiParam {Number} id 商品id.
  * 
- * @apiSampleRequest /api/collection
+ * @apiSampleRequest /api/collection/add
  */
-router.post("/", function (req, res) {
+router.post("/add", function (req, res) {
     let { id } = req.body;
     let { id: uid } = req.user;
     let sql = 'INSERT INTO collection ( uid, goods_id ) VALUES (?,?)';
@@ -27,17 +27,17 @@ router.post("/", function (req, res) {
 });
 
 /**
- * @api {delete} /api/collection 取消收藏的商品
+ * @api {post} /api/collection/remove 取消收藏的商品
  * @apiName CollectionRemove
  * @apiGroup Collection
  * @apiPermission user
  * 
  * @apiParam {Number} id 收藏条目id.
  * 
- * @apiSampleRequest /api/collection
+ * @apiSampleRequest /api/collection/remove
  */
-router.delete("/", function (req, res) {
-    let { id } = req.query;
+router.post("/remove", function (req, res) {
+    let { id } = req.body;
     let sql = 'DELETE FROM collection WHERE id = ?';
     db.query(sql, [id], function (results) {
         //成功
@@ -49,7 +49,7 @@ router.delete("/", function (req, res) {
 });
 
 /**
- * @api {get} /api/collection 获取所有收藏的商品
+ * @api {get} /api/collection/list 获取所有收藏的商品
  * @apiName CollectionList
  * @apiGroup Collection
  * @apiPermission user
@@ -62,9 +62,9 @@ router.delete("/", function (req, res) {
  * @apiSuccess {Number} marketPrice 市场价格.
  * @apiSuccess {String} img_md 商品图片.
  * 
- * @apiSampleRequest /api/collection
+ * @apiSampleRequest /api/collection/list
  */
-router.get("/", function (req, res) {
+router.get("/list", function (req, res) {
     let { id } = req.user;
     let sql = 'SELECT c.id, c.goods_id, g.name, g.hotPoint, g.price, g.marketPrice, g.img_md FROM collection c JOIN goods g ON c.goods_id = g.id WHERE uid = ?';
     db.query(sql, [id], function (results) {

@@ -29,6 +29,7 @@ let db = require('../../config/mysql');
  * @apiDescription 注册成功， 返回token, 请在头部headers中设置Authorization: `Bearer ${token}`,所有请求都必须携带token;
  * @apiName register
  * @apiGroup User
+ * @apiPermission user
  * 
  * @apiParam {String} username 用户账户名.
  * @apiParam {String} password 用户密码.
@@ -77,6 +78,7 @@ router.post('/register', function (req, res) {
  * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: `Bearer ${token}`, 所有请求都必须携带token;
  * @apiName login
  * @apiGroup User
+ * @apiPermission user
  * 
  * @apiParam {String} username 用户账户名.
  * @apiParam {String} password 用户密码.
@@ -118,6 +120,7 @@ router.post('/login', function (req, res) {
  * @api {get} /api/user/info 获取个人资料
  * @apiName UserInfo
  * @apiGroup User
+ * @apiPermission user
  * 
  * @apiSampleRequest /api/user/info
  */
@@ -136,18 +139,19 @@ router.get("/info", function (req, res) {
 });
 
 /**
- * @api { put } /api/user/info 更新个人资料
+ * @api { post } /api/user/edit 更新个人资料
  * @apiName infoUpdate
  * @apiGroup User
+ * @apiPermission user
  * 
  * @apiParam {String} nickname 昵称.
  * @apiParam {String} sex 性别.
  * @apiParam {String} avatar 头像.
  * @apiParam { String } tel 手机号码.
  * 
- * @apiSampleRequest /api/user/info
+ * @apiSampleRequest /api/user/edit
  */
-router.put("/info", function (req, res) {
+router.post("/info", function (req, res) {
     let { nickname, sex, avatar, tel } = req.body;
     let { id } = req.user;
     let sql = `UPDATE user SET nickname = ?,sex = ?,avatar = ? ,tel = ? WHERE id = ?`;
@@ -158,6 +162,5 @@ router.put("/info", function (req, res) {
         });
     });
 });
-
 
 module.exports = router;

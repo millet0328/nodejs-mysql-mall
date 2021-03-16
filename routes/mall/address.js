@@ -3,7 +3,7 @@ const router = express.Router();
 // 数据库
 let db = require('../../config/mysql');
 /**
- * @api {post} /api/address 添加收货地址
+ * @api {post} /api/address/add 添加收货地址
  * @apiName addressAdd
  * @apiGroup Address
  * @apiPermission user
@@ -18,9 +18,9 @@ let db = require('../../config/mysql');
  * @apiParam {String} code 邮编.
  * @apiParam {Number=1,0} isDefault 是否默认 1-默认,0-否.
  *
- * @apiSampleRequest /api/address/
+ * @apiSampleRequest /api/address/add
  */
-router.post('/', function (req, res) {
+router.post('/add', function (req, res) {
     let sql;
     let { name, tel, province_id, city_id, county_id, town_id, street, code, isDefault } = req.body;
     let { id } = req.user;
@@ -38,17 +38,17 @@ router.post('/', function (req, res) {
     });
 });
 /**
- * @api {delete} /api/address 删除收货地址
+ * @api {post} /api/address/remove 删除收货地址
  * @apiName addressDelete
  * @apiGroup Address
  * @apiPermission user
  * 
  * @apiParam {Number} id 收货地址id.
  *
- * @apiSampleRequest /api/address
+ * @apiSampleRequest /api/address/remove
  */
-router.delete("/", function (req, res) {
-    let { id } = req.query;
+router.post("/remove", function (req, res) {
+    let { id } = req.body;
     var sql = `DELETE FROM address WHERE id = ? `
     db.query(sql, [id], function (results) {
         res.json({
@@ -59,7 +59,7 @@ router.delete("/", function (req, res) {
     })
 })
 /**
- * @api {put} /api/address 修改收货地址
+ * @api {post} /api/address/edit 修改收货地址
  * @apiName addressUpdate
  * @apiGroup Address
  * @apiPermission user
@@ -75,9 +75,9 @@ router.delete("/", function (req, res) {
  * @apiParam {String} code 邮编.
  * @apiParam {Number=1,0} isDefault 是否默认.1-默认,0-否.
  *
- * @apiSampleRequest /api/address
+ * @apiSampleRequest /api/address/edit
  */
-router.put("/", function (req, res) {
+router.post("/edit", function (req, res) {
     let sql;
     let { id, name, tel, province_id, city_id, county_id, town_id, street, code, isDefault } = req.body;
     let { id:uid } = req.user;
@@ -131,8 +131,8 @@ router.get('/list', function (req, res) {
  * @apiSampleRequest /api/address
  */
 router.get("/", function (req, res) {
-    var sql = `SELECT * FROM address WHERE id = ? `;
     let { id } = req.query;
+    var sql = `SELECT * FROM address WHERE id = ? `;
     db.query(sql, [id], function (results) {
         if (!results.length) {
             res.json({

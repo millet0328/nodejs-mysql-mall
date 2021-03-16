@@ -14,9 +14,10 @@ const uuidv1 = require('uuid/v1');
 
 /**
  * @api {post} /api/upload/common 通用图片上传API
- * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，avatar存储至avatar文件夹,common存储至common文件夹，type=avatar图片必须是正方形，type=common不限制尺寸。
+ * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，avatar存储至avatar文件夹,common存储至common文件夹，type=avatar 图片必须是正方形，type=common 不限制尺寸。
  * @apiName uploadCommon
  * @apiGroup Upload Image
+ * @apiPermission user admin
  * 
  * @apiParam {File} file File文件对象;
  * @apiParam {String="common","avatar"} type 上传类型：avatar--头像上传；common--通用上传；
@@ -80,7 +81,7 @@ router.post("/common", upload.single('file'), async function (req, res) {
 });
 
 /**
- * @api {delete} /api/upload 删除图片API
+ * @api {post} /api/upload/remove 删除图片API
  * @apiDescription 如果上传错误的图片，通过此API删除错误的图片
  * @apiName uploadDelete
  * @apiGroup Upload Image
@@ -88,11 +89,11 @@ router.post("/common", upload.single('file'), async function (req, res) {
  * 
  * @apiParam {String} src 图片文件路径,注意图片路径必须是绝对路径，例：http://localhost:3003/images/path/to/photo.jpg
  *
- * @apiSampleRequest /api/upload
+ * @apiSampleRequest /api/upload/remove
  */
 
-router.delete('/', function (req, res) {
-	let { src } = req.query;
+router.post('/remove', function (req, res) {
+	let { src } = req.body;
 	src = src.replace(/.+\/images/, "./images");
 	let realPath = path.resolve(__dirname, '../../public/', src);
 	fs.unlink(realPath, function (err) {

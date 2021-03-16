@@ -29,22 +29,23 @@ let db = require('../../config/mysql');
  *
  * @apiSampleRequest /api/admin/goods
  */
-router.post("/", function (req, res) {
-    let { cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory, articleNo, img_lg, img_md, slider, brand, detail, freight } = req.body;
-    let sql =
-        `INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
-    db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
-        articleNo, img_lg, img_md, slider, brand, detail, freight
-    ], function (results) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            data: {
-                id: results.insertId
-            }
-        });
-    });
+router.post("/", function(req, res) {
+	let { cate_1st, cate_2nd, cate_3rd = 0, name, hotPoint, price, marketPrice, cost, discount, inventory,
+		articleNo, img_lg, img_md, slider, brand, detail, freight } = req.body;
+	let sql =
+		`INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
+	db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
+		articleNo, img_lg, img_md, slider, brand, detail, freight
+	], function(results) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: {
+				id: results.insertId
+			}
+		});
+	});
 });
 /**
  * @api {put} /api/admin/goods 编辑商品
@@ -73,20 +74,21 @@ router.post("/", function (req, res) {
  *
  * @apiSampleRequest /api/admin/goods
  */
-router.put("/", function (req, res) {
-    let { id, cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory, articleNo, img_lg, img_md, slider, brand, detail, freight } = req.body;
-    let sql =
-        `UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
-    db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
-        articleNo, img_lg, img_md, slider, brand, detail, freight, id
-    ], function (results) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            data: results[0]
-        });
-    });
+router.put("/", function(req, res) {
+	let { id, cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
+		articleNo, img_lg, img_md, slider, brand, detail, freight } = req.body;
+	let sql =
+		`UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
+	db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
+		articleNo, img_lg, img_md, slider, brand, detail, freight, id
+	], function(results) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results[0]
+		});
+	});
 });
 /**
  * @api {get} /api/admin/goods/list 获取商品列表
@@ -107,38 +109,38 @@ router.put("/", function (req, res) {
  * 
  * @apiSampleRequest /api/admin/goods/list
  */
-router.get("/list", function (req, res) {
-    let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, sortByPrice } = req.query;
-    //拼接SQL
-    let size = parseInt(pageSize);
-    let count = size * (pageIndex - 1);
-    let sql =
-        `SELECT SQL_CALC_FOUND_ROWS id,name,price,img_md,articleNo,inventory,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS`
-    if (cate_1st) {
-        sql += ` WHERE cate_1st = ${cate_1st}`;
-    }
-    if (cate_2nd) {
-        sql += ` WHERE cate_2nd = ${cate_2nd}`;
-    }
-    if (cate_3rd) {
-        sql += ` WHERE cate_3rd = ${cate_3rd}`;
-    }
-    if (sortByPrice) {
-        sql += ` ORDER BY price ${sortByPrice}`;
-    } else {
-        sql += ` ORDER BY create_time DESC`;
-    }
-    sql += ` LIMIT ${count},${size};SELECT FOUND_ROWS() as total;`
+router.get("/list", function(req, res) {
+	let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, sortByPrice } = req.query;
+	//拼接SQL
+	let size = parseInt(pageSize);
+	let count = size * (pageIndex - 1);
+	let sql =
+		`SELECT SQL_CALC_FOUND_ROWS id,name,price,img_md,articleNo,inventory,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS`
+	if (cate_1st) {
+		sql += ` WHERE cate_1st = ${cate_1st}`;
+	}
+	if (cate_2nd) {
+		sql += ` WHERE cate_2nd = ${cate_2nd}`;
+	}
+	if (cate_3rd) {
+		sql += ` WHERE cate_3rd = ${cate_3rd}`;
+	}
+	if (sortByPrice) {
+		sql += ` ORDER BY price ${sortByPrice}`;
+	} else {
+		sql += ` ORDER BY create_time DESC`;
+	}
+	sql += ` LIMIT ${count},${size};SELECT FOUND_ROWS() as total;`
 
-    db.query(sql, [], function (results) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            goods: results[0],
-            ...results[1][0],
-        });
-    });
+	db.query(sql, [], function(results) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			goods: results[0],
+			...results[1][0],
+		});
+	});
 });
 /**
  * @api {get} /api/admin/goods 获取商品详情
@@ -149,17 +151,17 @@ router.get("/list", function (req, res) {
  *
  * @apiSampleRequest /api/admin/goods
  */
-router.get("/", function (req, res) {
-    let { id } = req.query;
-    let sql = `SELECT * FROM GOODS WHERE id = ?`;
-    db.query(sql, [id], function (results) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            data: results[0]
-        });
-    });
+router.get("/", function(req, res) {
+	let { id } = req.query;
+	let sql = `SELECT * FROM GOODS WHERE id = ?`;
+	db.query(sql, [id], function(results) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results[0]
+		});
+	});
 });
 /**
  * @api {delete} /api/admin/goods 删除商品
@@ -171,15 +173,15 @@ router.get("/", function (req, res) {
  *
  * @apiSampleRequest /api/admin/goods
  */
-router.delete("/", function (req, res) {
-    let { id } = req.query;
-    let sql = `DELETE FROM GOODS WHERE id=?`;
-    db.query(sql, [id], function (results) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-        });
-    });
+router.delete("/", function(req, res) {
+	let { id } = req.query;
+	let sql = `DELETE FROM GOODS WHERE id=?`;
+	db.query(sql, [id], function(results) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+		});
+	});
 });
 module.exports = router;
