@@ -5,7 +5,7 @@ let db = require('../../config/mysql');
 
 /**
  * @api {get} /api/goods/list 获取商品列表
- * @apiDescription 具备商品分页功能，3个分类id参数至多能传1个，默认按照商品创建时间升序排序
+ * @apiDescription 具备搜索、分页功能，3个分类id参数至多能传1个，默认按照商品创建时间升序排序
  * @apiName GoodsList 获取商品列表
  * @apiGroup Goods
  * @apiPermission user
@@ -15,6 +15,7 @@ let db = require('../../config/mysql');
  * @apiParam {Number} [cate_1st] 一级分类id;
  * @apiParam {Number} [cate_2nd] 二级分类id;
  * @apiParam {Number} [cate_3rd] 三级分类id;
+ * @apiParam {String} [keyword] 搜索关键词;
  * @apiParam {String="ASC","DESC"} [sortByPrice] 按照价格排序，从小到大-ASC,从大到小-DESC;
  * 
  * @apiSuccess {Object[]} goods 商品数组.
@@ -22,21 +23,24 @@ let db = require('../../config/mysql');
  * 
  * @apiSampleRequest /api/goods/list
  */
-router.get("/list", function (req, res) {
-	let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, sortByPrice } = req.query;
+router.get("/list", function(req, res) {
+	let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, keyword, sortByPrice } = req.query;
 	//拼接SQL
 	let size = parseInt(pageSize);
 	let count = size * (pageIndex - 1);
 	let sql =
-		`SELECT SQL_CALC_FOUND_ROWS id,name,price,img_md,articleNo,inventory,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS`
+		`SELECT SQL_CALC_FOUND_ROWS id,name,price,img_md,articleNo,inventory,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS WHERE 1 = 1`
 	if (cate_1st) {
-		sql += ` WHERE cate_1st = ${cate_1st}`;
+		sql += ` AND cate_1st = ${cate_1st}`;
 	}
 	if (cate_2nd) {
-		sql += ` WHERE cate_2nd = ${cate_2nd}`;
+		sql += ` AND cate_2nd = ${cate_2nd}`;
 	}
 	if (cate_3rd) {
-		sql += ` WHERE cate_3rd = ${cate_3rd}`;
+		sql += ` AND cate_3rd = ${cate_3rd}`;
+	}
+	if (keyword) {
+		sql += ` AND name LIKE '%${keyword}%'`;
 	}
 	if (sortByPrice) {
 		sql += ` ORDER BY price ${sortByPrice}`;
@@ -45,7 +49,7 @@ router.get("/list", function (req, res) {
 	}
 	sql += ` LIMIT ${count},${size};SELECT FOUND_ROWS() as total;`
 
-	db.query(sql, [], function (results, fields) {
+	db.query(sql, [], function(results, fields) {
 		//成功
 		res.json({
 			status: true,
@@ -65,14 +69,14 @@ router.get("/list", function (req, res) {
  *
  * @apiSampleRequest /api/goods/detail
  */
-router.get("/detail", function (req, res) {
+router.get("/detail", function(req, res) {
 	let { id } = req.query;
 	let { openid } = req.user;
 	let sql = `
 	SELECT id, name, price, hotPoint, marketPrice, discount, img_md, slider, detail FROM GOODS WHERE id = ?;
 	SELECT * FROM collection WHERE goods_id = ? AND uid = ?;
 	`
-	db.query(sql, [id, id, openid], function (results) {
+	db.query(sql, [id, id, openid], function(results) {
 		if (results[1].length) {
 			results[0][0].isCollected = true;
 		} else {
