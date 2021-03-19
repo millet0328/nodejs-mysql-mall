@@ -151,7 +151,7 @@ router.get("/info", function (req, res) {
  * 
  * @apiSampleRequest /api/user/edit
  */
-router.post("/info", function (req, res) {
+router.post("/edit", function (req, res) {
     let { nickname, sex, avatar, tel } = req.body;
     let { id } = req.user;
     let sql = `UPDATE user SET nickname = ?,sex = ?,avatar = ? ,tel = ? WHERE id = ?`;

@@ -15,28 +15,28 @@ let db = require('../../config/mysql');
  * @apiSampleRequest /api/cart/add
  */
 router.post('/add', function(req, res) {
-    let { gid, num } = req.body;
-    let { id } = req.user;
-    // 检查购物车是否已经有此商品
-    let sql = `SELECT * FROM cart WHERE goods_id = ?`;
-    db.query(sql, [gid], function(results, fields) {
-        // 没有此商品,插入新纪录
-        sql =
-            `INSERT INTO cart ( uid , goods_id , goods_num , create_time )
+	let { gid, num } = req.body;
+	let { id } = req.user;
+	// 检查购物车是否已经有此商品
+	let sql = `SELECT * FROM cart WHERE goods_id = ?`;
+	db.query(sql, [gid], function(results, fields) {
+		// 没有此商品,插入新纪录
+		sql =
+			`INSERT INTO cart ( uid , goods_id , goods_num , create_time )
 			VALUES ( '${id}' , ${gid} , ${num} ,CURRENT_TIMESTAMP())`;
-        // 已有此商品，增加数量
-        if (results.length > 0) {
-            sql =
-                `UPDATE cart SET goods_num = goods_num + ${num} WHERE goods_id = ${gid} AND uid = '${id}'`;
-        }
-        db.query(sql, function(results, fields) {
-            //成功
-            res.json({
-                status: true,
-                msg: "success!"
-            });
-        });
-    });
+		// 已有此商品，增加数量
+		if (results.length > 0) {
+			sql =
+				`UPDATE cart SET goods_num = goods_num + ${num} WHERE goods_id = ${gid} AND uid = '${id}'`;
+		}
+		db.query(sql, function(results, fields) {
+			//成功
+			res.json({
+				status: true,
+				msg: "success!"
+			});
+		});
+	});
 });
 /**
  * @api {get} /api/cart/list 获取购物车列表
@@ -47,16 +47,17 @@ router.post('/add', function(req, res) {
  * @apiSampleRequest /api/cart/list
  */
 router.get('/list', function(req, res) {
-    let { id } = req.user;
-    let sql =`SELECT c.id, c.goods_id, g.img_md AS img, g.name, g.price, c.goods_num FROM cart c JOIN goods g WHERE c.uid = ? AND c.goods_id = g.id`;
-    db.query(sql, [id], function(results, fields) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            data: results
-        });
-    });
+	let { id } = req.user;
+	let sql =
+		`SELECT c.id, c.goods_id, g.img_md AS img, g.name, g.price, c.goods_num FROM cart c JOIN goods g WHERE c.uid = ? AND c.goods_id = g.id`;
+	db.query(sql, [id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: results
+		});
+	});
 });
 /**
  * @api {post} /api/cart/remove 购物车删除商品
@@ -69,15 +70,15 @@ router.get('/list', function(req, res) {
  * @apiSampleRequest /api/cart/remove
  */
 router.post('/remove', function(req, res) {
-    let { id } = req.body;
-    let sql = `DELETE FROM cart WHERE id = ?`;
-    db.query(sql, [id], function(results, fields) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-        });
-    });
+	let { id } = req.body;
+	let sql = `DELETE FROM cart WHERE id = ?`;
+	db.query(sql, [id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+		});
+	});
 });
 /**
  * @api {post} /api/cart/increase 购物车增加商品数量
@@ -88,33 +89,33 @@ router.post('/remove', function(req, res) {
  * 
  * @apiParam {Number} id 购物车条目id;
  * @apiParam {Number} gid 商品id;
- * @apiParam {Number{1-库存MAX}} num 商品数量;
+ * @apiParam {Number{1-库存MAX}} [num=1] 增加的数量;
  *
  * @apiSampleRequest /api/cart/increase
  */
 router.post('/increase', function(req, res) {
-    let { id, gid, num } = req.body;
-    // 检查库存
-    let sql = `SELECT goods_num FROM cart WHERE id = ?;
+	let { id, gid, num = 1 } = req.body;
+	// 检查库存
+	let sql = `SELECT goods_num FROM cart WHERE id = ?;
 	SELECT inventory FROM goods WHERE id = ?`;
-    db.query(sql, [id, gid], function(results, fields) {
-        let isEmpty = results[1][0].inventory - results[0][0].goods_num - num >= 0 ? false : true;
-        if (isEmpty) {
-            res.json({
-                status: false,
-                msg: "库存不足!"
-            });
-            return;
-        }
-        let sql = `UPDATE cart SET goods_num = goods_num + ? WHERE id = ?`;
-        db.query(sql, [num, id], function(results, fields) {
-            //成功
-            res.json({
-                status: true,
-                msg: "success!",
-            });
-        });
-    });
+	db.query(sql, [id, gid], function(results, fields) {
+		let isEmpty = results[1][0].inventory - results[0][0].goods_num - num >= 0 ? false : true;
+		if (isEmpty) {
+			res.json({
+				status: false,
+				msg: "库存不足!"
+			});
+			return;
+		}
+		let sql = `UPDATE cart SET goods_num = goods_num + ? WHERE id = ?`;
+		db.query(sql, [num, id], function(results, fields) {
+			//成功
+			res.json({
+				status: true,
+				msg: "success!",
+			});
+		});
+	});
 
 });
 /**
@@ -125,20 +126,20 @@ router.post('/increase', function(req, res) {
  * @apiPermission user
  * 
  * @apiParam {Number} id 购物车条目id;
- * @apiParam {Number{1-库存MAX}} num 商品数量;
+ * @apiParam {Number{1-库存MAX}} [num=1] 减少的数量;
  *
  * @apiSampleRequest /api/cart/decrease
  */
 router.post('/decrease', function(req, res) {
-    let { id, num } = req.body;
-    let sql = `UPDATE cart SET goods_num = goods_num - ? WHERE id = ?`;
-    db.query(sql, [num, id], function(results, fields) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-        });
-    });
+	let { id, num = 1 } = req.body;
+	let sql = `UPDATE cart SET goods_num = goods_num - ? WHERE id = ?`;
+	db.query(sql, [num, id], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+		});
+	});
 });
 
 module.exports = router;
