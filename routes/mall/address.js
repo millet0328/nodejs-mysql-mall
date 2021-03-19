@@ -7,7 +7,7 @@ let db = require('../../config/mysql');
  * @apiName addressAdd
  * @apiGroup Address
  * @apiPermission user
- * 
+ *
  * @apiParam {String} name 收货人姓名.
  * @apiParam {String} tel 电话.
  * @apiParam {Number} province_id 省份id.
@@ -42,7 +42,7 @@ router.post('/add', function (req, res) {
  * @apiName addressDelete
  * @apiGroup Address
  * @apiPermission user
- * 
+ *
  * @apiParam {Number} id 收货地址id.
  *
  * @apiSampleRequest /api/address/remove
@@ -63,7 +63,7 @@ router.post("/remove", function (req, res) {
  * @apiName addressUpdate
  * @apiGroup Address
  * @apiPermission user
- 
+
  * @apiParam {Number} id 收货地址id.
  * @apiParam {String} name 收货人姓名.
  * @apiParam {String} tel 电话.
@@ -99,7 +99,7 @@ router.post("/edit", function (req, res) {
  * @apiName addressList
  * @apiGroup Address
  * @apiPermission user
- * 
+ *
  * @apiSampleRequest /api/address/list
  */
 router.get('/list', function (req, res) {
@@ -125,14 +125,14 @@ router.get('/list', function (req, res) {
  * @apiName addressDetail
  * @apiGroup Address
  * @apiPermission user
- * 
+ *
  * @apiParam {Number} id 收货地址id.
  *
  * @apiSampleRequest /api/address
  */
 router.get("/", function (req, res) {
     let { id } = req.query;
-    var sql = `SELECT * FROM address WHERE id = ? `;
+    var sql = 'SELECT a.*, p.`name` AS province_name, c.`name` AS city_name, ct.`name` AS county_name, t.`name` AS town_name FROM address a JOIN province p ON p.province_id = a.province_id JOIN city c ON c.city_id = a.city_id JOIN county ct ON ct.county_id = a.county_id JOIN town t ON t.town_id = a.town_id WHERE id = ? ';
     db.query(sql, [id], function (results) {
         if (!results.length) {
             res.json({
