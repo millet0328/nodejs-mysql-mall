@@ -221,13 +221,6 @@ router.get("/", function (req, res) {
 	let sql =
 		`SELECT a.id,a.username,a.fullname,a.email,a.sex,a.avatar,a.tel,r.role_name,r.id AS role FROM ADMIN AS a LEFT JOIN admin_role AS ar ON a.id = ar.admin_id LEFT JOIN role AS r ON r.id = ar.role_id WHERE a.id = ?`;
 	db.query(sql, [id], function (results) {
-		if (!results.length) {
-			res.json({
-				status: false,
-				msg: "获取失败！"
-			});
-			return false;
-		}
 		// 获取成功
 		res.json({
 			status: true,

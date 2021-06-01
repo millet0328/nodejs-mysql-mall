@@ -83,7 +83,7 @@ router.delete("/", function (req, res) {
             return;
         }
         // 有分类图片
-        src = '.' + results[0][0].img;
+        src = src.replace(/.+\/images/, "./images");
         let realPath = path.resolve(__dirname, '../../public/', src);
         fs.unlink(realPath, function (err) {
             if (err) {

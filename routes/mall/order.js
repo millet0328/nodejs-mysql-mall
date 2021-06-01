@@ -160,44 +160,46 @@ router.post('/create', function (req, res) {
  * 
  * @apiParam {Number} [pageSize] 一个页有多少个商品,默认4个;
  * @apiParam {Number} [pageIndex] 第几页,默认1;
- * @apiParam {Number=0,3,4,5} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价;
+ * @apiParam {Number=0,3,4,5,all} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价，all-所有状态;
  * 
  * @apiSampleRequest /api/order/list
  */
 router.get('/list', function (req, res) {
-	let { pageSize = 4, pageIndex = 1, status } = req.query;
+	let { pageSize = 4, pageIndex = 1, status = 'all' } = req.query;
 	let { id } = req.user;
 	let size = parseInt(pageSize);
 	let count = size * (pageIndex - 1);
-	// 查询订单信息
+	// 查询所有订单
 	let sql =
 		`SELECT o.id, o.create_time, o.payment, os.text AS status
 		 FROM orders o JOIN order_status os ON o.order_state = os.CODE
-		 WHERE o.uid = ? AND o.order_state = ? LIMIT ?, ?`;
-	db.query(sql, [id, status, count, size], function (results, fields) {
+		 WHERE o.uid = ? ORDER BY o.create_time DESC LIMIT ? OFFSET ? `;
+	 // 根据订单状态查询
+	 if (status != 'all') {
+		sql =
+			`SELECT o.id, o.create_time, o.payment, os.text AS status
+			 FROM orders o JOIN order_status os ON o.order_state = os.CODE
+			 WHERE o.uid = ? AND o.order_state = ${status} ORDER BY o.create_time DESC LIMIT ? OFFSET ?`;
+	 }
+	db.query(sql, [id, size, count], function (orders, fields) {
 		// 查询订单商品信息
-		let data = results;
 		let sql =
 			`SELECT g.id, o.id AS order_id, g.name, g.img_md, og.goods_num, og.goods_price
 			 FROM orders o JOIN order_goods og ON o.id = og.order_id
 			 JOIN goods g ON g.id = og.goods_id
-			 WHERE o.uid = ? AND o.order_state = ?`;
-		db.query(sql, [id, status], (results, fields) => {
-			data.forEach((order) => {
-				if (!order.goodsList) {
-					order.goodsList = [];
-				}
-				results.forEach((goods) => {
-					if (order.id == goods.order_id) {
-						order.goodsList.push(goods);
-					}
-				});
+			 WHERE o.uid = ?`;
+		if (status != 'all') {
+			sql += ` AND o.order_state = ${status}`;
+		}
+		db.query(sql, [id], (goods, fields) => {
+			orders.forEach((order) => {
+				order.goodsList = goods.filter((item) => order.id == item.order_id);
 			});
 			//成功
 			res.json({
 				status: true,
 				msg: "success!",
-				data
+				orders
 			});
 		});
 	});
