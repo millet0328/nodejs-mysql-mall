@@ -54,7 +54,7 @@ router.post('/register', function(req, res) {
 		}
 		let defaultAvatar = process.env.server + '/images/avatar/default.jpg';
 		let sql =
-			`INSERT INTO user (username,password,nickname,sex,avatar,tel,create_time) VALUES (?,?,?,?,?,CURRENT_TIMESTAMP())`;
+			`INSERT INTO user (username,password,nickname,sex,avatar,tel,create_time) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP())`;
 		db.query(sql, [username, password, username, sex, defaultAvatar, tel], function(results) {
 			let { insertId } = results;
 			// 生成token

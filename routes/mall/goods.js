@@ -23,41 +23,41 @@ const jwt = require('express-jwt');
  *
  * @apiSampleRequest /api/goods/list
  */
-router.get("/list", function (req, res) {
-    let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, keyword, sortByPrice } = req.query;
-    //拼接SQL
-    let size = parseInt(pageSize);
-    let count = size * ( pageIndex - 1 );
-    let sql =
-        `SELECT SQL_CALC_FOUND_ROWS id,name,price,img_md,articleNo,inventory,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS WHERE 1 = 1`
-    if (cate_1st) {
-        sql += ` AND cate_1st = ${ cate_1st }`;
-    }
-    if (cate_2nd) {
-        sql += ` AND cate_2nd = ${ cate_2nd }`;
-    }
-    if (cate_3rd) {
-        sql += ` AND cate_3rd = ${ cate_3rd }`;
-    }
-    if (keyword) {
-        sql += ` AND name LIKE '%${ keyword }%'`;
-    }
-    if (sortByPrice) {
-        sql += ` ORDER BY price ${ sortByPrice }`;
-    } else {
-        sql += ` ORDER BY create_time DESC`;
-    }
-    sql += ` LIMIT ${ count },${ size };SELECT FOUND_ROWS() as total;`
+router.get("/list", function(req, res) {
+	let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, keyword, sortByPrice } = req.query;
+	//拼接SQL
+	let size = parseInt(pageSize);
+	let count = size * (pageIndex - 1);
+	let sql =
+		`SELECT SQL_CALC_FOUND_ROWS id,name,price,img_md,articleNo,hotPoint,inventory,DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS WHERE 1 = 1`
+	if (cate_1st) {
+		sql += ` AND cate_1st = ${ cate_1st }`;
+	}
+	if (cate_2nd) {
+		sql += ` AND cate_2nd = ${ cate_2nd }`;
+	}
+	if (cate_3rd) {
+		sql += ` AND cate_3rd = ${ cate_3rd }`;
+	}
+	if (keyword) {
+		sql += ` AND name LIKE '%${ keyword }%'`;
+	}
+	if (sortByPrice) {
+		sql += ` ORDER BY price ${ sortByPrice }`;
+	} else {
+		sql += ` ORDER BY create_time DESC`;
+	}
+	sql += ` LIMIT ${ count },${ size };SELECT FOUND_ROWS() as total;`
 
-    db.query(sql, [], function (results, fields) {
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            goods: results[0],
-            ...results[1][0],
-        });
-    });
+	db.query(sql, [], function(results, fields) {
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			goods: results[0],
+			...results[1][0],
+		});
+	});
 });
 /**
  * @api {get} /api/goods/detail 获取商品详情
@@ -71,28 +71,29 @@ router.get("/list", function (req, res) {
  *
  * @apiSampleRequest /api/goods/detail
  */
-router.get("/detail", function (req, res) {
-    let { id, uid } = req.query;
-    let sql = `SELECT id, name, price, hotPoint, marketPrice, discount, img_md, slider, detail FROM GOODS WHERE id = ?;`
-    //判断是否登录用户？
-    if (uid) {
-        sql += `SELECT * FROM collection WHERE goods_id = ? AND uid = ${ uid };`
-    }
-    db.query(sql, [id, id], function (results) {
-        let goods = {};
-        if (uid) {
-            goods = results[0][0];
-        } else {
-            goods = results[0];
-        }
-        goods.isCollected = Array.isArray(results[1]) && results[1].length > 0;
-        //成功
-        res.json({
-            status: true,
-            msg: "success!",
-            data: goods
-        });
-    });
+router.get("/detail", function(req, res) {
+	let { id, uid } = req.query;
+	let sql =
+		`SELECT id, name, price, hotPoint, marketPrice, discount, img_md, slider, detail FROM GOODS WHERE id = ?;`
+	//判断是否登录用户？
+	if (uid) {
+		sql += `SELECT * FROM collection WHERE goods_id = ? AND uid = ${ uid };`
+	}
+	db.query(sql, [id, id], function(results) {
+		let goods = {};
+		if (uid) {
+			goods = results[0][0];
+		} else {
+			goods = results[0];
+		}
+		goods.isCollected = Array.isArray(results[1]) && results[1].length > 0;
+		//成功
+		res.json({
+			status: true,
+			msg: "success!",
+			data: goods
+		});
+	});
 });
 
 module.exports = router;
