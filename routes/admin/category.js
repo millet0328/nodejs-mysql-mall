@@ -13,7 +13,7 @@ const path = require("path");
  * @apiSampleRequest /api/category/all
  */
 router.get("/all", function (req, res) {
-    let sql = `SELECT * FROM category `;
+    let sql = `SELECT * FROM CATEGORY `;
     db.query(sql, [], function (results, fields) {
         //成功
         res.json({
@@ -25,7 +25,7 @@ router.get("/all", function (req, res) {
 });
 /**
  * @api {post} /api/category 添加子分类
- * @apiName addCategory
+ * @apiName categoryAdd
  * @apiGroup admin-Category
  * @apiPermission admin
  *
@@ -37,16 +37,8 @@ router.get("/all", function (req, res) {
  * @apiSampleRequest /api/category
  */
 router.post("/", function (req, res) {
-    let {name, pId, level, img} = req.body;
-    // 图片img为空
-    if (!img) {
-        res.json({
-            status: false,
-            msg: "请上传分类图片!",
-        });
-        return;
-    }
-    let sql = `INSERT INTO category (name,pId,level,img) VALUES (?,?,?,?) `;
+    let { name, pId, level, img } = req.body;
+    let sql = `INSERT INTO CATEGORY (name,pId,level,img) VALUES (?,?,?,?) `;
     db.query(sql, [name, pId, level, img], function (results, fields) {
         //成功
         res.json({
@@ -59,46 +51,59 @@ router.post("/", function (req, res) {
     });
 });
 /**
- * @api {delete} /api/category 删除分类
- * @apiName removeCategory
+ * @api {delete} /api/category/:id 删除分类
+ * @apiName categoryDelete
  * @apiGroup admin-Category
  * @apiPermission admin
  *
  * @apiParam {Number} id 分类id.
  *
+ * @apiExample {js} 参数示例:
+ * /api/category/3
+ *
  * @apiSampleRequest /api/category
  */
-router.delete("/", function (req, res) {
-    let {id} = req.query;
-    let sql = `SELECT img FROM category WHERE id = ?;DELETE FROM category WHERE id = ?`;
-    db.query(sql, [id, id], function (results, fields) {
-        let src = results[0][0].img;
-        // 如果没有分类图片
-        if (!src) {
-            //成功
+router.delete("/:id", function (req, res) {
+    let { id } = req.params;
+    let checkSQL = 'SELECT * FROM category WHERE pId = ?';
+    db.query(checkSQL, [id], function (results, fields) {
+        if (results.length > 0) {
             res.json({
-                status: true,
-                msg: "success!"
+                status: false,
+                msg: "拥有子级分类，不允许删除！"
             });
             return;
         }
-        // 有分类图片
-        src = src.replace(/.+\/images/, "./images");
-        let realPath = path.resolve(__dirname, '../../public/', src);
-        fs.unlink(realPath, function (err) {
-            if (err) {
-                return console.error(err);
+        let sql = `SELECT img FROM category WHERE id = ?;DELETE FROM CATEGORY WHERE id = ?`;
+        db.query(sql, [id, id], function (results, fields) {
+            let src = results[0][0].img;
+            // 如果没有分类图片
+            if (!src) {
+                //成功
+                res.json({
+                    status: true,
+                    msg: "success!"
+                });
+                return;
             }
-            //成功
-            res.json({
-                status: true,
-                msg: "success!"
+            // 有分类图片
+            src = src.replace(/.+\/images/, "./images");
+            let realPath = path.resolve(__dirname, '../../public/', src);
+            fs.unlink(realPath, function (err) {
+                if (err) {
+                    return console.error(err);
+                }
+                //成功
+                res.json({
+                    status: true,
+                    msg: "success!"
+                });
             });
         });
     });
 });
 /**
- * @api {put} /api/category 更新分类
+ * @api {put} /api/category/:id 更新分类
  * @apiName updateCategory
  * @apiGroup admin-Category
  * @apiPermission admin
@@ -107,11 +112,15 @@ router.delete("/", function (req, res) {
  * @apiParam {String} name 分类名称.
  * @apiParam {String} img 分类图片src地址.
  *
+ * @apiExample {js} 参数示例:
+ * /api/category/3
+ *
  * @apiSampleRequest /api/category
  */
-router.put("/", function (req, res) {
-    let {id, name, img} = req.body;
-    let sql = `UPDATE category SET name = ? , img = ? WHERE id = ? `;
+router.put("/:id", function (req, res) {
+    let { id } = req.params;
+    let { name, img } = req.body;
+    let sql = `UPDATE CATEGORY SET name = ? , img = ? WHERE id = ? `;
     db.query(sql, [name, img, id], function (results, fields) {
         //成功
         res.json({
@@ -122,7 +131,7 @@ router.put("/", function (req, res) {
 });
 /**
  * @api {get} /api/category/sub 获取子级分类
- * @apiName subCategory
+ * @apiName categorySub
  * @apiGroup Category
  * @apiPermission admin user
  *
@@ -132,7 +141,7 @@ router.put("/", function (req, res) {
  */
 router.get("/sub", function (req, res) {
     let { pId } = req.query;
-    let sql = `SELECT * FROM category WHERE pId = ? `;
+    let sql = `SELECT * FROM CATEGORY WHERE pId = ? `;
     db.query(sql, [pId], function (results, fields) {
         //成功
         res.json({

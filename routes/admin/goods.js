@@ -11,7 +11,7 @@ let db = require('../../config/mysql');
  *
  * @apiParam {Number} cate_1st 一级分类id;
  * @apiParam {Number} cate_2nd 二级分类id;
- * @apiParam {Number} [cate_3rd] 三级分类id;
+ * @apiParam {Number} [cate_3rd] 三级分类id，无此分类，id = 0;
  * @apiParam {String} name 商品名称;
  * @apiParam {String} [hotPoint] 商品热点描述;
  * @apiParam {Number} price 商品价格;
@@ -30,10 +30,7 @@ let db = require('../../config/mysql');
  * @apiSampleRequest /api/admin/goods
  */
 router.post("/", function (req, res) {
-    let {
-        cate_1st, cate_2nd, cate_3rd = 0, name, hotPoint, price, marketPrice, cost, discount, inventory,
-        articleNo, img_lg, img_md, slider, brand, detail, freight
-    } = req.body;
+    let { cate_1st, cate_2nd, cate_3rd = 0, name, hotPoint, price, marketPrice, cost, discount, inventory, articleNo, img_lg, img_md, slider, brand, detail, freight } = req.body;
     let sql =
         `INSERT INTO GOODS (cate_1st,cate_2nd,cate_3rd,name,hotPoint,price,marketPrice,cost,discount,inventory,articleNo,img_lg,img_md,slider,brand,detail,freight,create_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP()) `;
     db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
@@ -50,7 +47,7 @@ router.post("/", function (req, res) {
     });
 });
 /**
- * @api {put} /api/admin/goods 编辑商品
+ * @api {put} /api/admin/goods/:id 编辑商品
  * @apiName goodsEdit
  * @apiGroup admin Goods
  * @apiPermission admin
@@ -74,13 +71,14 @@ router.post("/", function (req, res) {
  * @apiParam {String} detail 商品详情,一般存储为HTML代码;
  * @apiParam {Number} freight 商品运费;
  *
+ * @apiExample {js} 参数示例:
+ * /api/admin/goods/3
+ *
  * @apiSampleRequest /api/admin/goods
  */
-router.put("/", function (req, res) {
-    let {
-        id, cate_1st, cate_2nd, cate_3rd = 0, name, hotPoint, price, marketPrice, cost, discount, inventory,
-        articleNo, img_lg, img_md, slider, brand, detail, freight
-    } = req.body;
+router.put("/:id", function (req, res) {
+    let { id } = req.params;
+    let { cate_1st, cate_2nd, cate_3rd = 0, name, hotPoint, price, marketPrice, cost, discount, inventory, articleNo, img_lg, img_md, slider, brand, detail, freight } = req.body;
     let sql =
         `UPDATE GOODS SET cate_1st=?,cate_2nd=?,cate_3rd=?,name=?,hotPoint=?,price=?,marketPrice=?,cost=?,discount=?,inventory=?,articleNo=?,img_lg=?,img_md=?,slider=?,brand=?,detail=?,freight=?,update_time = CURRENT_TIMESTAMP() WHERE id=?`;
     db.query(sql, [cate_1st, cate_2nd, cate_3rd, name, hotPoint, price, marketPrice, cost, discount, inventory,
@@ -118,27 +116,27 @@ router.get("/list", function (req, res) {
     let { pageSize = 4, pageIndex = 1, cate_1st, cate_2nd, cate_3rd, keyword, sortByPrice } = req.query;
     //拼接SQL
     let size = parseInt(pageSize);
-    let count = size * (pageIndex - 1);
+    let count = size * ( pageIndex - 1 );
     let sql =
         `SELECT SQL_CALC_FOUND_ROWS *, DATE_FORMAT(create_time,'%Y-%m-%d %H:%i:%s') AS create_time FROM GOODS WHERE 1 = 1`
     if (cate_1st) {
-        sql += ` AND cate_1st = ${cate_1st}`;
+        sql += ` AND cate_1st = ${ cate_1st }`;
     }
     if (cate_2nd) {
-        sql += ` AND cate_2nd = ${cate_2nd}`;
+        sql += ` AND cate_2nd = ${ cate_2nd }`;
     }
     if (cate_3rd) {
-        sql += ` AND cate_3rd = ${cate_3rd}`;
+        sql += ` AND cate_3rd = ${ cate_3rd }`;
     }
     if (keyword) {
-        sql += ` AND name LIKE '%${keyword}%'`;
+        sql += ` AND name LIKE '%${ keyword }%'`;
     }
     if (sortByPrice) {
-        sql += ` ORDER BY price ${sortByPrice}`;
+        sql += ` ORDER BY price ${ sortByPrice }`;
     } else {
         sql += ` ORDER BY create_time DESC`;
     }
-    sql += ` LIMIT ${count},${size};SELECT FOUND_ROWS() as total;`
+    sql += ` LIMIT ${ count },${ size };SELECT FOUND_ROWS() as total;`
 
     db.query(sql, [], function (results) {
         //成功
@@ -154,6 +152,7 @@ router.get("/list", function (req, res) {
  * @api {get} /api/admin/goods 获取商品详情
  * @apiName GoodsDetail
  * @apiGroup admin Goods
+ * @apiPermission admin
  *
  * @apiParam {Number} id 商品id;
  *
@@ -172,17 +171,20 @@ router.get("/", function (req, res) {
     });
 });
 /**
- * @api {delete} /api/admin/goods 删除商品
+ * @api {delete} /api/admin/goods/:id 删除商品
  * @apiName GoodsDelete
  * @apiGroup admin Goods
  * @apiPermission admin
  *
  * @apiParam {Number} id 商品id;
  *
+ * @apiExample {js} 参数示例:
+ * /api/admin/goods/3
+ *
  * @apiSampleRequest /api/admin/goods
  */
-router.delete("/", function (req, res) {
-    let { id } = req.query;
+router.delete("/:id", function (req, res) {
+    let { id } = req.params;
     let sql = `DELETE FROM GOODS WHERE id=?`;
     db.query(sql, [id], function (results) {
         //成功
