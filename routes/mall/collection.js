@@ -8,9 +8,9 @@ let db = require('../../config/mysql');
  * @apiName CollectionAdd
  * @apiGroup Collection
  * @apiPermission user
- * 
+ *
  * @apiParam {Number} id 商品id.
- * 
+ *
  * @apiSampleRequest /api/collection/add
  */
 router.post("/add", function (req, res) {
@@ -31,15 +31,16 @@ router.post("/add", function (req, res) {
  * @apiName CollectionRemove
  * @apiGroup Collection
  * @apiPermission user
- * 
- * @apiParam {Number} id 收藏条目id.
- * 
+ *
+ * @apiParam {Number} id 商品id.
+ *
  * @apiSampleRequest /api/collection/remove
  */
 router.post("/remove", function (req, res) {
     let { id } = req.body;
-    let sql = 'DELETE FROM collection WHERE id = ?';
-    db.query(sql, [id], function (results) {
+    let { id: uid } = req.user;
+    let sql = 'DELETE FROM collection WHERE uid = ? and goods_id = ?';
+    db.query(sql, [uid, id], function (results) {
         //成功
         res.json({
             status: true,
@@ -53,7 +54,7 @@ router.post("/remove", function (req, res) {
  * @apiName CollectionList
  * @apiGroup Collection
  * @apiPermission user
- * 
+ *
  * @apiSuccess {Number} id 收藏条目id.
  * @apiSuccess {Number} goods_id 商品id.
  * @apiSuccess {String} name 商品名称.
@@ -61,7 +62,7 @@ router.post("/remove", function (req, res) {
  * @apiSuccess {Number} price 价格.
  * @apiSuccess {Number} marketPrice 市场价格.
  * @apiSuccess {String} img_md 商品图片.
- * 
+ *
  * @apiSampleRequest /api/collection/list
  */
 router.get("/list", function (req, res) {
