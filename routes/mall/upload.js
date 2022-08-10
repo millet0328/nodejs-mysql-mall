@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 // 文件模块
-const fs = require('fs');
+const fs = require('fs/promises');
 // 文件路径
 const path = require('path');
 //文件传输
@@ -10,30 +10,38 @@ const upload = multer();
 //图片处理
 const sharp = require('sharp');
 //uuid
-const uuidv1 = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
 
 /**
- * @api {post} /api/upload/common 通用图片上传API
- * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，avatar存储至avatar文件夹,common存储至common文件夹，type=avatar 图片必须是正方形，type=common 不限制尺寸。
+ * @apiDefine Authorization
+ * @apiHeader {String} Authorization 需在请求headers中设置Authorization: `Bearer ${token}`，小程序登录成功code换取的token。
+ */
+
+/**
+ * @api {post} /upload/common 通用图片上传API
+ * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，avatar存储至avatar文件夹,common存储至common文件夹，type=avatar图片必须是正方形，type=common不限制尺寸。
  * @apiName uploadCommon
- * @apiGroup Upload Image
+ * @apiGroup Upload
  * @apiPermission user admin
- * 
- * @apiParam {File} file File文件对象;
- * @apiParam {String="common","avatar"} type 上传类型：avatar--头像上传；common--通用上传；
- * 
- * @apiSampleRequest /api/upload/common
- * 
+ *
+ * @apiUse Authorization
+ *
+ * @apiBody {File} file File文件对象;
+ * @apiBody {String="common","avatar"} type 上传类型：avatar--头像上传；common--通用上传；
+ *
+ * @apiSampleRequest /upload/common
+ *
  * @apiSuccess {String} src 返回图片地址.
  */
-router.post("/common", upload.single('file'), async function(req, res) {
+
+router.post("/common", upload.single('file'), async (req, res)=> {
 	//上传类型
 	let { type } = req.body;
 	//文件类型
 	let { mimetype, size } = req.file;
 	//判断是否为图片
-	var reg = /^image\/\w+$/;
-	var flag = reg.test(mimetype);
+	let reg = /^image\/\w+$/;
+	let flag = reg.test(mimetype);
 	if (!flag) {
 		res.status(400).json({
 			status: false,
@@ -50,7 +58,7 @@ router.post("/common", upload.single('file'), async function(req, res) {
 		return;
 	}
 	// 获取图片信息
-	var { width, height, format } = await sharp(req.file.buffer).metadata();
+	let { width, height, format } = await sharp(req.file.buffer).metadata();
 	// 判读图片尺寸
 	if (type == "avatar" && width != height) {
 		res.status(400).json({
@@ -60,9 +68,9 @@ router.post("/common", upload.single('file'), async function(req, res) {
 		return;
 	}
 	// 生成文件名
-	var filename = uuidv1();
+	let filename = uuidv4();
 	//储存文件夹
-	var fileFolder = `/images/${type}/`;
+	let fileFolder = `/images/${type}/`;
 	//处理图片
 	try {
 		await sharp(req.file.buffer).toFile("public" + fileFolder + filename + '.' + format);
@@ -81,18 +89,20 @@ router.post("/common", upload.single('file'), async function(req, res) {
 });
 
 /**
- * @api {post} /api/upload/remove 删除图片API
+ * @api {post} /upload/remove 删除图片API
  * @apiDescription 如果上传错误的图片，通过此API删除错误的图片
  * @apiName uploadDelete
  * @apiGroup Upload Image
  * @apiPermission user admin
- * 
- * @apiParam {String} src 图片文件路径,注意图片路径必须是绝对路径，例：http://localhost:3003/images/path/to/photo.jpg
  *
- * @apiSampleRequest /api/upload/remove
+ * @apiUse Authorization
+ *
+ * @apiBody {String} src 图片文件路径,注意图片路径必须是绝对路径，例：http://localhost:3003/images/path/to/photo.jpg
+ *
+ * @apiSampleRequest /upload/remove
  */
 
-router.post('/remove', function(req, res) {
+router.post('/remove', async(req, res)=> {
 	let { src } = req.body;
 	// 判断是否是默认头像
 	let isDefault = src.includes('/avatar/default.jpg');
@@ -103,15 +113,15 @@ router.post('/remove', function(req, res) {
 		});
 		return;
 	}
+	//计算真实路径
 	src = src.replace(/.+\/images/, "./images");
 	let realPath = path.resolve(__dirname, '../../public/', src);
-	fs.unlink(realPath, function(err) {
-		if (err) throw err;
-		res.json({
-			status: true,
-			msg: "success!"
-		});
-	})
+	// 物理删除
+	await fs.unlink(realPath);
+	res.json({
+		status: true,
+		msg: "success!"
+	});
 });
 
 module.exports = router;

@@ -3,15 +3,21 @@ var router = express.Router();
 // JSON Web Token
 var jwt = require("jsonwebtoken");
 // 数据库
-let db = require('../../config/mysql');
+let pool = require('../../config/mysql');
+
+/**
+ * @apiDefine Authorization
+ * @apiHeader {String} Authorization 需在请求headers中设置Authorization: `Bearer ${token}`，小程序登录成功code换取的token。
+ */
+
 /**
  * @apiDefine UserLoginResponse
  * @apiSuccess { Boolean } status 请求状态.
  * @apiSuccess { String } msg 请求结果信息.
- * @apiSuccess { Object } data 请求结果信息.
+ * @apiSuccess { Object } data 请求结果数据.
  * @apiSuccess { String } data.token 成功之后返回的token.
  * @apiSuccess { String } data.id 用户uid.
- * 
+ *
  * @apiSuccessExample { json } 200返回的JSON:
  *  HTTP / 1.1 200 OK
  *  {
@@ -25,143 +31,149 @@ let db = require('../../config/mysql');
  */
 
 /**
- * @api {post} /api/user/register 注册
+ * @api {post} /user/register 注册
  * @apiDescription 注册成功， 返回token, 请在头部headers中设置Authorization: `Bearer ${token}`,所有请求都必须携带token;
  * @apiName register
  * @apiGroup User
  * @apiPermission user
- * 
- * @apiParam {String} username 用户账户名.
- * @apiParam {String} password 用户密码.
- * @apiParam { String } sex 性别.
- * @apiParam { String } tel 手机号码.
- * 
+ *
+ * @apiBody {String} username 用户账户名.
+ * @apiBody {String} password 用户密码.
+ * @apiBody { String } sex 性别.
+ * @apiBody { String } tel 手机号码.
+ *
  * @apiUse UserLoginResponse
- * 
- * @apiSampleRequest /api/user/register
+ *
+ * @apiSampleRequest /user/register
  */
-router.post('/register', function(req, res) {
-	let { username, password, sex, tel } = req.body;
-	// 查询账户是否存在
-	let sql = `SELECT * FROM user WHERE username = ?`
-	db.query(sql, [username], function(results) {
-		if (results.length) {
-			res.json({
-				status: false,
-				msg: "账号已经存在！"
-			});
-			return false;
-		}
-		let defaultAvatar = process.env.server + '/images/avatar/default.jpg';
-		let sql =
-			`INSERT INTO user (username,password,nickname,sex,avatar,tel,create_time) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP())`;
-		db.query(sql, [username, password, username, sex, defaultAvatar, tel], function(results) {
-			let { insertId } = results;
-			// 生成token
-			let token = jwt.sign({ id: insertId, }, 'secret', {
-				expiresIn: '4h'
-			});
-			// 存储成功
-			res.json({
-				status: true,
-				msg: "注册成功！",
-				data: {
-					token,
-					id: insertId,
-				}
-			});
-		});
-	});
+router.post('/register', async function (req, res) {
+    let { username, password, sex, tel } = req.body;
+    // 查询账户是否存在
+    let select_sql = `SELECT * FROM user WHERE username = ?`;
+    let [users] = await pool.query(select_sql, [username]);
+    if (users.length) {
+        res.json({
+            status: false,
+            msg: "账号已经存在！"
+        });
+        return false;
+    }
+    // 默认头像
+    let defaultAvatar = process.env.server + '/images/avatar/default.jpg';
+    // 创建账户，昵称默认为用户名
+    let insert_sql = `INSERT INTO user (username,password,nickname,sex,avatar,tel,create_time) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP())`;
+    let [{ insertId, affectedRows: insert_affected_rows }] = await pool.query(insert_sql, [username, password, username, sex, defaultAvatar, tel]);
+    if (insert_affected_rows === 0) {
+        res.json({ status: false, msg: "注册失败！" });
+        return;
+    }
+    // 生成token
+    let token = jwt.sign({ id: insertId, }, 'secret', { expiresIn: '4h' });
+    // 注册成功
+    res.json({
+        status: true,
+        msg: "注册成功！",
+        data: {
+            token,
+            id: insertId,
+        }
+    });
 });
 
 /**
- * @api {post} /api/user/login 登录
+ * @api {post} /user/login 登录
  * @apiDescription 登录成功， 返回token, 请在头部headers中设置Authorization: `Bearer ${token}`, 所有请求都必须携带token;
  * @apiName login
  * @apiGroup User
  * @apiPermission user
- * 
- * @apiParam {String} username 用户账户名.
- * @apiParam {String} password 用户密码.
- * 
+ *
+ * @apiBody {String} username 用户账户名.
+ * @apiBody {String} password 用户密码.
+ *
  * @apiUse UserLoginResponse
- * 
- * @apiSampleRequest /api/user/login
+ *
+ * @apiSampleRequest /user/login
  */
 
-router.post('/login', function(req, res) {
-	let { username, password } = req.body;
-	let sql = `SELECT * FROM user WHERE username = ? AND password = ?`;
-	db.query(sql, [username, password], function(results) {
-		// 账号密码错误
-		if (!results.length) {
-			res.json({
-				status: false,
-				msg: "账号或者密码错误！"
-			});
-			return false;
-		}
-		let { id } = results[0];
-		// 登录成功,生成token
-		let token = jwt.sign({ id }, 'secret', {
-			expiresIn: '4h'
-		});
-		res.json({
-			status: true,
-			msg: "登录成功！",
-			data: {
-				token,
-				id,
-			}
-		});
-	});
+router.post('/login', async function (req, res) {
+    let { username, password } = req.body;
+    // 查询账号密码
+    let select_sql = `SELECT * FROM user WHERE username = ? AND password = ?`;
+    let [users] = await pool.query(select_sql, [username, password]);
+    // 账号密码错误
+    if (!users.length) {
+        res.json({
+            status: false,
+            msg: "账号或者密码错误！"
+        });
+        return false;
+    }
+    let { id } = users[0];
+    // 登录成功,生成token
+    let token = jwt.sign({ id }, 'secret', { expiresIn: '4h' });
+    res.json({
+        status: true,
+        msg: "登录成功！",
+        data: { token, id, }
+    });
 });
 
 /**
- * @api {get} /api/user/info 获取个人资料
+ * @api {get} /user/info 获取个人资料
  * @apiName UserInfo
  * @apiGroup User
  * @apiPermission user
- * 
- * @apiSampleRequest /api/user/info
+ *
+ * @apiUse Authorization
+ *
+ * @apiSampleRequest /user/info
  */
-router.get("/info", function(req, res) {
-	let { id } = req.user;
-	//查询账户数据
-	let sql = `SELECT id,username,nickname,sex,avatar,tel FROM user WHERE id = ?`;
-	db.query(sql, [id], function(results) {
-		// 获取成功
-		res.json({
-			status: true,
-			msg: "获取成功！",
-			data: results[0]
-		});
-	})
+router.get("/info", async function (req, res) {
+    let { id } = req.user;
+    //查询账户数据
+    let select_sql = `SELECT id,username,nickname,sex,avatar,tel FROM user WHERE id = ?`;
+    let [[user]] = await pool.query(select_sql, [id]);
+    // 获取成功
+    res.json({
+        status: true,
+        msg: "获取成功！",
+        data: user
+    });
 });
 
 /**
- * @api { post } /api/user/edit 更新个人资料
+ * @api { post } /user/edit 更新个人资料
  * @apiName infoUpdate
  * @apiGroup User
  * @apiPermission user
- * 
- * @apiParam {String} nickname 昵称.
- * @apiParam {String} sex 性别.
- * @apiParam {String} avatar 头像.
- * @apiParam { String } tel 手机号码.
- * 
- * @apiSampleRequest /api/user/edit
+ *
+ * @apiUse Authorization
+ *
+ * @apiBody {String} nickname 昵称.
+ * @apiBody {String} sex 性别.
+ * @apiBody {String} avatar 头像URL地址.
+ * @apiBody { String } tel 手机号码.
+ *
+ * @apiSampleRequest /user/edit
  */
-router.post("/edit", function(req, res) {
-	let { nickname, sex, avatar, tel } = req.body;
-	let { id } = req.user;
-	let sql = `UPDATE user SET nickname = ?,sex = ?,avatar = ? ,tel = ? WHERE id = ?`;
-	db.query(sql, [nickname, sex, avatar, tel, id], function(results) {
-		res.json({
-			status: true,
-			msg: "修改成功！"
-		});
-	});
+router.post("/edit", async function (req, res) {
+    let { nickname, sex, avatar, tel } = req.body;
+    let { id } = req.user;
+    let sql = `UPDATE user SET nickname = ?,sex = ?,avatar = ? ,tel = ? WHERE id = ?`;
+    let [{ affectedRows }] = await pool.query(sql, [nickname, sex, avatar, tel, id]);
+    // 修改失败
+    if (affectedRows === 0) {
+        res.json({
+            status: false,
+            msg: "修改失败！"
+        });
+        return;
+    }
+    // 修改成功
+    res.json({
+        status: true,
+        msg: "修改成功！"
+    });
 });
 
 module.exports = router;
