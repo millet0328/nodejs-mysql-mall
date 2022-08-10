@@ -1,5 +1,5 @@
 {
-  "name": "mall",
+  "name": "nodejs-mysql-mall",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -8,28 +8,25 @@
     "api": "apidoc -i routes/ -o public/api/"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.4",
+    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "debug": "~2.6.9",
-    "express": "^4.17.1",
-    "express-jwt": "^5.3.1",
-    "jade": "~1.11.0",
+    "express": "^4.17.3",
+    "express-async-errors": "^3.1.1",
+    "express-jwt": "^6.1.1",
+    "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.9.1",
-    "multer": "^1.4.1",
-    "mysql": "^2.17.1",
-    "request": "^2.88.0",
-    "serve-favicon": "~2.4.5",
-    "sharp": "^0.27.2",
-    "uuid": "^3.3.2"
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "pug": "^3.0.2",
+    "sharp": "^0.30.3",
+    "uuid": "^8.3.2"
   },
   "apidoc": {
     "name": "商城API文档",
-    "title": "商城API文档"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3"
+    "title": "商城API文档",
+    "description": "admin--用于后台管理系统，user--用于小程序"
   }
 }

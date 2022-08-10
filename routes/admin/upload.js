@@ -6,18 +6,25 @@ const upload = multer();
 //图片处理
 const sharp = require('sharp');
 //uuid
-const uuidv1 = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
 
 /**
- * @api {post} /api/upload/goods 上传商品主图
+ * @apiDefine Authorization
+ * @apiHeader {String} Authorization 需在请求headers中设置Authorization: `Bearer ${token}`，登录/注册成功返回的token。
+ */
+
+/**
+ * @api {post} /upload/goods 上传商品主图
  * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，尺寸（300~1500），存储至goods文件夹
  * @apiName uploadGoods
- * @apiGroup admin Upload Image
+ * @apiGroup Upload
  * @apiPermission admin
  *
- * @apiParam {File} file File文件对象;
+ * @apiUse Authorization
  *
- * @apiSampleRequest /api/upload/goods
+ * @apiBody {File} file File文件对象;
+ *
+ * @apiSampleRequest /upload/goods
  *
  * @apiSuccess {String} lgImg 返回720宽度图片地址.
  * @apiSuccess {String} mdImg 返回360宽度图片地址.
@@ -54,7 +61,7 @@ router.post("/goods", upload.single('file'), async function(req, res) {
 		return;
 	}
 	// 生成文件名
-	var filename = uuidv1();
+	var filename = uuidv4();
 	// 储存文件夹
 	var fileFolder = "/images/goods/";
 	//处理图片
@@ -81,15 +88,17 @@ router.post("/goods", upload.single('file'), async function(req, res) {
 });
 
 /**
- * @api {post} /api/upload/slider 轮播图上传API
+ * @api {post} /upload/slider 轮播图上传API
  * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，尺寸（300~1500）必须是正方形，存储至goods文件夹
  * @apiName uploadSlider
- * @apiGroup admin Upload Image
+ * @apiGroup Upload
  * @apiPermission admin
  *
- * @apiParam {File} file File文件对象;
+ * @apiUse Authorization
  *
- * @apiSampleRequest /api/upload/slider
+ * @apiBody {File} file File文件对象;
+ *
+ * @apiSampleRequest /upload/slider
  *
  * @apiSuccess {String} src 返回720宽度图片地址.
  */
@@ -132,7 +141,7 @@ router.post("/slider", upload.single('file'), async function(req, res) {
 		return;
 	}
 	// 生成文件名
-	var filename = uuidv1();
+	var filename = uuidv4();
 	// 储存文件夹
 	var fileFolder = "/images/goods/";
 	// 处理图片
@@ -154,15 +163,17 @@ router.post("/slider", upload.single('file'), async function(req, res) {
 	}
 });
 /**
- * @api {post} /api/upload/editor 富文本编辑器图片上传
+ * @api {post} /upload/editor 富文本编辑器图片上传
  * @apiDescription 上传图片会自动检测图片质量，压缩图片，体积<2M，不限制尺寸，存储至details文件夹
  * @apiName UploadEditor
- * @apiGroup admin Upload Image
+ * @apiGroup Upload
  * @apiPermission admin
  *
- * @apiParam {File} file File文件对象;
+ * @apiUse Authorization
  *
- * @apiSampleRequest /api/upload/editor
+ * @apiBody {File} file File文件对象;
+ *
+ * @apiSampleRequest /upload/editor
  *
  * @apiSuccess {String[]} data 返回图片地址.
  */
@@ -190,7 +201,7 @@ router.post("/editor", upload.single('file'), async function(req, res) {
 	//扩展名
 	var { format } = await sharp(req.file.buffer).metadata();
 	// 生成文件名
-	var filename = uuidv1();
+	var filename = uuidv4();
 	//储存文件夹
 	var fileFolder = "/images/details/";
 	//处理图片
@@ -200,7 +211,9 @@ router.post("/editor", upload.single('file'), async function(req, res) {
 		res.json({
 			errno: 0,
 			msg: "图片上传处理成功!",
-			data: [process.env.server + fileFolder + filename + '.' + format],
+			data: {
+				url: process.env.server + fileFolder + filename + '.' + format,
+			},
 		});
 	} catch (error) {
 		res.json({
