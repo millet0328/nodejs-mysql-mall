@@ -27,6 +27,6 @@
   "apidoc": {
     "name": "商城API文档",
     "title": "商城API文档",
-    "description": "admin--用于后台管理系统，user--用于小程序"
+    "description": "admin--用于后台管理系统，user--用于商城前台"
   }
 }

@@ -42,12 +42,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // 设置跨域资源分享CORS
-app.use(cors({ credentials: true, origin: /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/ }));
+// app.use(cors({ credentials: true, origin: /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/ }));
 
 //使用中间件验证token合法性
-app.use(expressJwt({ secret: 'secret', algorithms: ['HS256'] }).unless({
-  path: ['/', '/user/login', '/user/register', '/goods/list', '/goods/detail', '/category/sub', '/admin/register', '/admin/login'] //除了这些地址，其他的URL都需要验证
-}));
+// app.use(expressJwt({ secret: 'secret', algorithms: ['HS256'] }).unless({
+//   path: ['/', '/user/login', '/user/register', '/goods/list', '/goods/detail', '/category/sub', '/admin/register', '/admin/login'] //除了这些地址，其他的URL都需要验证
+// }));
 
 app.use('/', index);
 //前台
