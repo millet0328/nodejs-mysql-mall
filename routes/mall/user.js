@@ -39,7 +39,7 @@ let pool = require('../../config/mysql');
  *
  * @apiBody {String} username 用户账户名.
  * @apiBody {String} password 用户密码.
- * @apiBody { String } sex 性别.
+ * @apiBody { String="男","女" } sex 性别.
  * @apiBody { String } tel 手机号码.
  *
  * @apiUse UserLoginResponse
@@ -150,7 +150,7 @@ router.get("/info", async function (req, res) {
  * @apiUse Authorization
  *
  * @apiBody {String} nickname 昵称.
- * @apiBody {String} sex 性别.
+ * @apiBody {String="男","女"} sex 性别.
  * @apiBody {String} avatar 头像URL地址.
  * @apiBody { String } tel 手机号码.
  *

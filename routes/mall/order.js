@@ -44,9 +44,7 @@ router.post('/settle', async function (req, res) {
  *
  * @apiBody {Number} payment 支付金额,小数点至2位;
  * @apiBody {Number} addressId 收货地址id;
- * @apiBody {Object[]} goodsList 商品数组,包含每一个商品的id,数量，例：[{id:15,num:1},{id:16,num:2}];
- * @apiBody {Number} goodsList.id 商品id;
- * @apiBody {Number} goodsList.num 商品数量;
+ * @apiBody {Object[]} goodsList 商品数组。格式：[{id:商品id, num:商品数量}]，包含每一个商品的id、数量。例：[{id:15,num:1}, {id:16,num:2}];
  *
  * @apiSampleRequest /order/create
  */
@@ -155,7 +153,7 @@ router.post('/create', async function (req, res) {
  *
  * @apiQuery {Number} [pageSize] 一个页有多少个商品,默认4个;
  * @apiQuery {Number} [pageIndex] 第几页,默认1;
- * @apiQuery {Number=0,3,4,5,all} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价，all-所有状态;
+ * @apiQuery {Number=0,3,4,5,6,all} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价，6-已完成，all-所有状态;
  *
  * @apiSampleRequest /order/list
  */
