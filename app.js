@@ -9,9 +9,11 @@ require('express-async-errors');
 const expressJwt = require('express-jwt');
 // CORS
 const cors = require('cors');
+// 初始化推荐系统
+const ger = require('./config/ger');
 
 let index = require('./routes/index');
-
+//前台
 let order = require('./routes/mall/order');
 let user = require('./routes/mall/user');
 let address = require('./routes/mall/address');
@@ -20,7 +22,8 @@ let cart = require('./routes/mall/cart');
 let userUpload = require('./routes/mall/upload');
 let PCCT = require('./routes/mall/PCCT');
 let collection = require('./routes/mall/collection');
-
+let recommend = require('./routes/mall/recommend');
+//后台
 let role = require('./routes/admin/role');
 let menu = require('./routes/admin/menu');
 let admin = require('./routes/admin/admin');
@@ -59,14 +62,15 @@ app.use('/order', order);
 app.use('/upload', userUpload);
 app.use('/pcct', PCCT);
 app.use('/collection', collection);
+app.use('/recommend', recommend);
 //后台
 app.use('/role', role);
 app.use('/menu', menu);
 app.use('/admins', admin);
 app.use('/category', category);
 app.use('/seller/goods', sellerGoods);
-app.use('/upload', adminUpload);
 app.use('/seller/order', sellerOrder);
+app.use('/upload', adminUpload);
 app.use('/system/icon', icon);
 
 // catch 404 and forward to error handler

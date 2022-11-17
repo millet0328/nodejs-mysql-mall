@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 // 数据库
 let pool = require('../../config/mysql');
+// 推荐系统
+let ger = require('../../config/ger');
 
 /**
  * @api {get} /goods/list 获取商品列表
@@ -58,7 +60,7 @@ router.get("/list", async function (req, res) {
     });
 });
 /**
- * @api {get} /goods/detail 获取商品详情
+ * @api {get} /goods/detail 获取商品详情--小程序
  * @apiDescription 获取详情，用户处于登录状态，将返回isCollected（是否收藏该商品）；用户处于游客状态，isCollected一直是false；
  * @apiName GoodsDetail
  * @apiGroup Goods
@@ -83,6 +85,8 @@ router.get("/detail", async function (req, res) {
         let [collections] = await pool.query(collection_sql, [id, uid]);
         // 判断是否已收藏
         goods.isCollected = collections.length > 0;
+        // 添加浏览事件
+        await ger.events([{ namespace: 'wechat-mall', person: uid, action: 'watch', thing: id, expires_at: ger.expires_date }]);
     }
     //获取成功
     res.json({
