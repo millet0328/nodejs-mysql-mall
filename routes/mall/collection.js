@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 // 数据库
 let pool = require('../../config/mysql');
+// 推荐系统
+let ger = require('../../config/ger');
 
 /**
  * @apiDefine Authorization
@@ -43,6 +45,9 @@ router.post("/add", async function (req, res) {
         });
         return;
     }
+    // 添加喜欢事件
+    await ger.events([{ namespace: 'mall', person: uid, action: 'likes', thing: id, expires_at: ger.expires_date }]);
+
     res.json({
         status: true,
         msg: "收藏成功!"
