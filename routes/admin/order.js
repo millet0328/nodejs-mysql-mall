@@ -19,7 +19,7 @@ let pool = require('../../config/mysql');
  *
  * @apiQuery {Number} [pageSize=4] 一个页有多少个订单;
  * @apiQuery {Number} [pageIndex=1] 第几页;
- * @apiQuery {Number=0,3,4,5,all} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价，all-所有状态;
+ * @apiQuery {Number=0,3,4,5,6,all} status 订单状态:0-待付款，3-待发货，4-待收货，5-待评价，6-已完成，all-所有状态;
  *
  * @apiSampleRequest /seller/order/list
  */
